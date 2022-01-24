@@ -18,4 +18,10 @@ public final class Constants {
     public static final int RIGHT_BACK_TALON = 3;
     public static final int LEFT_BACK_TALON = 1;
 
+
+
+    public static final class IntakeConstants{
+        public static final int INTAKE_MOTOR = 8;
+        public static final double MAXIMUM_INTAKE_SPEED = 0.7;
+    }
 }
