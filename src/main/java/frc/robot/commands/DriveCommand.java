@@ -14,8 +14,7 @@ public class DriveCommand extends CommandBase {
 
   private final DriveSubsystem m_drivetrain;
 
-  double speed;
-  double rotation;
+  private Joystick joystick;
 
   /**
    * Creates a new ExampleCommand.
@@ -24,8 +23,7 @@ public class DriveCommand extends CommandBase {
    */
   public DriveCommand(DriveSubsystem drivetrain, Joystick joystick) {
     m_drivetrain = drivetrain;
-    this.speed = joystick.getY();
-    this.rotation = joystick.getX();
+    this.joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drivetrain);
   }
@@ -37,7 +35,9 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.m_drivetrain.drive(this.speed, this.rotation);
+    double squaredSpeed = Math.pow(this.joystick.getY(), 2);
+    double squaredRotation = Math.pow(this.joystick.getX(), 2);
+    this.m_drivetrain.drive(squaredSpeed, squaredRotation);
   }
 
   // Called once the command ends or is interrupted.

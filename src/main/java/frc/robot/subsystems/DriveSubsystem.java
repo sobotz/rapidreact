@@ -21,8 +21,8 @@ public class DriveSubsystem extends SubsystemBase {
     this.backLeftController = new WPI_TalonFX(1);
     this.backRightController = new WPI_TalonFX(3);
     
-    this.frontLeftController.setInverted(TalonFXInvertType.CounterClockwise);
-    this.backLeftController.setInverted(TalonFXInvertType.CounterClockwise);
+    this.frontLeftController.setInverted(TalonFXInvertType.Clockwise);
+    this.backLeftController.setInverted(TalonFXInvertType.Clockwise);
 
     this.frontRightController.setInverted(TalonFXInvertType.Clockwise);
     this.backRightController.setInverted(TalonFXInvertType.Clockwise);

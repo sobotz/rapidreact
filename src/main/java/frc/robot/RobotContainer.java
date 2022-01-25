@@ -33,7 +33,7 @@ public class RobotContainer {
     this.m_drivetrain = new DriveSubsystem();
     
 
-    this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick.getRawAxis(0), this.m_driverJoystick.getRawAxis(1));
+    this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
     configureButtonBindings();
   }
 
