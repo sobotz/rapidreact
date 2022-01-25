@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.AutoCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -23,6 +24,8 @@ public class RobotContainer {
 
   private final DriveCommand m_driveCommand;
 
+  private final AutoCommand m_autocommand;
+
   public static Joystick m_driverJoystick;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -32,7 +35,7 @@ public class RobotContainer {
     this.m_driverJoystick = new Joystick(0);
     this.m_drivetrain = new DriveSubsystem();
     
-
+    this.m_autocommand = new AutoCommand(this.m_drivetrain);
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
     configureButtonBindings();
   }
