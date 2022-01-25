@@ -10,16 +10,17 @@ import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   WPI_TalonFX frontLeftController, frontRightController, backLeftController, backRightController;
 
   public DriveSubsystem() {
-    this.frontLeftController = new WPI_TalonFX(2);
-    this.frontRightController = new WPI_TalonFX(4);
-    this.backLeftController = new WPI_TalonFX(1);
-    this.backRightController = new WPI_TalonFX(3);
+    this.frontLeftController = new WPI_TalonFX(Constants.DriveConstants.LEFT_FRONT_TALON);
+    this.frontRightController = new WPI_TalonFX(Constants.DriveConstants.RIGHT_FRONT_TALON);
+    this.backLeftController = new WPI_TalonFX(Constants.DriveConstants.LEFT_BACK_TALON);
+    this.backRightController = new WPI_TalonFX(Constants.DriveConstants.RIGHT_BACK_TALON);
     
     this.frontLeftController.setInverted(TalonFXInvertType.Clockwise);
     this.backLeftController.setInverted(TalonFXInvertType.Clockwise);
