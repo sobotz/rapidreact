@@ -10,20 +10,19 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.common.Preferences;
+
 
 public class IntakeSubsystem extends SubsystemBase {
 
   WPI_TalonSRX intakeTalon;
   
-  private DoubleSolenoid intakeDelievery;
+  private DoubleSolenoid intakeDelivery;
 
   public boolean hasDeployed;
   /** Creates a new IntakeSubsystem. */
-  public IntakeSubsystem() {}
+  public IntakeSubsystem() {
     intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_MOTOR);
-    intakeDelivery = new DoubleSOlenoid(IntakeConstants.INTAKE_SOLENOID_DEPLOY,
-    IntakeConstants.INTAKE_SOLENOID_RETRACT);
+    intakeDelivery = new DoubleSolenoid( null, IntakeConstants.INTAKE_SOLENOID_DEPLOY,IntakeConstants.INTAKE_SOLENOID_RETRACT);
 
     intakeTalon.configFactoryDefault();
 
@@ -34,9 +33,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
 
-  public String groupName() {
-    return "intake";
-  }
+  
 
   public void periodic() {
     // This method will be called once per scheduler run
@@ -44,8 +41,30 @@ public class IntakeSubsystem extends SubsystemBase {
   
   public void deliverIntake() {
     runIntake(0.0);
-    intakeDelivery.set(Value.kForward)
+    intakeDelivery.set(Value.kForward);
   }
+
+  public void runIntake(double speed) {
+    intakeTalon.set(ControlMode.PercentOutput, speed * IntakeConstants.MAXIMUM_INTAKE_SPEED);
+  }
+  public void retractIntake() {
+    intakeDelivery.set(Value.kReverse);
+  }
+  
+  public boolean toggleIntake() {
+    if (hasDeployed) {
+      intakeDelivery.set(DoubleSolenoid.Value.kForward);
+      runIntake(0);
+      hasDeployed = false;
+    } else {
+      intakeDelivery.set(DoubleSolenoid.Value.kReverse);
+      runIntake(1);
+      hasDeployed = true;
+    }
+    
+    return !hasDeployed;
+  }
+
 
   
 
