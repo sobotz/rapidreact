@@ -4,27 +4,22 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class DriveCommand extends CommandBase {
+public class ShiftGearCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
   private final DriveSubsystem m_drivetrain;
-
-  private Joystick joystick;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveCommand(DriveSubsystem drivetrain, Joystick joystick) {
+  public ShiftGearCommand(DriveSubsystem drivetrain) {
     m_drivetrain = drivetrain;
-    this.joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drivetrain);
   }
@@ -36,11 +31,7 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = this.joystick.getY();
-    double rotation = this.joystick.getX();
-    double squaredSpeed = Math.signum(speed) * Math.pow(speed, Constants.DriveConstants.ACCELERATION_CONSTANT);
-    double squaredRotation = Math.signum(rotation) * Math.pow(rotation, Constants.DriveConstants.ACCELERATION_CONSTANT);
-    this.m_drivetrain.drive(squaredSpeed, squaredRotation);
+    m_drivetrain.shiftGear();
   }
 
   // Called once the command ends or is interrupted.
