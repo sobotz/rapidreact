@@ -35,16 +35,7 @@ public class AutoCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Configures the encoder's distance-per-pulse
-    // The robot moves forward 1 foot per encoder rotation
-    // There are 256 pulses per encoder rotation
-    encoder.setDistancePerPulse(4. / 256.);
-    // nav x to stay straight
-    // motor turn & distance
-    // use encoders
-    // https://docs.wpilib.org/en/stable/docs/software/hardware-apis/sensors/encoders-software.html
-
-    /*
+    /* auto pseudo
      * move 40 3/8 in forward;
      * start intake;
      * turn turret; move back ____;
@@ -52,6 +43,21 @@ public class AutoCommand extends CommandBase {
      * run belts;
      * ( possibly collect another ball after shooting done?)
      */
+    // motor turn & distance
+    // use encoders
+    // https://docs.wpilib.org/en/stable/docs/software/hardware-apis/sensors/encoders-software.html
+    // Configures the encoder's distance-per-pulse
+    // The robot moves forward 4 foot per encoder rotation
+    // There are 256 pulses per encoder rotation ( i would replace with specifics of our encoder which has 2048 counts per revolution = 512 ppr)
+    // Another idea is instead of using encoders, call the drive method in drive subsytem for a specific amount of time
+
+    if (timer.get() < 3){ // 3 seconds is a place holder; times are subject to change depending on tests
+      // nav x to stay straight
+      encoder.setDistancePerPulse(4.03125 / 512.);
+    }
+    /*else if (timer.get()<3.5){
+      // intake
+    }*/
   }
 
   // Called once the command ends or is interrupted.
