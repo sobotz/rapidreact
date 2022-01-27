@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.DriveSubsystem;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -51,7 +52,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
+    JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 0);
   }
 
   /**
