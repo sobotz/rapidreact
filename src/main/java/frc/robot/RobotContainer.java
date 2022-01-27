@@ -7,8 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ActivateIntakeCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -24,18 +26,25 @@ public class RobotContainer {
 
   private final DriveCommand m_driveCommand;
 
+  private final IntakeSubsystem m_intake;
+
   public static Joystick m_driverJoystick;
+  private Joystick m_operatorJoystick;
+  
+  public static ActivateIntakeCommand ActivateIntakeCommand;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-
-    this.m_driverJoystick = new Joystick(0);
-    this.m_drivetrain = new DriveSubsystem();
-    m_operatorJoystick = new Joystick(1);
     
 
-    this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick.getRawAxis(0), this.m_driverJoystick.getRawAxis(1));
+    m_driverJoystick = new Joystick(0);
+    m_drivetrain = new DriveSubsystem();
+    m_operatorJoystick = new Joystick(1);
+    m_intake = new IntakeSubsystem();
+
+    ActivateIntakeCommand = new ActivateIntakeCommand(m_intake);  
+    m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick.getRawAxis(0), this.m_driverJoystick.getRawAxis(1));
     configureButtonBindings();
   }
 
@@ -47,6 +56,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     JoystickButton deliverIntakeButton = new JoystickButton(m_operatorJoystick, 1);
+
+
+
+    deliverIntakeButton.whenHeld(ActivateIntakeCommand);
   }
 
   /**
