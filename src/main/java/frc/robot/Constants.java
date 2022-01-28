@@ -28,6 +28,10 @@ public final class Constants {
     }
 
     public static final class VisionConstants {
-        public static final float Kp = -0.1f;
+        public static final int ACTUATION_MOTOR = 5;
+
+        public static final double LOGISTIC_GROWTH_RATE = .45;
+        public static final double MIN_ADJUST_SPEED = .075;
+        public static final double DEADBAND_RANGE = 0.05;
     }
 }

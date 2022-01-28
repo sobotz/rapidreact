@@ -5,10 +5,13 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.VisionConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import org.opencv.ml.LogisticRegression;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -23,14 +26,11 @@ public class VisionSubsystem extends SubsystemBase {
   NetworkTableEntry ty;
   NetworkTableEntry tArea;
 
-  double x;
-  double y;
+  double xOffset;
+  double yOffset;
   double area;
 
   TalonSRX actuationMotor;
-
-  float Kp;  // Proportional control constant
-
 
   public VisionSubsystem() {
 
@@ -40,21 +40,31 @@ public class VisionSubsystem extends SubsystemBase {
     this.ty = table.getEntry("ty");
     this.tArea = table.getEntry("ta");
 
-    this.Kp = Constants.VisionConstants.Kp;
+    this.actuationMotor = new TalonSRX(VisionConstants.ACTUATION_MOTOR);
   }
 
-  public void correctAngle() {
+  public void correctX () {
+    double speed = 2.0/(1.0 + Math.pow(Math.E, VisionConstants.LOGISTIC_GROWTH_RATE * this.xOffset)) - 1.0;
+    if (speed < VisionConstants.MIN_ADJUST_SPEED){
+      speed = VisionConstants.MIN_ADJUST_SPEED;
+    } else if (this.xOffset < VisionConstants.DEADBAND_RANGE) {
+      speed = 0.0;
+    }
+    this.actuationMotor.set(ControlMode.PercentOutput, speed);
+  }
 
+  public void stopMotor () {
+    this.actuationMotor.set(ControlMode.PercentOutput, 0.0);
   }
 
   @Override
   public void periodic() {
-    this.x = tx.getDouble(0.0);
-    this.y = ty.getDouble(0.0);
+    this.xOffset = tx.getDouble(0.0);
+    this.yOffset = ty.getDouble(0.0);
     this.area = tArea.getDouble(0.0);
 
-    SmartDashboard.putNumber("LimelightX", x);
-    SmartDashboard.putNumber("LimelightY", y);
+    SmartDashboard.putNumber("LimelightX", this.xOffset);
+    SmartDashboard.putNumber("LimelightY", this.yOffset);
     SmartDashboard.putNumber("LimelightArea", area);
     // This method will be called once per scheduler run
   }
