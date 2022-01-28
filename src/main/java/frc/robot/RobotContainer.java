@@ -26,7 +26,7 @@ public class RobotContainer {
 
   private final DriveCommand m_driveCommand;
 
-  private final ShiftGearCommand m_shiftGear;
+  private final ShiftGearCommand m_shiftGearCommand;
 
   public static Joystick m_driverJoystick;
 
@@ -40,7 +40,7 @@ public class RobotContainer {
     
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
 
-    this.m_shiftGear = new ShiftGearCommand(this.m_drivetrain);
+    this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
 
     this.configureButtonBindings();
   }
@@ -52,7 +52,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 0);
+    JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
+    gearShiftButton.whenPressed(this.m_shiftGearCommand);
   }
 
   /**
