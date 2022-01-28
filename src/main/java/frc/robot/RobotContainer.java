@@ -39,8 +39,9 @@ public class RobotContainer {
     
 
     m_driverJoystick = new Joystick(0);
-    m_drivetrain = new DriveSubsystem();
     m_operatorJoystick = new Joystick(1);
+
+    m_drivetrain = new DriveSubsystem();
     m_intake = new IntakeSubsystem();
 
     ActivateIntakeCommand = new ActivateIntakeCommand(m_intake);  
@@ -55,11 +56,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton deliverIntakeButton = new JoystickButton(m_operatorJoystick, 1);
-
-
-
-    deliverIntakeButton.whenHeld(ActivateIntakeCommand);
+    JoystickButton activateIntakeButton = new JoystickButton(m_operatorJoystick, 1);
+    
+    activateIntakeButton.whenHeld(ActivateIntakeCommand);
   }
 
   /**
