@@ -49,11 +49,13 @@ public class AutoCommand extends CommandBase {
     // Configures the encoder's distance-per-pulse
     // The robot moves forward 4 foot per encoder rotation
     // There are 256 pulses per encoder rotation ( i would replace with specifics of our encoder which has 2048 counts per revolution = 512 ppr)
+    // 6380 RPM
     // Another idea is instead of using encoders, call the drive method in drive subsytem for a specific amount of time
+    // Need to use FMS to choose multiple autonomous paths
 
     if (timer.get() < 3){ // 3 seconds is a place holder; times are subject to change depending on tests
       // nav x to stay straight
-      encoder.setDistancePerPulse(4.03125 / 512.);
+      encoder.setDistancePerPulse(4.03125 / 512.); //(64910.5/100)/2048
     }
     /*else if (timer.get()<3.5){
       // intake
