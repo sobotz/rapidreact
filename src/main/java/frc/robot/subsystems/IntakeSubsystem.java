@@ -24,6 +24,7 @@ public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
     intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_MOTOR);
+    //Change CTREPCM to REVPM
     intakeDelivery = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.INTAKE_SOLENOID_DEPLOY,IntakeConstants.INTAKE_SOLENOID_RETRACT);
 
     intakeTalon.configFactoryDefault();
