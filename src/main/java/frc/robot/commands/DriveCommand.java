@@ -40,7 +40,7 @@ public class DriveCommand extends CommandBase {
     double rotation = this.joystick.getX();
     double squaredSpeed = Math.signum(speed) * Math.pow(speed, Constants.DriveConstants.ACCELERATION_CONSTANT);
     double squaredRotation = Math.signum(rotation) * Math.pow(rotation, Constants.DriveConstants.ACCELERATION_CONSTANT);
-    this.m_drivetrain.drive(squaredSpeed, squaredRotation);
+    this.m_drivetrain.drive(squaredSpeed, -squaredRotation);
   }
 
   // Called once the command ends or is interrupted.
