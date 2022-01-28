@@ -26,4 +26,8 @@ public final class Constants {
         // TO REVERT TO LINEAR ACCELERATION SET TO 1
         public static final double ACCELERATION_CONSTANT = 2;
     }
+
+    public static final class VisionConstants {
+        public static final float Kp = -0.1f;
+    }
 }
