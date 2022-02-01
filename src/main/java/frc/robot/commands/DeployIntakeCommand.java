@@ -4,14 +4,15 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class ActivateIntakeCommand extends CommandBase {
+
+public class DeployIntakeCommand extends InstantCommand {
   private final IntakeSubsystem m_intake;
-  /** Creates a new ActivateIntakeCommand. */
+  /** Creates a new DeployIntakeCommand. */
   
-    public ActivateIntakeCommand(IntakeSubsystem subsystem) {
+    public DeployIntakeCommand(IntakeSubsystem subsystem) {
       m_intake = subsystem;
       
       // Use addRequirements() here to declare subsystem dependencies.

@@ -17,14 +17,14 @@ public class IntakeSubsystem extends SubsystemBase {
 
   WPI_TalonSRX intakeTalon;
   
-  private DoubleSolenoid intakeDelivery;
+  private DoubleSolenoid intakeDeploy;
 
   public boolean hasDeployed;
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
     intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_MOTOR);
     //Change CTREPCM to REVPM
-    intakeDelivery = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.INTAKE_SOLENOID_DEPLOY,IntakeConstants.INTAKE_SOLENOID_RETRACT);
+    intakeDeploy = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.INTAKE_SOLENOID_DEPLOY,IntakeConstants.INTAKE_SOLENOID_RETRACT);
 
     intakeTalon.configFactoryDefault();
 
@@ -33,17 +33,17 @@ public class IntakeSubsystem extends SubsystemBase {
 
   }
 
-  @Override
-
   
-
+  
+  
+  @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
   
-  public void deliverIntake() {
+  public void deployIntake() {
     runIntake(0.0);
-    intakeDelivery.set(Value.kForward);
+    intakeDeploy.set(Value.kForward);
   }
   
   public void runIntake(double speed) {
@@ -51,17 +51,17 @@ public class IntakeSubsystem extends SubsystemBase {
   }
   
   public void retractIntake() {
-    intakeDelivery.set(Value.kReverse);
+    intakeDeploy.set(Value.kReverse);
   }
 
   
   public boolean toggleIntake() {
     if (hasDeployed) {
-      intakeDelivery.set(DoubleSolenoid.Value.kForward);
+      intakeDeploy.set(DoubleSolenoid.Value.kForward);
       runIntake(0);
       hasDeployed = false;
     } else {
-      intakeDelivery.set(DoubleSolenoid.Value.kReverse);
+      intakeDeploy.set(DoubleSolenoid.Value.kReverse);
       runIntake(1);
       hasDeployed = true;
     }
