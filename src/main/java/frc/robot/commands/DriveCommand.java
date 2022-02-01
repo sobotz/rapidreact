@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
@@ -45,9 +44,9 @@ public class DriveCommand extends CommandBase {
     this.acceleration_constant = SmartDashboard.getNumber("Acceleration Constant: ", DriveConstants.ACCELERATION_CONSTANT);
     double speed = this.joystick.getY();
     double rotation = this.joystick.getX();
-    double squaredSpeed = Math.signum(speed) * Math.pow(speed, this.acceleration_constant);
-    double squaredRotation = Math.signum(rotation) * Math.pow(rotation, this.acceleration_constant);
-    this.m_drivetrain.drive(squaredSpeed, -squaredRotation);
+    double normalizedSpeed = Math.signum(speed) * Math.pow(speed, this.acceleration_constant);
+    double normalizedRotation = Math.signum(rotation) * Math.pow(rotation, this.acceleration_constant);
+    this.m_drivetrain.drive(normalizedSpeed, -normalizedRotation);
   }
 
   // Called once the command ends or is interrupted.
