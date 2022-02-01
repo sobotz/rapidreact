@@ -57,10 +57,10 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public boolean shiftGear() {
-    gearShifter.set((this.lowGear) ? DoubleSolenoid.Value.kForward: DoubleSolenoid.Value.kReverse);
+    gearShifter.set((this.lowGear) ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
     this.lowGear = !this.lowGear;
-    return this.lowGear;
-}
+    return lowGear;
+  }
 
   @Override
   public void periodic() {
