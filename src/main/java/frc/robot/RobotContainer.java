@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.DriveSubsystem;
-
+import frc.robot.subsystems.SerializerSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -30,17 +30,21 @@ public class RobotContainer {
 
   public static Joystick m_driverJoystick;
 
+  private final SerializerSubsystem m_serializer;
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
 
+    this.m_serializer = new SerializerSubsystem();
     this.m_driverJoystick = new Joystick(0);
     this.m_drivetrain = new DriveSubsystem();
     
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
 
     this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
+
 
     this.configureButtonBindings();
   }

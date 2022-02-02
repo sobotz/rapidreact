@@ -25,7 +25,11 @@ public class SerializerSubsystem extends SubsystemBase {
   public AnalogInput launcherSensor;
 
   // Initializes variables that wiil be used in the program
+<<<<<<< Updated upstream
   public double ballCount = 3.0;
+=======
+  public double ballCount = 2.0;
+>>>>>>> Stashed changes
   public boolean acceptingBalls = true;
   public boolean previousLSValue = false; // previous launcher sensor value
   public boolean previousSSValue = false; // previous serializer sensor value
@@ -33,9 +37,15 @@ public class SerializerSubsystem extends SubsystemBase {
 
   public SerializerSubsystem() {
     // instantiates sensor values with respect to the contants method
+<<<<<<< Updated upstream
     serializerSensor1 = new AnalogInput(Constants.PHOTOELECTRIC_SENSOR_1);
     serializerSensor2 = new AnalogInput(Constants.PHOTOELECTRIC_SENSOR_2);
     launcherSensor = new AnalogInput(Constants.PHOTOELECTRIC_SENSOR_3);
+=======
+    serializerSensor1 = new AnalogInput(Constants.SERIALIZER_SENSOR_1);
+    serializerSensor2 = new AnalogInput(Constants.SERIALIZER_SENSOR_2);
+    launcherSensor = new AnalogInput(Constants.SERIALIZER_SENSOR_3);
+>>>>>>> Stashed changes
     SmartDashboard.putNumber("Ball Count: ", ballCount);
 
     
@@ -55,7 +65,11 @@ public class SerializerSubsystem extends SubsystemBase {
     // Puts sensor voltage values on the Smart dashboard
     //SmartDashboard.putNumber("Sensor 1: ", serializerSensor1.getVoltage()); // true
     //SmartDashboard.putNumber("Sensor 2: ", serializerSensor2.getVoltage()); // true
+<<<<<<< Updated upstream
     serializerMotor1.set(ControlMode.PercentOutput, ((serializerSensor1.getVoltage() < .85 || serializerSensor2.getVoltage() < .85) && launcherSensor.getVoltage() > .85 ) ? -SerializerConstants.SERIALIZER_SPEED : 0);
+=======
+    serializerMotor1.set(ControlMode.PercentOutput, ((serializerSensor1.getVoltage() < .85 || serializerSensor2.getVoltage() < .85) && launcherSensor.getVoltage() > .85 ) ? -Constants.SERIALIZER_SPEED : 0);
+>>>>>>> Stashed changes
   }
   
   public void moveBeltsForward() {
