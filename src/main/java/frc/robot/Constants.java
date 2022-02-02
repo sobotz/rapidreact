@@ -26,4 +26,13 @@ public final class Constants {
         // TO REVERT TO LINEAR ACCELERATION SET TO 1
         public static final double ACCELERATION_CONSTANT = 2;
     }
+    public static final class ClimbConstants
+    {
+        // Will be changed later
+        public static final int ROTATE_MOTOR = 0;
+        public static final int LIFT_MOTOR = 0;
+
+        public static final int ROTATE_SPEED = 990;
+        public static final int LIFT_SPEED = 0;
+    }
 }
