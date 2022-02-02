@@ -7,10 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ActivateLauncherCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.DriveSubsystem;
-
+import frc.robot.subsystems.LauncherSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -28,20 +29,34 @@ public class RobotContainer {
 
   private final ShiftGearCommand m_shiftGearCommand;
 
+  private final ActivateLauncherCommand launchCommand;
+
+
   public static Joystick m_driverJoystick;
+
+  private Joystick m_operatorJoystick;
+
+  private LauncherSubsystem m_launcher;
+  private SerializerSubsystem m_serializer;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
 
-    this.m_driverJoystick = new Joystick(0);
-    this.m_drivetrain = new DriveSubsystem();
+    m_driverJoystick = new Joystick(0);
+    m_operatorJoystick = new Joystick(1);
     
+
+    this.m_drivetrain = new DriveSubsystem();
+    m_launcher = new LauncherSubsystem();
+    m_serializer = new SerializerSubsystem
+
+
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
-
     this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
-
+    launchCommand = new ActivateLauncherCommand(m_serializer, m_launcher);
+    
     this.configureButtonBindings();
   }
 
@@ -53,7 +68,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
+    JoystickButton launchButton = new JoystickButton(m_operatorJoystick,6);
+
+
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
+    
+    launchButton.whenHeld(launchCommand);
   }
 
   /**
