@@ -66,6 +66,8 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Low Gear:", this.lowGear);
+
+    this.frontLeftController.getSelectedSensorVelocity();
     // This method will be called once per scheduler run
   }
 
