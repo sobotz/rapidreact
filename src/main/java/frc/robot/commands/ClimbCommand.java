@@ -5,48 +5,40 @@
 package frc.robot.commands;
 
 import frc.robot.Constants.DriveConstants;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class DriveCommand extends CommandBase {
+public class ClimbCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-
-  private final DriveSubsystem m_drivetrain;
-
-  private Joystick joystick;
-
-  private double acceleration_constant;
+  private final ClimbSubsystem m_climbSubsystem;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveCommand(DriveSubsystem drivetrain, Joystick joystick) {
-    m_drivetrain = drivetrain;
-    this.joystick = joystick;
-    this.acceleration_constant = DriveConstants.ACCELERATION_CONSTANT;
-    SmartDashboard.putNumber("Acceleration Constant: ", this.acceleration_constant);
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_drivetrain);
+  public ClimbCommand(ClimbSubsystem climbTrain, Joystick joystick) {
+    m_climbSubsystem = climbTrain;
+    addRequirements(m_climbSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    this.m_climbSubsystem.drive(1, -2);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.acceleration_constant = SmartDashboard.getNumber("Acceleration Constant: ", DriveConstants.ACCELERATION_CONSTANT);
-    double speed = this.joystick.getY();
-    double rotation = this.joystick.getX();
-    double normalizedSpeed = Math.signum(speed) * Math.pow(speed, this.acceleration_constant);
-    double normalizedRotation = Math.signum(rotation) * Math.pow(rotation, this.acceleration_constant);
-    this.m_drivetrain.drive(normalizedSpeed, -normalizedRotation);
+    
   }
 
   // Called once the command ends or is interrupted.
