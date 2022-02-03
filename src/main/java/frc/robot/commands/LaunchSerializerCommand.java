@@ -8,12 +8,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 
 public class LaunchSerializerCommand extends CommandBase {
   private SerializerSubsystem serializer;
-  private LauncherSubsystem launcher;
   private int nFramesRun;
 
   /**
@@ -22,7 +20,6 @@ public class LaunchSerializerCommand extends CommandBase {
   public LaunchSerializerCommand(SerializerSubsystem serializer1) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.serializer = serializer1;
-    this.launcher = launcher1;
     this.nFramesRun = 0;
     addRequirements(serializer);
   }
@@ -36,10 +33,8 @@ public class LaunchSerializerCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.launcher.startLauncher();
 
     if (this.nFramesRun > 50) {
-      this.launcher.startRollers();
       this.serializer.runSerializer();
     }
 
@@ -59,8 +54,6 @@ public class LaunchSerializerCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.launcher.stopRollers();
-    this.launcher.stopLauncher();
     this.nFramesRun = 0;
   }
 
