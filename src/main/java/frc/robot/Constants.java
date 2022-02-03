@@ -25,5 +25,6 @@ public final class Constants {
         // Sets the sensitivity of the joystick, higher constant = more gradual acceleration
         // TO REVERT TO LINEAR ACCELERATION SET TO 1
         public static final double ACCELERATION_CONSTANT = 2;
+        public static final double ROTATION_CONSTANT = .4;
     }
 }

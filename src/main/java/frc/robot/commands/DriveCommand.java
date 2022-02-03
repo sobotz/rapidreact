@@ -19,6 +19,7 @@ public class DriveCommand extends CommandBase {
   private Joystick joystick;
 
   private double acceleration_constant;
+  private double rotation_constant;
 
   /**
    * Creates a new ExampleCommand.
@@ -29,7 +30,9 @@ public class DriveCommand extends CommandBase {
     m_drivetrain = drivetrain;
     this.joystick = joystick;
     this.acceleration_constant = DriveConstants.ACCELERATION_CONSTANT;
+    this.rotation_constant = DriveConstants.ROTATION_CONSTANT;
     SmartDashboard.putNumber("Acceleration Constant: ", this.acceleration_constant);
+    SmartDashboard.putNumber("Rotation Constant: ", this.rotation_constant);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drivetrain);
   }
@@ -42,11 +45,11 @@ public class DriveCommand extends CommandBase {
   @Override
   public void execute() {
     this.acceleration_constant = SmartDashboard.getNumber("Acceleration Constant: ", DriveConstants.ACCELERATION_CONSTANT);
+    this.rotation_constant = SmartDashboard.getNumber("Rotation Constant: ", DriveConstants.ROTATION_CONSTANT);
     double speed = this.joystick.getY();
-    double rotation = this.joystick.getX();
+    double rotation = this.joystick.getX() * this.rotation_constant;
     double normalizedSpeed = Math.signum(speed) * Math.pow(speed, this.acceleration_constant);
-    double normalizedRotation = Math.signum(rotation) * Math.pow(rotation, this.acceleration_constant);
-    this.m_drivetrain.drive(normalizedSpeed, -normalizedRotation);
+    this.m_drivetrain.drive(normalizedSpeed, -rotation);
   }
 
   // Called once the command ends or is interrupted.
