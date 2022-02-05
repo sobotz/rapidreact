@@ -34,7 +34,7 @@ public class PathB00 extends CommandBase {
   @Override
   public void initialize() {
     this.timer.start();
-    encoder.setDistancePerPulse(1. / 315.924339); // feet per PPR
+    // encoder.setDistancePerPulse(1. / 315.924339); // feet per PPR
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -52,9 +52,10 @@ public class PathB00 extends CommandBase {
     // subsytem for a specific amount of time
     // Need to use FMS to choose multiple autonomous paths
 
-    if (encoder.getDistance() < 4.03125) { // 3 seconds is a place holder; times are subject to change depending on tests
+    // if (encoder.getDistance() < 1) { // 4.03125 is a place holder; times are subject to change depending on tests
+    if (timer.get() < 0.7) {
       // nav x to stay straight
-      m_drive.drive(-0.5, 5);
+      m_drive.drive(-0.5, 0);
     }
     else{
       m_drive.drive(0,0);

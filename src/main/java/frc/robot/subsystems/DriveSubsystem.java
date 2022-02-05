@@ -41,10 +41,10 @@ public class DriveSubsystem extends SubsystemBase {
     this.backLeftController.configFactoryDefault();
     this.backRightController.configFactoryDefault();
 
-    this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY,
-        Constants.DriveConstants.GEAR_SHIFT_RETRACT);
+    // this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY,
+       // Constants.DriveConstants.GEAR_SHIFT_RETRACT);
     
-    // this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY, Constants.DriveConstants.GEAR_SHIFT_RETRACT);
+     this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY, Constants.DriveConstants.GEAR_SHIFT_RETRACT);
 
     this.lowGear = true;
 
