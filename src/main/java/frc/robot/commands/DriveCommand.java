@@ -42,8 +42,12 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
     this.acceleration_constant = SmartDashboard.getNumber("Acceleration Constant: ",
         DriveConstants.ACCELERATION_CONSTANT);
+
+    this.acceleration_constant = SmartDashboard.getNumber("Acceleration Constant: ", DriveConstants.ACCELERATION_CONSTANT);
+
     double speed = this.joystick.getY();
     double rotation = this.joystick.getX();
     double normalizedSpeed = Math.signum(speed) * Math.pow(speed, this.acceleration_constant);
