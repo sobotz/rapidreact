@@ -52,7 +52,7 @@ public class RobotContainer {
     m_chooser.setDefaultOption("Path B00", m_pathb00); // https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
     m_chooser.addOption("Path B11", m_pathb11);
 
-    SmartDashboard.putData("Auto Mode", m_chooser);
+    SmartDashboard.putData(m_chooser);
   }
 
   /**
