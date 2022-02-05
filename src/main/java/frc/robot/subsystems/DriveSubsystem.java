@@ -28,7 +28,7 @@ public class DriveSubsystem extends SubsystemBase {
     this.frontRightController = new WPI_TalonFX(Constants.DriveConstants.RIGHT_FRONT_TALON);
     this.backLeftController = new WPI_TalonFX(Constants.DriveConstants.LEFT_BACK_TALON);
     this.backRightController = new WPI_TalonFX(Constants.DriveConstants.RIGHT_BACK_TALON);
-    
+
     this.frontLeftController.setInverted(TalonFXInvertType.Clockwise);
     this.backLeftController.setInverted(TalonFXInvertType.Clockwise);
 
@@ -41,19 +41,22 @@ public class DriveSubsystem extends SubsystemBase {
     this.backLeftController.configFactoryDefault();
     this.backRightController.configFactoryDefault();
 
+    this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY,
+        Constants.DriveConstants.GEAR_SHIFT_RETRACT);
     
-    this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY, Constants.DriveConstants.GEAR_SHIFT_RETRACT);
+    // this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY, Constants.DriveConstants.GEAR_SHIFT_RETRACT);
+
     this.lowGear = true;
 
   }
 
-  public void drive (double speed, double rotation){
+  public void drive(double speed, double rotation) {
     this.frontLeftController.set(ControlMode.PercentOutput, speed,
-            DemandType.ArbitraryFeedForward, rotation);
+        DemandType.ArbitraryFeedForward, rotation);
     this.backLeftController.follow(this.frontLeftController);
 
     this.frontRightController.set(ControlMode.PercentOutput, -speed,
-            DemandType.ArbitraryFeedForward, rotation);
+        DemandType.ArbitraryFeedForward, rotation);
     this.backRightController.follow(this.frontRightController);
   }
 
