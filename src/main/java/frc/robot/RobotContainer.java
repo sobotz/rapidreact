@@ -7,10 +7,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.auto.*;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.AutoCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -24,7 +27,11 @@ public class RobotContainer {
 
   private final DriveCommand m_driveCommand;
 
-  private final AutoCommand m_autocommand;
+  // private final AutoCommand m_autocommand;
+  private final PathB00 m_pathb00;
+  private final PathB11 m_pathb11;
+
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   public static Joystick m_driverJoystick;
 
@@ -35,9 +42,18 @@ public class RobotContainer {
     this.m_driverJoystick = new Joystick(0);
     this.m_drivetrain = new DriveSubsystem();
     
-    this.m_autocommand = new AutoCommand(this.m_drivetrain);
+    //this.m_autocommand = new AutoCommand(this.m_drivetrain);
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
+   
+    this.m_pathb00 = new PathB00(this.m_drivetrain);
+    this.m_pathb11 = new PathB11(this.m_drivetrain);
+
     configureButtonBindings();
+
+    m_chooser.setDefaultOption("Path B00", m_pathb00); // https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
+    m_chooser.addOption("Path B11", m_pathb11);
+
+    SmartDashboard.putData("Auto Mode", m_chooser);
   }
 
   /**
@@ -56,5 +72,9 @@ public class RobotContainer {
   public Command getTeleopCommand() {
     // Use differential drive
     return this.m_driveCommand;
+  }
+  
+  public Command getAutonomousCommand() {
+    return m_chooser.getSelected();
   }
 }
