@@ -34,7 +34,7 @@ public class RobotContainer {
 
   // private final AutoCommand m_autocommand;
   private final PathB00 m_pathb00;
-  private final PathB11 m_pathb11;
+  // private final PathB11 m_pathb11;
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -55,18 +55,14 @@ public class RobotContainer {
     this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
    
     this.m_pathb00 = new PathB00(this.m_drivetrain);
-    this.m_pathb11 = new PathB11(this.m_drivetrain);
+    // this.m_pathb11 = new PathB11(this.m_drivetrain);
 
     configureButtonBindings();
 
     m_chooser.setDefaultOption("Path B00", m_pathb00); // https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
-    m_chooser.addOption("Path B11", m_pathb11);
+    // m_chooser.addOption("Path B11", m_pathb11);
 
     SmartDashboard.putData(m_chooser);
-
-    this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
-
-    this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
 
     this.configureButtonBindings();
   }

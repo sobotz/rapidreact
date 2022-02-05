@@ -60,15 +60,17 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autoCommand = m_robotContainer.getAutonomousCommand();
 
-    // schedule the autonomous command (example)
+    /* schedule the autonomous command (example)
     if (m_autoCommand != null) {
       m_autoCommand.schedule();
-    }
+    }*/
   }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    m_autoCommand.schedule();
+  }
 
   @Override
   public void teleopInit() {
