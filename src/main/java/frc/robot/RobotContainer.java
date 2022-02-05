@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.auto.*;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.AutoCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -73,7 +72,7 @@ public class RobotContainer {
     // Use differential drive
     return this.m_driveCommand;
   }
-  
+
   public Command getAutonomousCommand() {
     return m_chooser.getSelected();
   }
