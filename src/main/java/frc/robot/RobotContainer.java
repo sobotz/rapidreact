@@ -52,7 +52,7 @@ public class RobotContainer {
 
     this.configureButtonBindings();
 
-    this.m_climbCommand = new ClimbCommand(this.m_climbSubsystem);
+    this.m_climbCommand = new ClimbCommand(this.m_climbSubsystem, this.m_operatorJoystick);
   }
 
   /**
@@ -68,6 +68,9 @@ public class RobotContainer {
     // random button
     JoystickButton rotateMotorButton = new JoystickButton(this.m_operatorJoystick, 9);
     rotateMotorButton.whenPressed(this.m_climbCommand);
+
+    JoystickButton liftMotorButton = new JoystickButton(this.m_operatorJoystick, 8);
+    liftMotorButton.whenPressed(this.m_climbCommand);
   }
 
   /**
