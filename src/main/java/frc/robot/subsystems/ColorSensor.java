@@ -5,8 +5,6 @@
 //for declarations and stuff
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -76,5 +74,3 @@ public class ColorSensor extends SubsystemBase {
     SmartDashboard.putBoolean("Detected Color", currBallBlue);
   }
 }
-
-  
