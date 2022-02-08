@@ -5,6 +5,8 @@
 //for declarations and stuff
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -35,13 +37,13 @@ public class ColorSensor extends SubsystemBase {
     weAreBlue = SmartDashboard.getBoolean("weAreBlue", true);
   }
 
-  //@Override
+  @Override
   public void robotInit() {
     colorMatcher.addColorMatch(blueBall);
     colorMatcher.addColorMatch(redBall);
   }
 
-  //@Override
+  @Override
   public void robotPeriodic() {
 
     Color detectedColor = colorSensor.getColor();
@@ -50,12 +52,22 @@ public class ColorSensor extends SubsystemBase {
     ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
 
     if (match.color == blueBall && weAreBlue) {
-      
+      //will run the code that shoots the ball into the hub
       currBallBlue = true;
     } 
     else if (match.color == redBall && !weAreBlue) {
+      //will run the code that shoots the ball into the hub
       currBallBlue = false;
     } 
+    else{
+      //will run the code to make the ball miss
+      if (match.color == blueBall){
+        currBallBlue = true;
+      }
+      else{
+        currBallBlue = false;
+      }
+    }
 
     //for testing
     SmartDashboard.putNumber("Red", detectedColor.red);
