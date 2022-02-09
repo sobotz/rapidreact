@@ -19,7 +19,8 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorSensorV3.RawColor;
 
 
-public class ColorSensor extends SubsystemBase {
+public class ColorSensor extends SubsystemBase{
+  
   //port
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   //color sensor
