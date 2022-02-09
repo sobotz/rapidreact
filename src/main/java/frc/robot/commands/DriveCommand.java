@@ -29,6 +29,7 @@ public class DriveCommand extends CommandBase {
     m_drivetrain = drivetrain;
     this.joystick = joystick;
     this.acceleration_constant = DriveConstants.ACCELERATION_CONSTANT;
+    // If number less then 2 robot starts to act weird
     SmartDashboard.putNumber("Acceleration Constant: ", this.acceleration_constant);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drivetrain);
