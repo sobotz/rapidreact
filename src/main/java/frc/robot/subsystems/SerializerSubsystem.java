@@ -26,7 +26,7 @@ public class SerializerSubsystem extends SubsystemBase {
 
   // Initializes variables that wiil be used in the program
   public double ballCount = 2.0;
-  public boolean acceptingBalls = true;
+  public boolean acceptingBalls = false;
   public boolean previousLSValue = false; // previous launcher sensor value
   public boolean previousSSValue = false; // previous serializer sensor value
   public double previousBallCount;
@@ -55,7 +55,7 @@ public class SerializerSubsystem extends SubsystemBase {
     // Puts sensor voltage values on the Smart dashboard
     //SmartDashboard.putNumber("Sensor 1: ", serializerSensor1.getVoltage()); // true
     //SmartDashboard.putNumber("Sensor 2: ", serializerSensor2.getVoltage()); // true
-    serializerMotor1.set(ControlMode.PercentOutput, ((serializerSensor1.getVoltage() < .85 || serializerSensor2.getVoltage() < .85) && launcherSensor.getVoltage() > .85 ) ? -Constants.SERIALIZER_SPEED : 0);
+    //serializerMotor1.set(ControlMode.PercentOutput, ((serializerSensor1.getVoltage() < .85 || serializerSensor2.getVoltage() < .85) && launcherSensor.getVoltage() > .85 ) ? -Constants.SERIALIZER_SPEED : 0);
   }
   
   public void moveBeltsForward() {
@@ -72,6 +72,10 @@ public class SerializerSubsystem extends SubsystemBase {
     serializerMotor1.set(ControlMode.PercentOutput, 0);
     // outputs belt state to the smart dashboard
     //SmartDashboard.putBoolean("Belts On: ", false);
+  }
+
+  public void STOP(){
+    serializerMotor1.set(ControlMode.PercentOutput, 0);
   }
 
   public void moveBack() {
@@ -93,5 +97,4 @@ public class SerializerSubsystem extends SubsystemBase {
   public void runSerializer(){
     serializerMotor1.set(ControlMode.PercentOutput, -Constants.SERIALIZER_SPEED);
   }
-
 }
