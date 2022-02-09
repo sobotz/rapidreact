@@ -47,7 +47,8 @@ public class RobotContainer {
     m_intake = new IntakeSubsystem();
 
     DeployIntakeCommand = new DeployIntakeCommand(m_intake);  
-    m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick.getRawAxis(0), this.m_driverJoystick.getRawAxis(1));
+    // m_driveCommand = new DriveCommand(m_drivetrain, m_driverJoystick.getRawAxis(0), m_driverJoystick.getRawAxis(1));
+    m_driveCommand = new DriveCommand(m_drivetrain, m_driverJoystick);
     configureButtonBindings();
   }
 

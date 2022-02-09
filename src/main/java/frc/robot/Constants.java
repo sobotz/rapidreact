@@ -19,6 +19,7 @@ public final class Constants {
         public static final int RIGHT_BACK_TALON = 3;
         public static final int LEFT_BACK_TALON = 1;
     
+        public static final double ACCELERATION_CONSTANT = 2;
 
     }
 
