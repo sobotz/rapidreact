@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorSensorV3.RawColor;
+
 
 public class ColorSensor extends SubsystemBase {
   //port
@@ -24,9 +26,12 @@ public class ColorSensor extends SubsystemBase {
   private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
   //color matcher
   private final ColorMatch colorMatcher = new ColorMatch();
+  private final RawColor blueBallValues = new RawColor(0, 0, 225, 0);
+  private final RawColor redBallValues = new RawColor(225, 0, 0, 0);
+
   //blue and red rgb values
-  private final Color blueBall = ColorMatch.makeColor(0.143, 0.427, 0.429); //someone get rid of these errors pls, idk how
-  private final Color redBall = ColorMatch.makeColor(0.561, 0.232, 0.114);
+  //private final Color blueBallValues = ColorMatch.RawColor(0, 0, 225); //someone get rid of these errors pls, idk how
+  //private final Color redBallValues = ColorMatch.makeColor(0.561, 0.232, 0.114);
   //our color
   private boolean weAreBlue;
 
@@ -35,42 +40,34 @@ public class ColorSensor extends SubsystemBase {
     weAreBlue = SmartDashboard.getBoolean("weAreBlue", true);
   }
 
-  @Override
-  public void robotInit() {
-    colorMatcher.addColorMatch(blueBall);
-    colorMatcher.addColorMatch(redBall);
-  }
+  //@Override
+  /**public void robotInit() {
+    colorMatcher.addColorMatch(blueBallValues);
+    colorMatcher.addColorMatch(redBallValues);
+  }*/
 
-  @Override
+  //@Override
   public void robotPeriodic() {
 
     Color detectedColor = colorSensor.getColor();
 
-    boolean currBallBlue; //if the balls are blue, blue = true and if the balls are red, red = false
+    boolean currBallBlue = false; //if the balls are blue, blue = true and if the balls are red, red = false
     ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
 
-    if (match.color == blueBall && weAreBlue) {
-      //will run the code that shoots the ball into the hub
+    if (match.color.equals(blueBallValues) && weAreBlue) {
+      
       currBallBlue = true;
     } 
-    else if (match.color == redBall && !weAreBlue) {
-      //will run the code that shoots the ball into the hub
+    else if (match.color.equals(redBallValues) && !weAreBlue) {
       currBallBlue = false;
     } 
-    else{
-      //will run the code to make the ball miss
-      if (match.color == blueBall){
-        currBallBlue = true;
-      }
-      else{
-        currBallBlue = false;
-      }
-    }
 
     //for testing
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
     //SmartDashboard.putNumber("Confidence", match.confidence);
-    SmartDashboard.putBoolean("Detected Color", currBallBlue);
+    //SmartDashboard.putBoolean("Detected Color", currBallBlue);
   }
 }
+
+  
