@@ -7,7 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
-import edu.wpi.first.wpilibj.TimedRobot;
+//import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -27,14 +27,15 @@ public class ColorSensor extends SubsystemBase{
   private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
   //color matcher
   private final ColorMatch colorMatcher = new ColorMatch();
-  private final RawColor blueBallValues = new RawColor(0, 0, 225, 0);
-  private final RawColor redBallValues = new RawColor(225, 0, 0, 0);
+  private final RawColor blueRGBValues = new RawColor(0, 0, 225, 0);
+  private final RawColor redRGBValues = new RawColor(225, 0, 0, 0);
 
   //blue and red rgb values
   //private final Color blueBallValues = ColorMatch.RawColor(0, 0, 225); //someone get rid of these errors pls, idk how
   //private final Color redBallValues = ColorMatch.makeColor(0.561, 0.232, 0.114);
   //our color
   private boolean weAreBlue;
+  private boolean shoot;
 
   
   public ColorSensor(){
@@ -55,19 +56,37 @@ public class ColorSensor extends SubsystemBase{
     boolean currBallBlue = false; //if the balls are blue, blue = true and if the balls are red, red = false
     ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
 
-    if (match.color.equals(blueBallValues) && weAreBlue) {
-      
+    if (match.color.equals(blueRGBValues) && weAreBlue) {
+      System.out.println("We are blue and ball is blue");       //testing
       currBallBlue = true;
+      shoot = true;
     } 
-    else if (match.color.equals(redBallValues) && !weAreBlue) {
+    else if (match.color.equals(redRGBValues) && !weAreBlue) {
+      System.out.println("We are red and ball is red");       //testing
       currBallBlue = false;
+      shoot = true;
     } 
+    else{
+      shoot = false;
+      if (match.color.equals(blueRGBValues)) {
+        System.out.println("We are red and ball is blue");       //testing
+        currBallBlue = true;
+      } 
+      else if (match.color.equals(redRGBValues)) {
+        System.out.println("We are blue and ball is red");       //testing
+        currBallBlue = false;
+      } 
+    }
 
     //for testing
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
     //SmartDashboard.putNumber("Confidence", match.confidence);
     //SmartDashboard.putBoolean("Detected Color", currBallBlue);
+  }
+  public boolean shootInHub(){
+      robotPeriodic();
+      return shoot;
   }
 }
 
