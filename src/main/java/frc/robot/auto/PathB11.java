@@ -1,13 +1,15 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
+// https://github.com/thordogzaan/Frc-2021-Falcon-500-Code/blob/main/Robot.java 
 
 package frc.robot.auto;
 
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Encoder;
+import frc.robot.Constants;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class PathB11 extends CommandBase {
   private final DriveSubsystem m_drive;
@@ -16,14 +18,15 @@ public class PathB11 extends CommandBase {
 
   private Timer timer;
 
-  // Initializes an encoder on DIO pins 0 and 1
-  // Defaults to 4X decoding and non-inverted
-  // Will need an encoder for each falcon
-  Encoder encoder = new Encoder(0, 1);
+  WPI_TalonFX frontLeftController, frontRightController, backLeftController, backRightController;
 
   public PathB11(DriveSubsystem drive) {
     this.m_drive = drive;
     this.timer = new Timer();
+    this.frontLeftController = new WPI_TalonFX(Constants.DriveConstants.LEFT_FRONT_TALON);
+    this.frontRightController = new WPI_TalonFX(Constants.DriveConstants.RIGHT_FRONT_TALON);
+    this.backLeftController = new WPI_TalonFX(Constants.DriveConstants.LEFT_BACK_TALON);
+    this.backRightController = new WPI_TalonFX(Constants.DriveConstants.RIGHT_BACK_TALON);
     // initialize launcher, serializer + intake variables when import
 
     addRequirements(this.m_drive);
@@ -33,7 +36,7 @@ public class PathB11 extends CommandBase {
   @Override
   public void initialize() {
     this.timer.start();
-    encoder.setDistancePerPulse(1./512.);
+    frontLeftController.setSelectedSensorPosition(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -59,13 +62,6 @@ public class PathB11 extends CommandBase {
     // Another idea is instead of using encoders, call the drive method in drive
     // subsytem for a specific amount of time
     // Need to use FMS to choose multiple autonomous paths
-
-    if(encoder.getDistance()<.4375){
-      m_drive.drive(-0.5,0);
-    }
-    else{
-      m_drive.drive(0,0);
-    }
   }
 
   // Called once the command ends or is interrupted.
