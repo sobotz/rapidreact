@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.ShiftGearCommand;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -30,6 +31,8 @@ public class RobotContainer {
 
   public static Joystick m_driverJoystick;
 
+  private final ColorSensor m_colorSensor;
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -41,6 +44,8 @@ public class RobotContainer {
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
 
     this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
+
+    this.m_colorSensor = new ColorSensor();
 
     this.configureButtonBindings();
   }

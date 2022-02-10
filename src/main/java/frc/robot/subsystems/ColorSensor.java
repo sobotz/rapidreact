@@ -5,8 +5,7 @@
 //for declarations and stuff
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-
+import frc.robot.Constants.ColorConstants;
 //import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,6 +14,9 @@ import edu.wpi.first.wpilibj.util.Color;
 //Color sensor imports
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
+
+import java.util.ArrayList;
+
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorSensorV3.RawColor;
 
@@ -27,15 +29,18 @@ public class ColorSensor extends SubsystemBase{
   private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
   //color matcher
   private final ColorMatch colorMatcher = new ColorMatch();
-  private final RawColor blueRGBValues = new RawColor(0, 0, 225, 0);
-  private final RawColor redRGBValues = new RawColor(225, 0, 0, 0);
+
+  public ArrayList <String> ballColors  = new ArrayList <String>();
+
+  private double lastRed = 0.0;
+  private double lastBlue = 0.0;
 
   //blue and red rgb values
   //private final Color blueBallValues = ColorMatch.RawColor(0, 0, 225); //someone get rid of these errors pls, idk how
   //private final Color redBallValues = ColorMatch.makeColor(0.561, 0.232, 0.114);
   //our color
   private boolean weAreBlue;
-  private boolean shoot;
+  //private boolean shoot;
 
   
   public ColorSensor(){
@@ -49,45 +54,55 @@ public class ColorSensor extends SubsystemBase{
   }*/
 
   //@Override
-  public void robotPeriodic() {
-
+  public void periodic() {
+    SmartDashboard.putString("ballColors", ballColors.toString());
     Color detectedColor = colorSensor.getColor();
-
-    boolean currBallBlue = false; //if the balls are blue, blue = true and if the balls are red, red = false
-    ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
-
-    if (match.color.equals(blueRGBValues) && weAreBlue) {
-      System.out.println("We are blue and ball is blue");       //testing
-      currBallBlue = true;
+    
+    // boolean currBallBlue = false; //if the balls are blue, blue = true and if the balls are red, red = false
+    // ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
+    
+    if(detectedColor.red > ColorConstants.COLOR_THRESHOLD && lastRed < ColorConstants.COLOR_THRESHOLD){
+        ballColors.add("red");
+    }
+    else if(detectedColor.blue > ColorConstants.COLOR_THRESHOLD && lastBlue < ColorConstants.COLOR_THRESHOLD){
+        ballColors.add("blue");
+    }
+    /*if (detectedColor.blue > detectedColor.red && weAreBlue) {
       shoot = true;
     } 
-    else if (match.color.equals(redRGBValues) && !weAreBlue) {
-      System.out.println("We are red and ball is red");       //testing
-      currBallBlue = false;
+    else if (detectedColor.red > detectedColor.blue && !weAreBlue) {
       shoot = true;
     } 
     else{
       shoot = false;
-      if (match.color.equals(blueRGBValues)) {
+      if (detectedColor.blue > detectedColor.red) {
         System.out.println("We are red and ball is blue");       //testing
-        currBallBlue = true;
       } 
-      else if (match.color.equals(redRGBValues)) {
+      else if (detectedColor.red > detectedColor.blue) {
         System.out.println("We are blue and ball is red");       //testing
-        currBallBlue = false;
       } 
-    }
+    }*/
 
     //for testing
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
-    //SmartDashboard.putNumber("Confidence", match.confidence);
-    //SmartDashboard.putBoolean("Detected Color", currBallBlue);
+
+    lastRed = detectedColor.red;
+    lastBlue = detectedColor.blue;
+    if(!ballColors.isEmpty()){
+      SmartDashboard.putString("ball 1 color", ballColors.get(0));
+    }
+  
+    
   }
-  public boolean shootInHub(){
-      robotPeriodic();
+
+
+
+
+
+  /**public boolean shootInHub(){
       return shoot;
-  }
+  }*/
 }
 
   

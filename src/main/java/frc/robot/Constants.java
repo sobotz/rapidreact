@@ -26,4 +26,7 @@ public final class Constants {
         // TO REVERT TO LINEAR ACCELERATION SET TO 1
         public static final double ACCELERATION_CONSTANT = 2;
     }
+    public final class ColorConstants{
+        public static final double COLOR_THRESHOLD = .35;
+    }
 }
