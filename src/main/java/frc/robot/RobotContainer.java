@@ -67,10 +67,10 @@ public class RobotContainer {
 
     // random button
     JoystickButton rotateMotorButton = new JoystickButton(this.m_operatorJoystick, 9);
-    rotateMotorButton.whenPressed(this.m_climbCommand);
+    rotateMotorButton.whileHeld(this.m_climbCommand);
 
     JoystickButton liftMotorButton = new JoystickButton(this.m_operatorJoystick, 8);
-    liftMotorButton.whenPressed(this.m_climbCommand);
+    liftMotorButton.whileHeld(this.m_climbCommand);
   }
 
   /**
