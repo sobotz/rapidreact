@@ -2,6 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 // https://github.com/thordogzaan/Frc-2021-Falcon-500-Code/blob/main/Robot.java 
+// Motion Magic: https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html 
 
 package frc.robot.auto;
 
@@ -32,6 +33,24 @@ public class PathB11 extends CommandBase {
     addRequirements(this.m_drive);
   }
 
+  /* public void straight(double distance, double speed)
+  {
+    speed = speed * -1;
+    frontLeftController.setSelectedSensorPosition(0);
+    frontRightController.setSelectedSensorPosition(0);
+    backLeftController.setSelectedSensorPosition(0);
+    backRightController.setSelectedSensorPosition(0);
+    System.out.println("encoder val"+right[1].getSelectedSensorPosition());
+    distance = distance *11900 + right[1].getSelectedSensorPosition();
+    System.out.println("distance   "+distance);
+    while(distance > right[1].getSelectedSensorPosition())
+    {
+      chassis.arcadeDrive(speed, 0);
+      System.out.println("encoder val"+right[0].getSelectedSensorPosition());
+    }
+    chassis.arcadeDrive(0, 0);
+  }*/
+  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
