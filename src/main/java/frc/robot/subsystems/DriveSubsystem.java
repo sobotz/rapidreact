@@ -9,6 +9,8 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,6 +24,8 @@ public class DriveSubsystem extends SubsystemBase {
   DoubleSolenoid gearShifter;
 
   boolean lowGear;
+
+  AHRS navX;
 
   public DriveSubsystem() {
     this.frontLeftController = new WPI_TalonFX(Constants.DriveConstants.LEFT_FRONT_TALON);
@@ -41,6 +45,7 @@ public class DriveSubsystem extends SubsystemBase {
     this.backLeftController.configFactoryDefault();
     this.backRightController.configFactoryDefault();
 
+    this.navX = new AHRS();
     
     this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY, Constants.DriveConstants.GEAR_SHIFT_RETRACT);
     this.lowGear = true;
@@ -56,7 +61,7 @@ public class DriveSubsystem extends SubsystemBase {
             DemandType.ArbitraryFeedForward, rotation);
     this.backRightController.follow(this.frontRightController);
   }
-
+  
   public boolean shiftGear() {
     gearShifter.set((this.lowGear) ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
     this.lowGear = !this.lowGear;

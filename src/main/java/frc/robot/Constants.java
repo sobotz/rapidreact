@@ -27,6 +27,11 @@ public final class Constants {
         public static final double ACCELERATION_CONSTANT = 2;
         public static final double ROTATION_CONSTANT = .4;
 
+        public static final double Kp = .1;
+        public static final double Ki = .1;
+        public static final double Kd = .1;
+        
         public static final double IN_PER_ROTATION = 3.15;
+        
     }
 }
