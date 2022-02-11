@@ -9,8 +9,11 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DeployIntakeCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.LaunchSerializerCommand;
+import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.SerializerSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -26,29 +29,42 @@ public class RobotContainer {
 
   private final DriveCommand m_driveCommand;
 
+
   private final IntakeSubsystem m_intake;
 
-  
+
+  private final ShiftGearCommand m_shiftGearCommand;
+
+  private final LaunchSerializerCommand m_launchSerializer;
 
   public static Joystick m_driverJoystick;
   private Joystick m_operatorJoystick;
   
   public static DeployIntakeCommand DeployIntakeCommand;
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  public Joystick m_operatorJoystick;
+
+
+  private final SerializerSubsystem m_serializer;
+
+
+  /** The container for the robot
+   * ++. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
+
+    this.m_serializer = new SerializerSubsystem();
+    this.m_driverJoystick = new Joystick(0);
+    this.m_operatorJoystick = new Joystick(1);
+    this.m_drivetrain = new DriveSubsystem();
     
-
-    m_driverJoystick = new Joystick(0);
-    m_operatorJoystick = new Joystick(1);
-
-    m_drivetrain = new DriveSubsystem();
+    this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
+    this.m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
+    this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
     m_intake = new IntakeSubsystem();
 
     DeployIntakeCommand = new DeployIntakeCommand(m_intake);  
     // m_driveCommand = new DriveCommand(m_drivetrain, m_driverJoystick.getRawAxis(0), m_driverJoystick.getRawAxis(1));
-    m_driveCommand = new DriveCommand(m_drivetrain, m_driverJoystick);
     configureButtonBindings();
   }
 
@@ -62,6 +78,11 @@ public class RobotContainer {
     JoystickButton DeployIntakeButton = new JoystickButton(m_operatorJoystick, 1);
     
     DeployIntakeButton.whenHeld(DeployIntakeCommand);
+    JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
+    gearShiftButton.whenPressed(this.m_shiftGearCommand);
+    JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 1);
+    serializerButton.whenHeld(this.m_launchSerializer);
+
   }
 
   /**

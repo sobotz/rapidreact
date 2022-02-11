@@ -18,7 +18,6 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private Command m_teleopCommand;
 
-  private CommandScheduler m_commands;
 
   private RobotContainer m_robotContainer;
 
@@ -77,7 +76,7 @@ public class Robot extends TimedRobot {
     this.m_teleopCommand = m_robotContainer.getTeleopCommand();
 
     // Register the teleop command
-    this.m_commands.schedule(this.m_teleopCommand);
+    m_teleopCommand.schedule();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

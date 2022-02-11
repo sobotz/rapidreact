@@ -9,20 +9,27 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   WPI_TalonFX frontLeftController, frontRightController, backLeftController, backRightController;
 
+  DoubleSolenoid gearShifter;
+
+  boolean lowGear;
+
   public DriveSubsystem() {
-    this.frontLeftController = new WPI_TalonFX(2);
-    this.frontRightController = new WPI_TalonFX(4);
-    this.backLeftController = new WPI_TalonFX(1);
-    this.backRightController = new WPI_TalonFX(3);
+    this.frontLeftController = new WPI_TalonFX(Constants.DriveConstants.LEFT_FRONT_TALON);
+    this.frontRightController = new WPI_TalonFX(Constants.DriveConstants.RIGHT_FRONT_TALON);
+    this.backLeftController = new WPI_TalonFX(Constants.DriveConstants.LEFT_BACK_TALON);
+    this.backRightController = new WPI_TalonFX(Constants.DriveConstants.RIGHT_BACK_TALON);
     
-    this.frontLeftController.setInverted(TalonFXInvertType.CounterClockwise);
-    this.backLeftController.setInverted(TalonFXInvertType.CounterClockwise);
+    this.frontLeftController.setInverted(TalonFXInvertType.Clockwise);
+    this.backLeftController.setInverted(TalonFXInvertType.Clockwise);
 
     this.frontRightController.setInverted(TalonFXInvertType.Clockwise);
     this.backRightController.setInverted(TalonFXInvertType.Clockwise);
@@ -32,6 +39,10 @@ public class DriveSubsystem extends SubsystemBase {
     this.frontRightController.configFactoryDefault();
     this.backLeftController.configFactoryDefault();
     this.backRightController.configFactoryDefault();
+
+    
+    this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY, Constants.DriveConstants.GEAR_SHIFT_RETRACT);
+    this.lowGear = false;
 
   }
 
@@ -44,6 +55,13 @@ public class DriveSubsystem extends SubsystemBase {
             DemandType.ArbitraryFeedForward, rotation);
     this.backRightController.follow(this.frontRightController);
   }
+
+  public boolean shiftGear() {
+    gearShifter.set((this.lowGear) ? DoubleSolenoid.Value.kForward: DoubleSolenoid.Value.kReverse);
+    this.lowGear = !this.lowGear;
+    return this.lowGear;
+}
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
