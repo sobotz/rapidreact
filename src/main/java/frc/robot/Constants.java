@@ -13,24 +13,38 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  
     public final class DriveConstants {
+
         public static final int RIGHT_FRONT_TALON = 4;
         public static final int LEFT_FRONT_TALON = 2;
         public static final int RIGHT_BACK_TALON = 3;
         public static final int LEFT_BACK_TALON = 1;
+    
+        public static final double ACCELERATION_CONSTANT = 2;
+    }
+
+
+    public static final class IntakeConstants{
+        public static final int INTAKE_MOTOR = 8;
+        public static final double MAXIMUM_INTAKE_SPEED = 0.7;
+        public static final int INTAKE_SOLENOID_DEPLOY = 2;
+        public static final int INTAKE_SOLENOID_RETRACT = 3;
+    }
+
 
 		public static final int GEAR_SHIFT_DEPLOY = 1;
 		public static final int GEAR_SHIFT_RETRACT = 0;
 
         // Sets the sensitivity of the joystick, higher constant = more gradual acceleration
         // TO REVERT TO LINEAR ACCELERATION SET TO 1
-        public static final double ACCELERATION_CONSTANT = 2;
+    // public static final double ACCELERATION_CONSTANT = 2;
         
     }
     public static final int SERIALIZER_SENSOR_1 = 0;
-	public static final int SERIALIZER_SENSOR_2 = 1;
-	public static final int SERIALIZER_SENSOR_3 = 2;
-	public static final int SERIALIZER_MOTOR = 7;
+    public static final int SERIALIZER_SENSOR_2 = 1;
+    public static final int SERIALIZER_SENSOR_3 = 2;
+    public static final int SERIALIZER_MOTOR = 7;
     public static final int FEED_MOTOR = 10;
-	public static final double SERIALIZER_SPEED = 0.3;
+	  public static final double SERIALIZER_SPEED = 0.3;
 }
