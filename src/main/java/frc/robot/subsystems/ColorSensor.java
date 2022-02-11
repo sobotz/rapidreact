@@ -55,33 +55,8 @@ public class ColorSensor extends SubsystemBase{
 
   //@Override
   public void periodic() {
-    SmartDashboard.putString("ballColors", ballColors.toString());
     Color detectedColor = colorSensor.getColor();
-    
-    // boolean currBallBlue = false; //if the balls are blue, blue = true and if the balls are red, red = false
-    // ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
-    
-    if(detectedColor.red > ColorConstants.COLOR_THRESHOLD && lastRed < ColorConstants.COLOR_THRESHOLD){
-        ballColors.add("red");
-    }
-    else if(detectedColor.blue > ColorConstants.COLOR_THRESHOLD && lastBlue < ColorConstants.COLOR_THRESHOLD){
-        ballColors.add("blue");
-    }
-    /*if (detectedColor.blue > detectedColor.red && weAreBlue) {
-      shoot = true;
-    } 
-    else if (detectedColor.red > detectedColor.blue && !weAreBlue) {
-      shoot = true;
-    } 
-    else{
-      shoot = false;
-      if (detectedColor.blue > detectedColor.red) {
-        System.out.println("We are red and ball is blue");       //testing
-      } 
-      else if (detectedColor.red > detectedColor.blue) {
-        System.out.println("We are blue and ball is red");       //testing
-      } 
-    }*/
+    SmartDashboard.putString("ballColors", ballColors.toString());
 
     //for testing
     SmartDashboard.putNumber("Red", detectedColor.red);
@@ -89,16 +64,34 @@ public class ColorSensor extends SubsystemBase{
 
     lastRed = detectedColor.red;
     lastBlue = detectedColor.blue;
-    if(!ballColors.isEmpty()){
+    String currBall;
+    String[] _ballColors = new String[2];
+    /**if(!ballColors.isEmpty()){
       SmartDashboard.putString("ball 1 color", ballColors.get(0));
-    }
-  
+    }*/
     
+    
+    if(detectedColor.red > ColorConstants.COLOR_THRESHOLD && lastRed < ColorConstants.COLOR_THRESHOLD){
+      currBall = "red";
+      if(detectedColor.red < ColorConstants.COLOR_THRESHOLD){
+        ballColors.add(currBall);
+      }
+    }
+    else if(detectedColor.blue > ColorConstants.COLOR_THRESHOLD && lastBlue < ColorConstants.COLOR_THRESHOLD){
+      currBall = "blue";
+      if(detectedColor.blue < ColorConstants.COLOR_THRESHOLD){
+        ballColors.add(currBall);
+      }
+    }
+    if(ballColors.size() == 2){
+      SmartDashboard.putStringArray("Ball Color Values", ballColors.toArray(_ballColors));
+    }
   }
 
-
-
-
+  public ArrayList removeLast(){
+    ballColors.remove(0);
+    return ballColors;
+  }
 
   /**public boolean shootInHub(){
       return shoot;
