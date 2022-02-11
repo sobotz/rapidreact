@@ -53,4 +53,7 @@ public class ClimbCommand extends CommandBase {
   public boolean isFinished() {
     return false;
   }
+  public void dodo(){
+    
+  }
 }
