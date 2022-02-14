@@ -19,43 +19,59 @@ public class PathB11 extends CommandBase {
 
   private Timer timer;
 
-  WPI_TalonFX frontLeftController, frontRightController, backLeftController, backRightController;
+  private WPI_TalonFX[] left = new WPI_TalonFX[2];
+  private WPI_TalonFX[] right = new WPI_TalonFX[2];
+
+   // Motor IDs (from Phoenix Tuner)
+   private int LEFT1_ID = 2;
+   private int LEFT2_ID = 3;
+ 
+   private int RIGHT1_ID = 12;
+   private int RIGHT2_ID = 13;
 
   public PathB11(DriveSubsystem drive) {
     this.m_drive = drive;
     this.timer = new Timer();
-    this.frontLeftController = new WPI_TalonFX(Constants.DriveConstants.LEFT_FRONT_TALON);
-    this.frontRightController = new WPI_TalonFX(Constants.DriveConstants.RIGHT_FRONT_TALON);
-    this.backLeftController = new WPI_TalonFX(Constants.DriveConstants.LEFT_BACK_TALON);
-    this.backRightController = new WPI_TalonFX(Constants.DriveConstants.RIGHT_BACK_TALON);
     // initialize launcher, serializer + intake variables when import
 
     addRequirements(this.m_drive);
   }
 
-  /* public void straight(double distance, double speed)
+  public void straight(double distance, double speed)
   {
     speed = speed * -1;
-    frontLeftController.setSelectedSensorPosition(0);
-    frontRightController.setSelectedSensorPosition(0);
-    backLeftController.setSelectedSensorPosition(0);
-    backRightController.setSelectedSensorPosition(0);
+    left[0].setSelectedSensorPosition(0);
+    right[0].setSelectedSensorPosition(0);
     System.out.println("encoder val"+right[1].getSelectedSensorPosition());
     distance = distance *11900 + right[1].getSelectedSensorPosition();
     System.out.println("distance   "+distance);
     while(distance > right[1].getSelectedSensorPosition())
     {
-      chassis.arcadeDrive(speed, 0);
+      m_drive.drive(-0.5, 0);
       System.out.println("encoder val"+right[0].getSelectedSensorPosition());
     }
-    chassis.arcadeDrive(0, 0);
-  }*/
+    m_drive.drive(0,0) ;
+  }
+
+  private WPI_TalonFX makeTalonFX(int id, boolean invert) { // Creates and configures a TalonFX
+    WPI_TalonFX talon = new WPI_TalonFX(id);
+
+    talon.configFactoryDefault();
+    talon.setInverted(invert);
+    talon.stopMotor();
+
+    return talon;
+  }
   
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     this.timer.start();
-    frontLeftController.setSelectedSensorPosition(0);
+    left[0] = makeTalonFX(LEFT1_ID, false);
+    left[1] = makeTalonFX(LEFT2_ID, false);
+
+    right[0] = makeTalonFX(RIGHT1_ID, false);
+    right[1] = makeTalonFX(RIGHT2_ID, false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
