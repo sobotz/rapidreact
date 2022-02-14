@@ -7,11 +7,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ActivateLauncherCommand;
 import frc.robot.commands.DeployIntakeCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.LaunchSerializerCommand;
 import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -35,6 +37,8 @@ public class RobotContainer {
 
   private final ShiftGearCommand m_shiftGearCommand;
 
+  private final ActivateLauncherCommand launchCommand;
+
   private final LaunchSerializerCommand m_launchSerializer;
 
   public static Joystick m_driverJoystick;
@@ -42,6 +46,11 @@ public class RobotContainer {
   public static DeployIntakeCommand DeployIntakeCommand;
 
   public Joystick m_operatorJoystick;
+
+  private Joystick m_operatorJoystick;
+
+  private LauncherSubsystem m_launcher;
+  private SerializerSubsystem m_serializer;
 
 
   private final SerializerSubsystem m_serializer;
@@ -52,6 +61,20 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
 
+    m_driverJoystick = new Joystick(0);
+    m_operatorJoystick = new Joystick(1);
+    
+
+    this.m_drivetrain = new DriveSubsystem();
+    m_launcher = new LauncherSubsystem();
+    m_serializer = new SerializerSubsystem
+
+
+    this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
+    this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
+    launchCommand = new ActivateLauncherCommand(m_serializer, m_launcher);
+    
+    this.configureButtonBindings();
     this.m_serializer = new SerializerSubsystem();
     this.m_driverJoystick = new Joystick(0);
     this.m_operatorJoystick = new Joystick(1);
@@ -78,7 +101,12 @@ public class RobotContainer {
     
     DeployIntakeButton.whenHeld(DeployIntakeCommand);
     JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
+    JoystickButton launchButton = new JoystickButton(m_operatorJoystick,6);
+
+
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
+    
+    launchButton.whenHeld(launchCommand);
     JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 2);
     serializerButton.whenHeld(this.m_launchSerializer);
 

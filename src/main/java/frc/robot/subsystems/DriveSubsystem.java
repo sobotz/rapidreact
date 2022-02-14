@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -40,7 +41,6 @@ public class DriveSubsystem extends SubsystemBase {
     this.backLeftController.configFactoryDefault();
     this.backRightController.configFactoryDefault();
 
-    
     this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.GEAR_SHIFT_DEPLOY, Constants.GEAR_SHIFT_RETRACT);
     this.lowGear = false;
 
@@ -57,13 +57,14 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public boolean shiftGear() {
-    gearShifter.set((this.lowGear) ? DoubleSolenoid.Value.kForward: DoubleSolenoid.Value.kReverse);
+    gearShifter.set((this.lowGear) ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
     this.lowGear = !this.lowGear;
-    return this.lowGear;
-}
+    return lowGear;
+  }
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Low Gear:", this.lowGear);
     // This method will be called once per scheduler run
   }
 
