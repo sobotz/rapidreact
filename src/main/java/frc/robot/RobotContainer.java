@@ -38,7 +38,6 @@ public class RobotContainer {
   private final LaunchSerializerCommand m_launchSerializer;
 
   public static Joystick m_driverJoystick;
-  private Joystick m_operatorJoystick;
   
   public static DeployIntakeCommand DeployIntakeCommand;
 
@@ -80,7 +79,7 @@ public class RobotContainer {
     DeployIntakeButton.whenHeld(DeployIntakeCommand);
     JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
-    JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 1);
+    JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 2);
     serializerButton.whenHeld(this.m_launchSerializer);
 
   }

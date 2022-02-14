@@ -55,7 +55,7 @@ public class SerializerSubsystem extends SubsystemBase {
     // Puts sensor voltage values on the Smart dashboard
     //SmartDashboard.putNumber("Sensor 1: ", serializerSensor1.getVoltage()); // true
     //SmartDashboard.putNumber("Sensor 2: ", serializerSensor2.getVoltage()); // true
-    //serializerMotor1.set(ControlMode.PercentOutput, ((serializerSensor1.getVoltage() < .85 || serializerSensor2.getVoltage() < .85) && launcherSensor.getVoltage() > .85 ) ? -Constants.SERIALIZER_SPEED : 0);
+    serializerMotor1.set(ControlMode.PercentOutput, ((serializerSensor1.getVoltage() < .85 || serializerSensor2.getVoltage() < .85) && launcherSensor.getVoltage() > .85 ) ? -Constants.SERIALIZER_SPEED : 0);
   }
   
   public void moveBeltsForward() {
