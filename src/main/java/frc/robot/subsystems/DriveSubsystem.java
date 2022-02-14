@@ -22,6 +22,7 @@ public class DriveSubsystem extends SubsystemBase {
   DoubleSolenoid gearShifter;
 
   boolean lowGear;
+  
 
   public DriveSubsystem() {
     this.frontLeftController = new WPI_TalonFX(Constants.DriveConstants.LEFT_FRONT_TALON);
@@ -58,6 +59,46 @@ public class DriveSubsystem extends SubsystemBase {
     this.frontRightController.set(ControlMode.PercentOutput, -speed,
         DemandType.ArbitraryFeedForward, rotation);
     this.backRightController.follow(this.frontRightController);
+  }
+
+  public void testDrive(double speed, double rotation, boolean joystick){
+    if (true || joystick) {
+      double targetPosition = 22788.5556*speed;
+			/* 2000 RPM in either direction */
+      this.frontLeftController.set(ControlMode.MotionMagic, targetPosition);
+      this.backLeftController.follow(this.frontLeftController);
+
+      this.frontRightController.set(ControlMode.MotionMagic, targetPosition);
+      this.backRightController.follow(this.frontRightController);
+			/* Velocity Closed Loop */
+
+			/**
+			 * Convert 2000 RPM to units / 100ms.
+			 * 2048 Units/Rev * 2000 RPM / 600 100ms/min in either direction:
+			 * velocity setpoint is in units/100ms
+			 */
+      // System.out.print("Button is being pressed");
+			// double targetVelocity_UnitsPer100ms = speed * 11000;
+			// /* 2000 RPM in either direction */
+      // this.frontLeftController.set(ControlMode.Velocity, targetVelocity_UnitsPer100ms,
+      //   DemandType.ArbitraryFeedForward, rotation);
+      // this.backLeftController.follow(this.frontLeftController);
+
+      // this.frontRightController.set(ControlMode.Velocity, -targetVelocity_UnitsPer100ms,
+      //   DemandType.ArbitraryFeedForward, rotation);
+      // this.backRightController.follow(this.frontRightController);
+
+		} else {
+			/* Percent Output */
+      System.out.print("Button is being not pressed");
+      this.frontLeftController.set(ControlMode.PercentOutput, speed,
+        DemandType.ArbitraryFeedForward, rotation);
+      this.backLeftController.follow(this.frontLeftController);
+
+      this.frontRightController.set(ControlMode.PercentOutput, -speed,
+        DemandType.ArbitraryFeedForward, rotation);
+      this.backRightController.follow(this.frontRightController);
+		}
   }
 
   public boolean shiftGear() {

@@ -74,8 +74,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
-    gearShiftButton.whenPressed(this.m_shiftGearCommand);
+    // JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
+    // gearShiftButton.whenPressed(this.m_shiftGearCommand);
   }
 
   /**
