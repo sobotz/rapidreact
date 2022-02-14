@@ -87,10 +87,17 @@ public class ColorSensor extends SubsystemBase{
       SmartDashboard.putStringArray("Ball Color Values", ballColors.toArray(_ballColors));
     }
   }
-
-  public ArrayList removeLast(){
-    ballColors.remove(0);
+  public ArrayList getBallValues(){
     return ballColors;
+  }
+  public void removeLastBall(){
+    ballColors.remove(ballColors.size() - 1);
+  }
+
+  public void clearBallValues(){
+    for(int i = 0; i < ballColors.size(); i++){
+      ballColors.remove(0);
+    }
   }
 
   /**public boolean shootInHub(){
