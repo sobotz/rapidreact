@@ -47,13 +47,13 @@ public class RobotContainer {
 
   public Joystick m_operatorJoystick;
 
-  private Joystick m_operatorJoystick;
+  
 
   private LauncherSubsystem m_launcher;
   private SerializerSubsystem m_serializer;
 
 
-  private final SerializerSubsystem m_serializer;
+  
 
 
   /** The container for the robot
@@ -65,27 +65,21 @@ public class RobotContainer {
     m_operatorJoystick = new Joystick(1);
     
 
-    this.m_drivetrain = new DriveSubsystem();
+    m_drivetrain = new DriveSubsystem();
+    m_intake = new IntakeSubsystem();
+    m_serializer = new SerializerSubsystem();
     m_launcher = new LauncherSubsystem();
-    m_serializer = new SerializerSubsystem
+    
 
 
-    this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
-    this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
+    m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
+    m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
+
+    m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
+  
+    DeployIntakeCommand = new DeployIntakeCommand(m_intake);  
     launchCommand = new ActivateLauncherCommand(m_serializer, m_launcher);
     
-    this.configureButtonBindings();
-    this.m_serializer = new SerializerSubsystem();
-    this.m_driverJoystick = new Joystick(0);
-    this.m_operatorJoystick = new Joystick(1);
-    this.m_drivetrain = new DriveSubsystem();
-    
-    this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
-    this.m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
-    this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
-    m_intake = new IntakeSubsystem();
-
-    DeployIntakeCommand = new DeployIntakeCommand(m_intake);  
     // m_driveCommand = new DriveCommand(m_drivetrain, m_driverJoystick.getRawAxis(0), m_driverJoystick.getRawAxis(1));
     configureButtonBindings();
   }
