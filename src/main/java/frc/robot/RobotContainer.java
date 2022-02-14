@@ -42,18 +42,15 @@ public class RobotContainer {
   private final LaunchSerializerCommand m_launchSerializer;
 
   public static Joystick m_driverJoystick;
+  private Joystick m_operatorJoystick;
   
   public static DeployIntakeCommand DeployIntakeCommand;
 
-  public Joystick m_operatorJoystick;
 
-  private Joystick m_operatorJoystick;
-
-  private LauncherSubsystem m_launcher;
-  private SerializerSubsystem m_serializer;
-
-
+  
   private final SerializerSubsystem m_serializer;
+  private LauncherSubsystem m_launcher;
+
 
 
   /** The container for the robot
@@ -67,7 +64,7 @@ public class RobotContainer {
 
     this.m_drivetrain = new DriveSubsystem();
     m_launcher = new LauncherSubsystem();
-    m_serializer = new SerializerSubsystem
+    m_serializer = new SerializerSubsystem();
 
 
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
@@ -80,9 +77,8 @@ public class RobotContainer {
     this.m_operatorJoystick = new Joystick(1);
     this.m_drivetrain = new DriveSubsystem();
     
-    this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
     this.m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
-    this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
+  
     m_intake = new IntakeSubsystem();
 
     DeployIntakeCommand = new DeployIntakeCommand(m_intake);  
