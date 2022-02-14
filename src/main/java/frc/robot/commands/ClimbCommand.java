@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import frc.robot.RobotContainer;
+import frc.robot.Constants.ClimbConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -15,11 +17,13 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /** An example command that uses an example subsystem. */
 public class ClimbCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ClimbSubsystem m_climbSubsystem;
+  //private final RobotContainer m_operatorJoystick;
 
   /**
    * Creates a new ExampleCommand.
@@ -29,6 +33,7 @@ public class ClimbCommand extends CommandBase {
   public ClimbCommand(ClimbSubsystem climbTrain, Joystick joystick) {
     m_climbSubsystem = climbTrain;
     addRequirements(m_climbSubsystem);
+    //if(m_operatorJoystick.getRawButton())
   }
 
   // Called when the command is initially scheduled.
@@ -53,7 +58,5 @@ public class ClimbCommand extends CommandBase {
   public boolean isFinished() {
     return false;
   }
-  public void dodo(){
-    
-  }
+
 }
