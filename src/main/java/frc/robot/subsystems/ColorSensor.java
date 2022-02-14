@@ -22,7 +22,6 @@ import com.revrobotics.ColorSensorV3.RawColor;
 
 
 public class ColorSensor extends SubsystemBase{
-  
   //port
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   //color sensor
@@ -34,6 +33,7 @@ public class ColorSensor extends SubsystemBase{
 
   private double lastRed = 0.0;
   private double lastBlue = 0.0;
+  private int intakeCount = 0;
 
   //blue and red rgb values
   //private final Color blueBallValues = ColorMatch.RawColor(0, 0, 225); //someone get rid of these errors pls, idk how
@@ -58,46 +58,79 @@ public class ColorSensor extends SubsystemBase{
     Color detectedColor = colorSensor.getColor();
     SmartDashboard.putString("ballColors", ballColors.toString());
 
-    //for testing
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
 
-    lastRed = detectedColor.red;
-    lastBlue = detectedColor.blue;
     String currBall;
     String[] _ballColors = new String[2];
+    SmartDashboard.putStringArray("Ball Color Values", ballColors.toArray(_ballColors));
     /**if(!ballColors.isEmpty()){
       SmartDashboard.putString("ball 1 color", ballColors.get(0));
     }*/
     
     
     if(detectedColor.red > ColorConstants.COLOR_THRESHOLD && lastRed < ColorConstants.COLOR_THRESHOLD){
-      currBall = "red";
-      if(detectedColor.red < ColorConstants.COLOR_THRESHOLD){
+        currBall = "red";
         ballColors.add(currBall);
-      }
+        //SmartDashboard.putStringArray("Ball Color Values", ballColors.toArray(_ballColors));
+        /**if(ballColors.size() == 0 && intakeCount == 0){
+          ballColors.add(currBall);
+          intakeCount++;
+        }
+        else if(ballColors.size() == 1 && intakeCount == 1){
+          ballColors.add(currBall);
+          intakeCount++;
+        }
+        else if(ballColors.size() == 2){
+          ballColors.remove(1);
+        }
+        else if(ballColors.size() == 3){
+          ballColors.remove(2);
+        }*/
+      
     }
     else if(detectedColor.blue > ColorConstants.COLOR_THRESHOLD && lastBlue < ColorConstants.COLOR_THRESHOLD){
-      currBall = "blue";
-      if(detectedColor.blue < ColorConstants.COLOR_THRESHOLD){
+        currBall = "blue";
         ballColors.add(currBall);
-      }
+        //SmartDashboard.putStringArray("Ball Color Values", ballColors.toArray(_ballColors));
+        /**if(ballColors.size() == 0 && intakeCount == 0){
+          ballColors.add(currBall);
+          intakeCount++;
+        }
+        else if(ballColors.size() == 1 && intakeCount == 1){
+          ballColors.add(currBall);
+          intakeCount++;
+        }
+        else if(ballColors.size() == 2){
+          ballColors.remove(1);
+        }
+        else if(ballColors.size() == 3){
+          ballColors.remove(2);
+        }*/
     }
-    if(ballColors.size() == 2){
-      SmartDashboard.putStringArray("Ball Color Values", ballColors.toArray(_ballColors));
-    }
+    lastRed = detectedColor.red;
+    lastBlue = detectedColor.blue;
   }
   public ArrayList getBallValues(){
     return ballColors;
   }
+  public String getBallOne(){
+    return ballColors.get(0);
+  }
+  public String getBallTwo(){
+    return ballColors.get(1);
+  }
   public void removeLastBall(){
     ballColors.remove(ballColors.size() - 1);
   }
+  public void removeFirstBall(){
+    ballColors.remove(0);
+  }
 
   public void clearBallValues(){
-    for(int i = 0; i < ballColors.size(); i++){
-      ballColors.remove(0);
-    }
+    ballColors.remove(0);
+    ballColors.remove(1);
+    intakeCount = 0;
   }
 
   /**public boolean shootInHub(){
