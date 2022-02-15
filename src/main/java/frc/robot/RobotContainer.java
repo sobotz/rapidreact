@@ -28,32 +28,29 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_drivetrain;
+  private final IntakeSubsystem m_intake;
+  private SerializerSubsystem m_serializer;
+  private LauncherSubsystem m_launcher;
+
+
 
   private final DriveCommand m_driveCommand;
-
-
-  private final IntakeSubsystem m_intake;
-
-
   private final ShiftGearCommand m_shiftGearCommand;
 
+
+
+  public static DeployIntakeCommand DeployIntakeCommand;
+  private final LaunchSerializerCommand m_launchSerializer;
   private final ActivateLauncherCommand launchCommand;
 
-  private final LaunchSerializerCommand m_launchSerializer;
+  
+
 
   public static Joystick m_driverJoystick;
-  
-  public static DeployIntakeCommand DeployIntakeCommand;
-
   public Joystick m_operatorJoystick;
 
   
 
-  private LauncherSubsystem m_launcher;
-  private SerializerSubsystem m_serializer;
-
-
-  
 
 
   /** The container for the robot
@@ -92,18 +89,18 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     JoystickButton DeployIntakeButton = new JoystickButton(m_operatorJoystick, 1);
-    
-    DeployIntakeButton.whenHeld(DeployIntakeCommand);
-    JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
+    JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 2);
     JoystickButton launchButton = new JoystickButton(m_operatorJoystick,6);
 
+    JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
+    
+    
 
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
-    
-    launchButton.whenHeld(launchCommand);
-    JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 2);
-    serializerButton.whenHeld(this.m_launchSerializer);
 
+    DeployIntakeButton.whenHeld(DeployIntakeCommand);
+    serializerButton.whenHeld(this.m_launchSerializer);
+    launchButton.whenHeld(launchCommand);
   }
 
   /**
