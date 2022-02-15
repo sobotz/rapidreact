@@ -23,7 +23,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class ClimbCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ClimbSubsystem m_climbSubsystem;
-  //private final RobotContainer m_operatorJoystick;
+  private int butnum;
+ // private final RobotContainer m_operatorJoystick;
 
   /**
    * Creates a new ExampleCommand.
@@ -32,19 +33,30 @@ public class ClimbCommand extends CommandBase {
    */
   public ClimbCommand(ClimbSubsystem climbTrain, Joystick joystick) {
     m_climbSubsystem = climbTrain;
+    butnum = joystick.getPort();
     addRequirements(m_climbSubsystem);
-    //if(m_operatorJoystick.getRawButton())
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    if(butnum == 9)
+      m_climbSubsystem.rotateClockwise();
+    else if(butnum == 10)
+      m_climbSubsystem.rotateCounterclockwise();
+    else if(butnum == 8)
+      m_climbSubsystem.liftExtend();
+     else if(butnum == 7)
+      m_climbSubsystem.liftRetract();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(butnum == 9 || butnum == 10)
+      m_climbSubsystem.rotateStop();
+      else
+      m_climbSubsystem.liftStop();
   }
 
   // Called once the command ends or is interrupted.
@@ -57,6 +69,9 @@ public class ClimbCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+  }
+  public void dodo(){
+    int i = 0;
   }
 
 }
