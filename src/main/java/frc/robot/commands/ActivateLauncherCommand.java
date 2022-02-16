@@ -37,7 +37,7 @@ public class ActivateLauncherCommand extends CommandBase {
     //launcher.get_velocity maybe
     if (this.nFramesRun > 50) {
       this.launcher.startRollers();
-      this.serializer.runSerializer();
+      this.serializer.runBelt();
     }
 
     this.nFramesRun++;
@@ -49,7 +49,7 @@ public class ActivateLauncherCommand extends CommandBase {
   public void end(boolean interrupted) {
     this.launcher.stopRollers();
     this.launcher.stopLauncher();
-    this.serializer.STOP();
+    this.serializer.stopBelt();
     this.serializer.acceptingBalls = true;
   }
 

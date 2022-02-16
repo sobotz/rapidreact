@@ -36,8 +36,12 @@ public class LaunchSerializerCommand extends CommandBase {
 
     if (this.nFramesRun > 50) {
       this.serializer.runSerializer();
+      
     }
 
+    else{
+      this.serializer.stopBelt();
+    }
     this.nFramesRun++;
 
     // while (this.serializer.ballCount != 0) {
@@ -55,6 +59,7 @@ public class LaunchSerializerCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     this.nFramesRun = 0;
+    
   }
 
   // Returns true when the command should end.

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SerializerConstants;
+import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants;
 
 
@@ -28,7 +29,7 @@ public class SerializerSubsystem extends SubsystemBase {
 
   // Initializes variables that wiil be used in the program
   public double ballCount = 2.0;
-  public boolean acceptingBalls = false;
+  public boolean acceptingBalls = true;
   public boolean previousLSValue = false; // previous launcher sensor value
   public boolean previousSSValue = false; // previous serializer sensor value
   public double previousBallCount;
@@ -57,7 +58,8 @@ public class SerializerSubsystem extends SubsystemBase {
     // Puts sensor voltage values on the Smart dashboard
     //SmartDashboard.putNumber("Sensor 1: ", serializerSensor1.getVoltage()); // true
     //SmartDashboard.putNumber("Sensor 2: ", serializerSensor2.getVoltage()); // true
-    serializerMotor1.set(ControlMode.PercentOutput, ((serializerSensor1.getVoltage() < .85 || serializerSensor2.getVoltage() < .85) && launcherSensor.getVoltage() > .85 ) ? SerializerConstants.SERIALIZER_SPEED : 0);
+    
+    //serializerMotor1.set(ControlMode.PercentOutput, ((serializerSensor1.getVoltage() < .85 || serializerSensor2.getVoltage() < .85) && launcherSensor.getVoltage() > .85 ) ? SerializerConstants.SERIALIZER_SPEED : 0);
   }
   
   public void runBelt() {
@@ -65,18 +67,22 @@ public class SerializerSubsystem extends SubsystemBase {
     // serializer
     acceptingBalls = false;
     // turns serializer motor on
-    serializerMotor1.set(ControlMode.PercentOutput, -0.5);
+    serializerMotor1.set(ControlMode.PercentOutput, -SerializerConstants.SERIALIZER_SPEED);
     // lets us know if the belts are running
     //SmartDashboard.putBoolean("Belts On: ", true);
     // changes the amount of time moved forward based on the ball count
-    Timer.delay(0.5); //check
+
+    //Timer.delay(0.5); //check
+
     // turns serializer motor on
-    serializerMotor1.set(ControlMode.PercentOutput, 0);
+
+    //serializerMotor1.set(ControlMode.PercentOutput, 0);
+
     // outputs belt state to the smart dashboard
     //SmartDashboard.putBoolean("Belts On: ", false);
   }
 
-  public void STOP(){
+  public void stopBelt(){
     serializerMotor1.set(ControlMode.PercentOutput, 0);
   }
 
