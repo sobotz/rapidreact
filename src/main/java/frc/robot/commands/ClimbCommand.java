@@ -23,7 +23,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class ClimbCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ClimbSubsystem m_climbSubsystem;
-  private int butnum;
+
+  private Joystick m_joystick;
  // private final RobotContainer m_operatorJoystick;
 
   /**
@@ -33,36 +34,43 @@ public class ClimbCommand extends CommandBase {
    */
   public ClimbCommand(ClimbSubsystem climbTrain, Joystick joystick) {
     m_climbSubsystem = climbTrain;
-    butnum = joystick.getPort();
+    m_joystick = joystick;
     addRequirements(m_climbSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(butnum == 9)
+    if(m_joystick.getRawButton(9))
       m_climbSubsystem.rotateClockwise();
-    else if(butnum == 10)
+    if(m_joystick.getRawButton(10))
       m_climbSubsystem.rotateCounterclockwise();
-    else if(butnum == 8)
+    if(m_joystick.getRawButton(8))
       m_climbSubsystem.liftExtend();
-     else if(butnum == 7)
+    if(m_joystick.getRawButton(7))
       m_climbSubsystem.liftRetract();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(butnum == 9 || butnum == 10)
-      m_climbSubsystem.rotateStop();
-      else
-      m_climbSubsystem.liftStop();
+    if(m_joystick.getRawButton(9))
+      m_climbSubsystem.rotateClockwise();
+    if(m_joystick.getRawButton(10))
+      m_climbSubsystem.rotateCounterclockwise();
+    if(m_joystick.getRawButton(8))
+      m_climbSubsystem.liftExtend();
+    if(m_joystick.getRawButton(7))
+      m_climbSubsystem.liftRetract();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
+  if(!(m_joystick.getRawButton(9)) || !(m_joystick.getRawButton(10)))
+    m_climbSubsystem.rotateStop();
+  if(!(m_joystick.getRawButton(8))|| !(m_joystick.getRawButton(7)))
+    m_climbSubsystem.liftStop();
   }
 
   // Returns true when the command should end.
