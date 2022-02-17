@@ -7,25 +7,17 @@
 package frc.robot.auto;
 
 import frc.robot.subsystems.DriveSubsystem;
-// import frc.robot.subsystems.IntakeSubsystem
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.Timer;
 
-public class PathBR11 extends CommandBase {
+public class PathBR41 extends CommandBase {
   private final DriveSubsystem m_drive;
-
-  private Timer timer;
-
-  // private final IntakeSubsystem m_intake;
 
   private boolean isFinished = false;
 
-  public PathBR11(DriveSubsystem drive ) {
+  public PathBR41(DriveSubsystem drive) {
     this.m_drive = drive;
-
-    timer = new Timer();
     // initialize launcher, serializer + intake variables when import
-    // this.m_intake = intake
+
     addRequirements(this.m_drive);
   }
   @Override
@@ -36,14 +28,12 @@ public class PathBR11 extends CommandBase {
   @Override
   public void execute() {
     m_drive.testDrive(1.0); // sets speed paramater as 4 feet
-    // m_intake.runIntake(1.0); for certain amount of time
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     this.m_drive.drive(0, 0);
-    // this.m_intake.runIntake(0.0);
   }
 
   // Returns true when the command should end.
