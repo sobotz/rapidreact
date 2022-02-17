@@ -61,15 +61,15 @@ public class DriveSubsystem extends SubsystemBase {
     this.backRightController.follow(this.frontRightController);
   }
 
-  public void testDrive(double speed, double rotation, boolean joystick){
-    if (true || joystick) {
-      double targetPosition = 22788.5556*speed;
+  public void testDrive(double speed){
+    // if (true || joystick) {
+      double targetPosition = 22788.5556*speed*4; // 4 represents desired 4 feet 
 			/* 2000 RPM in either direction */
       this.frontLeftController.set(ControlMode.MotionMagic, targetPosition);
       this.backLeftController.follow(this.frontLeftController);
 
-      this.frontRightController.set(ControlMode.MotionMagic, targetPosition);
-      this.backRightController.follow(this.frontRightController);
+      this.frontRightController.set(ControlMode.MotionMagic, -targetPosition);
+      this.backRightController.follow(this.frontRightController);//}
 			/* Velocity Closed Loop */
 
 			/**
@@ -88,9 +88,9 @@ public class DriveSubsystem extends SubsystemBase {
       //   DemandType.ArbitraryFeedForward, rotation);
       // this.backRightController.follow(this.frontRightController);
 
-		} else {
+		/*} else {
 			/* Percent Output */
-      System.out.print("Button is being not pressed");
+      /*System.out.print("Button is being not pressed");
       this.frontLeftController.set(ControlMode.PercentOutput, speed,
         DemandType.ArbitraryFeedForward, rotation);
       this.backLeftController.follow(this.frontLeftController);
@@ -98,7 +98,7 @@ public class DriveSubsystem extends SubsystemBase {
       this.frontRightController.set(ControlMode.PercentOutput, -speed,
         DemandType.ArbitraryFeedForward, rotation);
       this.backRightController.follow(this.frontRightController);
-		}
+		}*/
   }
 
   public boolean shiftGear() {

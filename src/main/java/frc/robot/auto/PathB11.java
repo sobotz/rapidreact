@@ -30,7 +30,7 @@ public class PathB11 extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.testDrive(4.0, joystick.getX(), joystick.getRawButton(1)); // sets speed paramter as 4 feet
+    m_drive.testDrive(1.0); // sets speed paramater as 4 feet
   }
 
   // Called once the command ends or is interrupted.
