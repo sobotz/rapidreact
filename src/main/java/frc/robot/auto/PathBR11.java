@@ -36,7 +36,10 @@ public class PathBR11 extends CommandBase {
   @Override
   public void execute() {
     m_drive.testDrive(1.0); // sets speed paramater as 4 feet
+
+    if (timer.get() < 2){
     // m_intake.runIntake(1.0); for certain amount of time
+    }
   }
 
   // Called once the command ends or is interrupted.
