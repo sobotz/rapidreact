@@ -63,7 +63,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void testDrive(double speed){
     // if (true || joystick) {
-      double targetPosition = 22788.5556*speed*4.03125; // 48 3/8 inches desired
+      double targetPosition = 22788.5556*speed*3.37; // 48 3/8 inches desired
 			/* 2000 RPM in either direction */
       this.frontLeftController.set(ControlMode.MotionMagic, targetPosition);
       this.backLeftController.follow(this.frontLeftController);

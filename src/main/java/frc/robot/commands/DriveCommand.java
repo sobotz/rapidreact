@@ -55,7 +55,6 @@ public class DriveCommand extends CommandBase {
     this.m_drivetrain.drive(normalizedSpeed, -normalizedRotation);
     // System.out.println("Button1 : " + joystick.getRawButton(1) + " Button2 : " + joystick.getRawButton(2)+ " Button3 : " + joystick.getRawButton(3)+ " Button4 : " + joystick.getRawButton(4));
     // this.m_drivetrain.testDrive(speed, rotation, joystick.getRawButton(1));
-    System.out.println("Speed ( joystick.getY() ) value: " + speed);
   }
 
   // Called once the command ends or is interrupted.
