@@ -22,7 +22,6 @@ public class DriveSubsystem extends SubsystemBase {
   DoubleSolenoid gearShifter;
 
   boolean lowGear;
-  
 
   public DriveSubsystem() {
     this.frontLeftController = new WPI_TalonFX(Constants.DriveConstants.LEFT_FRONT_TALON);
@@ -61,9 +60,40 @@ public class DriveSubsystem extends SubsystemBase {
     this.backRightController.follow(this.frontRightController);
   }
 
-  public void testDrive(double speed){
+  public void testDrive(double speed, double distance){
+    /* Set Motion Magic gains in slot0 - see documentation */
+		/* this.frontLeftController.selectProfileSlot(Constants.kSlotIdx, Constants.kPIDLoopIdx);
+    this.frontLeftController.config_kF(Constants.kSlotIdx, Constants.kF, Constants.kTimeoutMs);
+		this.frontLeftController.config_kP(Constants.kSlotIdx, Constants.kP, Constants.kTimeoutMs);
+		this.frontLeftController.config_kI(Constants.kSlotIdx, Constants.kI, Constants.kTimeoutMs);
+		this.frontLeftController.config_kD(Constants.kSlotIdx, Constants.kD, Constants.kTimeoutMs);
+    this.backLeftController.follow(this.frontLeftController);
+
+    this.frontRightController.selectProfileSlot(Constants.kSlotIdx, Constants.kPIDLoopIdx);
+    this.frontRightController.config_kF(Constants.kSlotIdx, Constants.kF, Constants.kTimeoutMs);
+		this.frontRightController.config_kP(Constants.kSlotIdx, Constants.kP, Constants.kTimeoutMs);
+		this.frontRightController.config_kI(Constants.kSlotIdx, Constants.kI, Constants.kTimeoutMs);
+		this.frontRightController.config_kD(Constants.kSlotIdx, Constants.kD, Constants.kTimeoutMs);
+    this.backRightController.follow(this.frontRightController);
+
+    /* Set acceleration and vcruise velocity - see documentation 
+		this.frontLeftController.configMotionCruiseVelocity(11000, Constants.kTimeoutMs);
+		this.frontLeftController.configMotionAcceleration(11000, Constants.kTimeoutMs);
+    this.backLeftController.follow(this.frontLeftController);
+
+    this.frontRightController.configMotionCruiseVelocity(11000, Constants.kTimeoutMs);
+		this.frontRightController.configMotionAcceleration(11000, Constants.kTimeoutMs);
+    this.backRightController.follow(this.frontRightController);
+
+    /* Zero the sensor once on robot boot up 
+		this.frontLeftController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+    this.backLeftController.follow(this.frontLeftController);
+
+    this.frontRightController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+    this.backRightController.follow(this.frontRightController);*/
+
     // if (true || joystick) {
-      double targetPosition = 22788.5556*speed*3.37; // 48 3/8 inches desired
+      double targetPosition = 22788.5556*speed*distance; // 48 3/8 inches desired
 			/* 2000 RPM in either direction */
       this.frontLeftController.set(ControlMode.MotionMagic, targetPosition);
       this.backLeftController.follow(this.frontLeftController);

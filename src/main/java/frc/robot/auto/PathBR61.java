@@ -11,7 +11,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 
-public class PathBR11 extends CommandBase {
+public class PathBR61 extends CommandBase {
   private final DriveSubsystem m_drive;
 
   private Timer timer;
@@ -20,7 +20,7 @@ public class PathBR11 extends CommandBase {
 
   private boolean isFinished = false;
 
-  public PathBR11(DriveSubsystem drive ) {
+  public PathBR61(DriveSubsystem drive ) {
     this.m_drive = drive;
 
     timer = new Timer();
@@ -35,7 +35,7 @@ public class PathBR11 extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.testDrive(-1.0, 4.0); // sets speed paramater as 4 feet
+    m_drive.testDrive(-1.0, 3.25); // sets speed paramater as 4 feet
 
     // if (timer.get() < 2){
     // m_intake.runIntake(1.0); for certain amount of time

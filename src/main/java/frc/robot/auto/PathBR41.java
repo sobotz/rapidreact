@@ -27,7 +27,7 @@ public class PathBR41 extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.testDrive(1.0); // sets speed paramater as 4 feet
+    m_drive.testDrive(-1.0, 4.0); // sets speed paramater as 4 feet
   }
 
   // Called once the command ends or is interrupted.
