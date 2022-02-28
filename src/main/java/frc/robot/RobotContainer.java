@@ -4,11 +4,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.LiftCommand;
 import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -34,9 +36,11 @@ public class RobotContainer {
 
   public static Joystick m_operatorJoystick;
 
-  public static ClimbCommand m_climbCommand;
+  public static LiftCommand m_liftCommand;
 
   public static ClimbSubsystem m_climbSubsystem;
+
+  public static DoubleSolenoid m_armLock;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -52,7 +56,7 @@ public class RobotContainer {
 
     this.configureButtonBindings();
 
-    this.m_climbCommand = new ClimbCommand(this.m_climbSubsystem, this.m_operatorJoystick);
+    this.m_liftCommand = new LiftCommand(this.m_climbSubsystem, this.m_operatorJoystick);
   }
 
   /**
@@ -66,11 +70,11 @@ public class RobotContainer {
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
 
     // random button
-    JoystickButton rotateMotorButton = new JoystickButton(this.m_operatorJoystick, 9);
-    rotateMotorButton.whileHeld(this.m_climbCommand);
+    JoystickButton liftRetractMotorButton = new JoystickButton(this.m_operatorJoystick, 9);
+    liftRetractMotorButton.whileHeld(this.m_liftCommand);
 
-    JoystickButton liftMotorButton = new JoystickButton(this.m_operatorJoystick, 8);
-    liftMotorButton.whileHeld(this.m_climbCommand);
+    JoystickButton liftExtendMotorButton = new JoystickButton(this.m_operatorJoystick, 8);
+    liftExtendMotorButton.whileHeld(this.m_liftCommand);
   }
 
   /**

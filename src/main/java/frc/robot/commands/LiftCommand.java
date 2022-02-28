@@ -14,13 +14,15 @@ import java.security.acl.Group;
 
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /** An example command that uses an example subsystem. */
-public class ClimbCommand extends CommandBase {
+public class LiftCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ClimbSubsystem m_climbSubsystem;
 
@@ -32,7 +34,7 @@ public class ClimbCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ClimbCommand(ClimbSubsystem climbTrain, Joystick joystick) {
+  public LiftCommand(ClimbSubsystem climbTrain, Joystick joystick) {
     m_climbSubsystem = climbTrain;
     m_joystick = joystick;
     addRequirements(m_climbSubsystem);
@@ -41,10 +43,8 @@ public class ClimbCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(m_joystick.getRawButton(8))
-      m_climbSubsystem.liftExtend();
-    if(m_joystick.getRawButton(7))
-      m_climbSubsystem.liftRetract();
+    m_climbSubsystem.armLock();
+    new WaitCommand(0.2);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -52,26 +52,22 @@ public class ClimbCommand extends CommandBase {
   public void execute() {
     if(m_joystick.getRawButton(8))
       m_climbSubsystem.liftExtend();
-    if(m_joystick.getRawButton(7))
+    if(m_joystick.getRawButton(9))
       m_climbSubsystem.liftRetract();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  if(!(m_joystick.getRawButton(9)) || !(m_joystick.getRawButton(10)))
-    m_climbSubsystem.rotateStop();
-  if(!(m_joystick.getRawButton(8))|| !(m_joystick.getRawButton(7)))
     m_climbSubsystem.liftStop();
+    new WaitCommand(0.2);
+    m_climbSubsystem.armLock();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
-  }
-  public void dodo(){
-    int i = 0;
   }
 
 }

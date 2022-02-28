@@ -34,5 +34,8 @@ public final class Constants {
 
         public static final int ROTATE_SPEED = 990;
         public static final int LIFT_SPEED = 0;
+
+        public static final int ARM_LOCK_DEPLOY = 1;
+        public static final int ARM_LOCK_RETRACT = 0;
     }
 }
