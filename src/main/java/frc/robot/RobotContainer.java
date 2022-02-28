@@ -72,9 +72,10 @@ public class RobotContainer {
     m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
     m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
 
-    m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
+    
   
-    DeployIntakeCommand = new DeployIntakeCommand(m_intake);  
+    DeployIntakeCommand = new DeployIntakeCommand(m_intake, m_serializer);  
+    m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
     launchCommand = new ActivateLauncherCommand(m_serializer, m_launcher);
     
     // m_driveCommand = new DriveCommand(m_drivetrain, m_driverJoystick.getRawAxis(0), m_driverJoystick.getRawAxis(1));

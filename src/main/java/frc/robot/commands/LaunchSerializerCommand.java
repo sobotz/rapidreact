@@ -35,7 +35,7 @@ public class LaunchSerializerCommand extends CommandBase {
   public void execute() {
 
     if (this.nFramesRun > 50) {
-      this.serializer.runSerializer();
+      this.serializer.runSerializer(1);
       
     }
 

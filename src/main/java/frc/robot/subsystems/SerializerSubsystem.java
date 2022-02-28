@@ -34,17 +34,21 @@ public class SerializerSubsystem extends SubsystemBase {
   public boolean previousSSValue = false; // previous serializer sensor value
   public double previousBallCount;
 
+  public boolean hasDeployedSerializer;
+
   public SerializerSubsystem() {
+    
     // instantiates sensor values with respect to the contants method
-    serializerSensor1 = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_1);
-    serializerSensor2 = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_2);
+    //serializerSensor1 = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_1);
+    //serializerSensor2 = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_2);
     launcherSensor = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_3);
     SmartDashboard.putNumber("Ball Count: ", ballCount);
 
     
     this.serializerMotor1 = new WPI_TalonSRX(SerializerConstants.SERIALIZER_MOTOR);
     serializerMotor1.configFactoryDefault();
-    
+
+    hasDeployedSerializer = false;
     // serializerMotor = new WPI_TalonFX(Constants.SERIALIZER_MOTOR);
   }
 
@@ -67,7 +71,7 @@ public class SerializerSubsystem extends SubsystemBase {
     // serializer
     acceptingBalls = false;
     // turns serializer motor on
-    serializerMotor1.set(ControlMode.PercentOutput, -SerializerConstants.SERIALIZER_SPEED);
+    serializerMotor1.set(ControlMode.PercentOutput, -10);
     // lets us know if the belts are running
     //SmartDashboard.putBoolean("Belts On: ", true);
     // changes the amount of time moved forward based on the ball count
@@ -102,7 +106,17 @@ public class SerializerSubsystem extends SubsystemBase {
     }
   }
   
-  public void runSerializer(){
-    serializerMotor1.set(ControlMode.PercentOutput, SerializerConstants.SERIALIZER_SPEED);
+  public void runSerializer(double speedd){
+    serializerMotor1.set(ControlMode.PercentOutput, -speedd *SerializerConstants.SERIALIZER_SPEED);
+  }
+  public void toggleSerializer(){
+    if (hasDeployedSerializer) {
+      runSerializer(0);
+      hasDeployedSerializer = false;
+    } else {
+      runSerializer(1);
+      hasDeployedSerializer = true;
+    }
+    
   }
 }
