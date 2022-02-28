@@ -11,6 +11,7 @@ import frc.robot.commands.ActivateLauncherCommand;
 import frc.robot.commands.DeployIntakeCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.LaunchSerializerCommand;
+import frc.robot.commands.ReverseSerializerCommand;
 import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
@@ -41,6 +42,7 @@ public class RobotContainer {
 
   public static DeployIntakeCommand DeployIntakeCommand;
   private final LaunchSerializerCommand m_launchSerializer;
+  private final ReverseSerializerCommand ReverseSerializer;
   private final ActivateLauncherCommand launchCommand;
 
   
@@ -76,6 +78,7 @@ public class RobotContainer {
   
     DeployIntakeCommand = new DeployIntakeCommand(m_intake, m_serializer);  
     m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
+    m_reverseSerializer = new ReverseSerializerCommand
     launchCommand = new ActivateLauncherCommand(m_serializer, m_launcher);
     
     // m_driveCommand = new DriveCommand(m_drivetrain, m_driverJoystick.getRawAxis(0), m_driverJoystick.getRawAxis(1));

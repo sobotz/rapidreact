@@ -39,8 +39,8 @@ public class SerializerSubsystem extends SubsystemBase {
   public SerializerSubsystem() {
     
     // instantiates sensor values with respect to the contants method
-    //serializerSensor1 = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_1);
-    //serializerSensor2 = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_2);
+    serializerSensor1 = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_1);
+    serializerSensor2 = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_2);
     launcherSensor = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_3);
     SmartDashboard.putNumber("Ball Count: ", ballCount);
 
@@ -63,7 +63,7 @@ public class SerializerSubsystem extends SubsystemBase {
     //SmartDashboard.putNumber("Sensor 1: ", serializerSensor1.getVoltage()); // true
     //SmartDashboard.putNumber("Sensor 2: ", serializerSensor2.getVoltage()); // true
     
-    //serializerMotor1.set(ControlMode.PercentOutput, ((serializerSensor1.getVoltage() < .85 || serializerSensor2.getVoltage() < .85) && launcherSensor.getVoltage() > .85 ) ? SerializerConstants.SERIALIZER_SPEED : 0);
+    serializerMotor1.set(ControlMode.PercentOutput, ((serializerSensor1.getVoltage() < .85 || serializerSensor2.getVoltage() < .85) && launcherSensor.getVoltage() > .85 ) ? -SerializerConstants.SERIALIZER_SPEED : 0);
   }
   
   public void runBelt() {
