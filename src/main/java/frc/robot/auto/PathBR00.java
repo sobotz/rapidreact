@@ -8,14 +8,14 @@ import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 
-public class PathB00 extends CommandBase {
+public class PathBR00 extends CommandBase {
   private final DriveSubsystem m_drive;
 
   private boolean isFinished = false;
 
   private Timer timer;
 
-  public PathB00(DriveSubsystem drive) {
+  public PathBR00(DriveSubsystem drive) {
     this.m_drive = drive;
     this.timer = new Timer();
 
