@@ -42,7 +42,7 @@ public class RobotContainer {
 
   public static DeployIntakeCommand DeployIntakeCommand;
   private final LaunchSerializerCommand m_launchSerializer;
-  private final ReverseSerializerCommand ReverseSerializer;
+  private final ReverseSerializerCommand reverseSerializerCommand;
   private final ActivateLauncherCommand launchCommand;
 
   
@@ -78,7 +78,7 @@ public class RobotContainer {
   
     DeployIntakeCommand = new DeployIntakeCommand(m_intake, m_serializer);  
     m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
-    m_reverseSerializer = new ReverseSerializerCommand
+    reverseSerializerCommand = new ReverseSerializerCommand(m_intake, m_serializer);
     launchCommand = new ActivateLauncherCommand(m_serializer, m_launcher);
     
     // m_driveCommand = new DriveCommand(m_drivetrain, m_driverJoystick.getRawAxis(0), m_driverJoystick.getRawAxis(1));
@@ -94,6 +94,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     JoystickButton DeployIntakeButton = new JoystickButton(m_operatorJoystick, 1);
     JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 2);
+    JoystickButton reverseSerializerButton = new JoystickButton(m_operatorJoystick,3);
     JoystickButton launchButton = new JoystickButton(m_operatorJoystick,6);
 
     JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
@@ -104,6 +105,7 @@ public class RobotContainer {
 
     DeployIntakeButton.whenHeld(DeployIntakeCommand);
     serializerButton.whenHeld(this.m_launchSerializer);
+    reverseSerializerButton.whenHeld(reverseSerializerCommand);
     launchButton.whenHeld(launchCommand);
   }
 

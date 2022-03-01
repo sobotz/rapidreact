@@ -90,20 +90,20 @@ public class SerializerSubsystem extends SubsystemBase {
     serializerMotor1.set(ControlMode.PercentOutput, 0);
   }
 
-  public void ReverseBelt() {
+  public void reverseBelt() {
     // runs belts until sensor at the start of the serializer is triggered
-    if (serializerSensor2.getVoltage() < .85) {
+    //if (serializerSensor2.getVoltage() < .85) {
       // starts belts in inverse
-      serializerMotor1.set(ControlMode.PercentOutput, SerializerConstants.SERIALIZER_SPEED);
+    serializerMotor1.set(ControlMode.PercentOutput, SerializerConstants.SERIALIZER_SPEED);
       //SmartDashboard.putBoolean("Belts On: ", true);
-    } else {
+    //} else {
      // stops belts
-    serializerMotor1.set(ControlMode.PercentOutput, 0);
+    //serializerMotor1.set(ControlMode.PercentOutput, 0);
     // outputs belt states to the smart dashboard
     //SmartDashboard.putBoolean("Belts On: ", false);
     // allows balls to be intaken again
     acceptingBalls = true; 
-    }
+    //}
   }
   
   public void runSerializer(double speedd){
