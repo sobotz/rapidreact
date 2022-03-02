@@ -42,7 +42,7 @@ public class RobotContainer {
 
 
   public static DeployIntakeCommand DeployIntakeCommand;
-  private final LaunchSerializerCommand m_launchSerializer;
+  private final LaunchSerializerCommand launchSerializerCommand;
   private final ReverseSerializerCommand reverseSerializerCommand;
   private final ActivateLauncherCommand launchCommand;
   private final PurgeLauncherCommand purgeLaunchCommand;
@@ -79,7 +79,7 @@ public class RobotContainer {
     
   
     DeployIntakeCommand = new DeployIntakeCommand(m_intake, m_serializer);  
-    m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
+    launchSerializerCommand = new LaunchSerializerCommand(this.m_serializer);
     reverseSerializerCommand = new ReverseSerializerCommand(m_intake, m_serializer);
     launchCommand = new ActivateLauncherCommand(m_serializer, m_launcher);
     purgeLaunchCommand = new PurgeLauncherCommand(m_serializer,m_launcher);
@@ -94,9 +94,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton DeployIntakeButton = new JoystickButton(m_operatorJoystick, 1);
-    JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 2);
-    JoystickButton reverseSerializerButton = new JoystickButton(m_operatorJoystick,3);
+    JoystickButton DeployIntakeButton = new JoystickButton(m_operatorJoystick, 4);
+    JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 3);
+    JoystickButton reverseSerializerButton = new JoystickButton(m_operatorJoystick, 2);
     JoystickButton launchButton = new JoystickButton(m_operatorJoystick,6);
     JoystickButton purgeLaunchButton = new JoystickButton(m_operatorJoystick,5);
     JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
@@ -106,7 +106,7 @@ public class RobotContainer {
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
 
     DeployIntakeButton.whenHeld(DeployIntakeCommand);
-    serializerButton.whenHeld(this.m_launchSerializer);
+    serializerButton.whenHeld(this.launchSerializerCommand);
     reverseSerializerButton.whenHeld(reverseSerializerCommand);
     launchButton.whenHeld(launchCommand);
     purgeLaunchButton.whenHeld(purgeLaunchCommand);
