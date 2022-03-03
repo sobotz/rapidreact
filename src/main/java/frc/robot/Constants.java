@@ -48,8 +48,9 @@ public final class Constants {
 	    public static final double SERIALIZER_SPEED = 0.3;
     }
     public static final class LauncherConstants {
-		public static final int LAUNCHER_MOTOR_1 = 5;
-		public static final int LAUNCHER_MOTOR_2 = 6;
+		public static final int LAUNCHER_MOTOR_1 = 0;
+        // ADD PORT WHEN MOTOR IS WIRED
+		public static final int LAUNCHER_MOTOR_2 = 1000;
         public static final int ROLLER_MOTOR = 10;
     }
     

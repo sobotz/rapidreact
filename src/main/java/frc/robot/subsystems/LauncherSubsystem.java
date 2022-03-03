@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -18,8 +19,13 @@ public class LauncherSubsystem extends SubsystemBase {
   WPI_TalonSRX feedMotor;
   public LauncherSubsystem() {
     launcherMotor = new WPI_TalonFX(LauncherConstants.LAUNCHER_MOTOR_1);
-    launcherMotor2 = new WPI_TalonFX(LauncherConstants.LAUNCHER_MOTOR_2);
+    //launcherMotor2 = new WPI_TalonFX(LauncherConstants.LAUNCHER_MOTOR_2);
     feedMotor = new WPI_TalonSRX(LauncherConstants.ROLLER_MOTOR);
+    
+    launcherMotor.setInverted(true);
+    launcherMotor2.follow(launcherMotor);
+
+    launcherMotor2.setInverted(InvertType.OpposeMaster);
 
     launcherMotor.configFactoryDefault();
     launcherMotor2.configFactoryDefault();
@@ -36,13 +42,10 @@ public class LauncherSubsystem extends SubsystemBase {
 
   public void startLauncher() {
     launcherMotor.set(ControlMode.PercentOutput, 1);
-    launcherMotor.setInverted(true);
-    launcherMotor2.follow(launcherMotor);
   }
 
   public void stopLauncher() {
     launcherMotor.set(ControlMode.Velocity, 0);
-    launcherMotor2.set(ControlMode.Velocity, 0);
   }
 
 }
