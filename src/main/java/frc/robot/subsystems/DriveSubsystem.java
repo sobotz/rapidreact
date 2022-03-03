@@ -41,6 +41,50 @@ public class DriveSubsystem extends SubsystemBase {
     this.backLeftController.configFactoryDefault();
     this.backRightController.configFactoryDefault();
 
+     /* Set Motion Magic gains in slot0 - see documentation */
+		this.frontLeftController.selectProfileSlot(Constants.kSlotIdx, Constants.kPIDLoopIdx);
+    this.frontLeftController.config_kF(Constants.kSlotIdx, Constants.kF, Constants.kTimeoutMs);
+		this.frontLeftController.config_kP(Constants.kSlotIdx, Constants.kP, Constants.kTimeoutMs);
+		this.frontLeftController.config_kI(Constants.kSlotIdx, Constants.kI, Constants.kTimeoutMs);
+		this.frontLeftController.config_kD(Constants.kSlotIdx, Constants.kD, Constants.kTimeoutMs);
+    // this.backLeftController.follow(this.frontLeftController);
+    this.backLeftController.selectProfileSlot(Constants.kSlotIdx, Constants.kPIDLoopIdx);
+    this.backLeftController.config_kF(Constants.kSlotIdx, Constants.kF, Constants.kTimeoutMs);
+		this.backLeftController.config_kP(Constants.kSlotIdx, Constants.kP, Constants.kTimeoutMs);
+		this.backLeftController.config_kI(Constants.kSlotIdx, Constants.kI, Constants.kTimeoutMs);
+		this.backLeftController.config_kD(Constants.kSlotIdx, Constants.kD, Constants.kTimeoutMs);
+
+    this.frontRightController.selectProfileSlot(Constants.kSlotIdx, Constants.kPIDLoopIdx);
+    this.frontRightController.config_kF(Constants.kSlotIdx, Constants.kF, Constants.kTimeoutMs);
+		this.frontRightController.config_kP(Constants.kSlotIdx, Constants.kP, Constants.kTimeoutMs);
+		this.frontRightController.config_kI(Constants.kSlotIdx, Constants.kI, Constants.kTimeoutMs);
+		this.frontRightController.config_kD(Constants.kSlotIdx, Constants.kD, Constants.kTimeoutMs);
+    // this.backRightController.follow(this.frontRightController);
+    this.backRightController.selectProfileSlot(Constants.kSlotIdx, Constants.kPIDLoopIdx);
+    this.backRightController.config_kF(Constants.kSlotIdx, Constants.kF, Constants.kTimeoutMs);
+		this.backRightController.config_kP(Constants.kSlotIdx, Constants.kP, Constants.kTimeoutMs);
+		this.backRightController.config_kI(Constants.kSlotIdx, Constants.kI, Constants.kTimeoutMs);
+		this.backRightController.config_kD(Constants.kSlotIdx, Constants.kD, Constants.kTimeoutMs);
+
+    /* Set acceleration and vcruise velocity - see documentation */
+		this.frontLeftController.configMotionCruiseVelocity(11000, Constants.kTimeoutMs);
+		this.frontLeftController.configMotionAcceleration(11000, Constants.kTimeoutMs);
+    // this.backLeftController.follow(this.frontLeftController);
+    this.backLeftController.configMotionCruiseVelocity(11000, Constants.kTimeoutMs);
+		this.backLeftController.configMotionAcceleration(11000, Constants.kTimeoutMs);
+
+    this.frontRightController.configMotionCruiseVelocity(11000, Constants.kTimeoutMs);
+		this.frontRightController.configMotionAcceleration(11000, Constants.kTimeoutMs);
+    // this.backRightController.follow(this.frontRightController);
+    this.backRightController.configMotionCruiseVelocity(11000, Constants.kTimeoutMs);
+		this.backRightController.configMotionAcceleration(11000, Constants.kTimeoutMs);
+
+    /* Zero the sensor once on robot boot up */
+		this.frontRightController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+    this.backRightController.follow(this.frontRightController);
+    this.frontLeftController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+    this.backLeftController.follow(this.frontLeftController);
+
     // this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY,
        // Constants.DriveConstants.GEAR_SHIFT_RETRACT);
     
@@ -61,36 +105,6 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void testDrive(double speed, double distance){
-    /* Set Motion Magic gains in slot0 - see documentation */
-		/* this.frontLeftController.selectProfileSlot(Constants.kSlotIdx, Constants.kPIDLoopIdx);
-    this.frontLeftController.config_kF(Constants.kSlotIdx, Constants.kF, Constants.kTimeoutMs);
-		this.frontLeftController.config_kP(Constants.kSlotIdx, Constants.kP, Constants.kTimeoutMs);
-		this.frontLeftController.config_kI(Constants.kSlotIdx, Constants.kI, Constants.kTimeoutMs);
-		this.frontLeftController.config_kD(Constants.kSlotIdx, Constants.kD, Constants.kTimeoutMs);
-    this.backLeftController.follow(this.frontLeftController);
-
-    this.frontRightController.selectProfileSlot(Constants.kSlotIdx, Constants.kPIDLoopIdx);
-    this.frontRightController.config_kF(Constants.kSlotIdx, Constants.kF, Constants.kTimeoutMs);
-		this.frontRightController.config_kP(Constants.kSlotIdx, Constants.kP, Constants.kTimeoutMs);
-		this.frontRightController.config_kI(Constants.kSlotIdx, Constants.kI, Constants.kTimeoutMs);
-		this.frontRightController.config_kD(Constants.kSlotIdx, Constants.kD, Constants.kTimeoutMs);
-    this.backRightController.follow(this.frontRightController);
-
-    /* Set acceleration and vcruise velocity - see documentation 
-		this.frontLeftController.configMotionCruiseVelocity(11000, Constants.kTimeoutMs);
-		this.frontLeftController.configMotionAcceleration(11000, Constants.kTimeoutMs);
-    this.backLeftController.follow(this.frontLeftController);
-
-    this.frontRightController.configMotionCruiseVelocity(11000, Constants.kTimeoutMs);
-		this.frontRightController.configMotionAcceleration(11000, Constants.kTimeoutMs);
-    this.backRightController.follow(this.frontRightController);
-
-    /* Zero the sensor once on robot boot up 
-		this.frontLeftController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-    this.backLeftController.follow(this.frontLeftController);
-
-    this.frontRightController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-    this.backRightController.follow(this.frontRightController);*/
 
     // if (true || joystick) {
       double targetPosition = 22788.5556*speed*distance; // 48 3/8 inches desired
