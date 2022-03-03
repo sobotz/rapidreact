@@ -40,7 +40,7 @@ public class RobotContainer {
 
   public static ClimbSubsystem m_climbSubsystem;
 
-  public static DoubleSolenoid m_armLock;
+  public static ArmReleaseCommand m_armReleaseCommand;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -57,6 +57,8 @@ public class RobotContainer {
     this.configureButtonBindings();
 
     this.m_liftCommand = new LiftCommand(this.m_climbSubsystem, this.m_operatorJoystick);
+
+    this.m_armReleaseCommand = new ArmReleaseCommand(this.m_climbSubsystem);
   }
 
   /**
@@ -75,6 +77,9 @@ public class RobotContainer {
 
     JoystickButton liftExtendMotorButton = new JoystickButton(this.m_operatorJoystick, 8);
     liftExtendMotorButton.whileHeld(this.m_liftCommand);
+
+    JoystickButton armReleaseButton = new JoystickButton(this.m_operatorJoystick, 11);
+    armReleaseButton.whenPressed(this.m_armReleaseCommand);
   }
 
   /**
