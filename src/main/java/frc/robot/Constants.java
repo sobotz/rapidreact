@@ -39,10 +39,19 @@ public final class Constants {
         // Sets the sensitivity of the joystick, higher constant = more gradual acceleration
         // TO REVERT TO LINEAR ACCELERATION SET TO 1
     // public static final double ACCELERATION_CONSTANT = 2;
-    public static final int SERIALIZER_SENSOR_1 = 0;
-    public static final int SERIALIZER_SENSOR_2 = 1;
-    public static final int SERIALIZER_SENSOR_3 = 2;
-    public static final int SERIALIZER_MOTOR = 7;
-    public static final int FEED_MOTOR = 10;
-	  public static final double SERIALIZER_SPEED = 0.3;
+    public static final class SerializerConstants{
+        public static final int SERIALIZER_SENSOR_1 = 0;
+        public static final int SERIALIZER_SENSOR_2 = 1;
+        public static final int SERIALIZER_SENSOR_3 = 2;
+        public static final int SERIALIZER_MOTOR = 7;
+        public static final int FEED_MOTOR = 10;
+	    public static final double SERIALIZER_SPEED = 0.3;
+    }
+    public static final class LauncherConstants {
+		public static final int LAUNCHER_MOTOR_1 = 5;
+		public static final int LAUNCHER_MOTOR_2 = 6;
+        public static final int ROLLER_MOTOR = 10;
+    }
+    
+	
 }

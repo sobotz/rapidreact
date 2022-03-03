@@ -9,7 +9,10 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.SerializerConstants;
+import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants;
+
 
 public class SerializerSubsystem extends SubsystemBase {
   /**
@@ -26,22 +29,26 @@ public class SerializerSubsystem extends SubsystemBase {
 
   // Initializes variables that wiil be used in the program
   public double ballCount = 2.0;
-  public boolean acceptingBalls = false;
+  public boolean acceptingBalls = true;
   public boolean previousLSValue = false; // previous launcher sensor value
   public boolean previousSSValue = false; // previous serializer sensor value
   public double previousBallCount;
 
+  public boolean hasDeployedSerializer;
+
   public SerializerSubsystem() {
+    
     // instantiates sensor values with respect to the contants method
-    serializerSensor1 = new AnalogInput(Constants.SERIALIZER_SENSOR_1);
-    serializerSensor2 = new AnalogInput(Constants.SERIALIZER_SENSOR_2);
-    launcherSensor = new AnalogInput(Constants.SERIALIZER_SENSOR_3);
+    serializerSensor1 = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_1);
+    serializerSensor2 = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_2);
+    launcherSensor = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_3);
     SmartDashboard.putNumber("Ball Count: ", ballCount);
 
     
-    this.serializerMotor1 = new WPI_TalonSRX(Constants.SERIALIZER_MOTOR);
+    this.serializerMotor1 = new WPI_TalonSRX(SerializerConstants.SERIALIZER_MOTOR);
     serializerMotor1.configFactoryDefault();
-    
+
+    hasDeployedSerializer = false;
     // serializerMotor = new WPI_TalonFX(Constants.SERIALIZER_MOTOR);
   }
 
@@ -55,46 +62,61 @@ public class SerializerSubsystem extends SubsystemBase {
     // Puts sensor voltage values on the Smart dashboard
     //SmartDashboard.putNumber("Sensor 1: ", serializerSensor1.getVoltage()); // true
     //SmartDashboard.putNumber("Sensor 2: ", serializerSensor2.getVoltage()); // true
-    serializerMotor1.set(ControlMode.PercentOutput, ((serializerSensor1.getVoltage() < .85 || serializerSensor2.getVoltage() < .85) && launcherSensor.getVoltage() > .85 ) ? -Constants.SERIALIZER_SPEED : 0);
+    
+    serializerMotor1.set(ControlMode.PercentOutput, ((serializerSensor1.getVoltage() < .85 || serializerSensor2.getVoltage() < .85) && launcherSensor.getVoltage() > .85 ) ? -SerializerConstants.SERIALIZER_SPEED : 0);
   }
   
-  public void moveBeltsForward() {
+  public void runBelt() {
     // accepting balls is set to false to stop incorrect ball placement in the
     // serializer
     acceptingBalls = false;
     // turns serializer motor on
-    serializerMotor1.set(ControlMode.PercentOutput, -0.5);
+    serializerMotor1.set(ControlMode.PercentOutput, -10);
     // lets us know if the belts are running
     //SmartDashboard.putBoolean("Belts On: ", true);
     // changes the amount of time moved forward based on the ball count
-    Timer.delay(0.5); //check
+
+    //Timer.delay(0.5); //check
+
     // turns serializer motor on
-    serializerMotor1.set(ControlMode.PercentOutput, 0);
+
+    //serializerMotor1.set(ControlMode.PercentOutput, 0);
+
     // outputs belt state to the smart dashboard
     //SmartDashboard.putBoolean("Belts On: ", false);
   }
 
-  public void STOP(){
+  public void stopBelt(){
     serializerMotor1.set(ControlMode.PercentOutput, 0);
   }
 
-  public void moveBack() {
+  public void reverseBelt() {
     // runs belts until sensor at the start of the serializer is triggered
-    if (serializerSensor2.getVoltage() < .85) {
+    //if (serializerSensor2.getVoltage() < .85) {
       // starts belts in inverse
-      serializerMotor1.set(ControlMode.PercentOutput, -Constants.SERIALIZER_SPEED);
+    serializerMotor1.set(ControlMode.PercentOutput, SerializerConstants.SERIALIZER_SPEED);
       //SmartDashboard.putBoolean("Belts On: ", true);
-    } else {
+    //} else {
      // stops belts
-    serializerMotor1.set(ControlMode.PercentOutput, 0);
+    //serializerMotor1.set(ControlMode.PercentOutput, 0);
     // outputs belt states to the smart dashboard
     //SmartDashboard.putBoolean("Belts On: ", false);
     // allows balls to be intaken again
     acceptingBalls = true; 
-    }
+    //}
   }
   
-  public void runSerializer(){
-    serializerMotor1.set(ControlMode.PercentOutput, -Constants.SERIALIZER_SPEED);
+  public void runSerializer(double speedd){
+    serializerMotor1.set(ControlMode.PercentOutput, -speedd *SerializerConstants.SERIALIZER_SPEED);
+  }
+  public void toggleSerializer(){
+    if (hasDeployedSerializer) {
+      runSerializer(0);
+      hasDeployedSerializer = false;
+    } else {
+      runSerializer(1);
+      hasDeployedSerializer = true;
+    }
+    
   }
 }

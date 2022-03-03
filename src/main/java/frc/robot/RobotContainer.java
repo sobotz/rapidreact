@@ -11,6 +11,7 @@ import frc.robot.commands.ActivateLauncherCommand;
 import frc.robot.commands.DeployIntakeCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.LaunchSerializerCommand;
+import frc.robot.commands.ReverseSerializerCommand;
 import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
@@ -28,23 +29,19 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_drivetrain;
+  private final IntakeSubsystem m_intake;
+  private SerializerSubsystem m_serializer;
+  private LauncherSubsystem m_launcher;
+
+
 
   private final DriveCommand m_driveCommand;
-
-
-  private final IntakeSubsystem m_intake;
-
-
   private final ShiftGearCommand m_shiftGearCommand;
 
-  private final ActivateLauncherCommand launchCommand;
-
-  private final LaunchSerializerCommand m_launchSerializer;
-
-  public static Joystick m_driverJoystick;
-  private Joystick m_operatorJoystick;
-  
   public static DeployIntakeCommand DeployIntakeCommand;
+  private final LaunchSerializerCommand m_launchSerializer;
+  private final ReverseSerializerCommand reverseSerializerCommand;
+  private final ActivateLauncherCommand launchCommand;
 
 
   
@@ -52,6 +49,8 @@ public class RobotContainer {
   private LauncherSubsystem m_launcher;
 
 
+  public static Joystick m_driverJoystick;
+  public Joystick m_operatorJoystick;
 
   /** The container for the robot
    * ++. Contains subsystems, OI devices, and commands. */
@@ -62,20 +61,20 @@ public class RobotContainer {
     m_operatorJoystick = new Joystick(1);
     
 
-    this.m_drivetrain = new DriveSubsystem();
-    m_launcher = new LauncherSubsystem();
+    m_drivetrain = new DriveSubsystem();
+    m_intake = new IntakeSubsystem();
     m_serializer = new SerializerSubsystem();
+    m_launcher = new LauncherSubsystem();
 
+    m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
+    m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
 
-    this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
-    this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
-    launchCommand = new ActivateLauncherCommand(m_serializer, m_launcher);
     
-    this.configureButtonBindings();
-    this.m_serializer = new SerializerSubsystem();
-    this.m_driverJoystick = new Joystick(0);
-    this.m_operatorJoystick = new Joystick(1);
-    this.m_drivetrain = new DriveSubsystem();
+  
+    DeployIntakeCommand = new DeployIntakeCommand(m_intake, m_serializer);  
+    m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
+    reverseSerializerCommand = new ReverseSerializerCommand(m_intake, m_serializer);
+    launchCommand = new ActivateLauncherCommand(m_serializer, m_launcher);
     
     this.m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
   
@@ -94,18 +93,20 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     JoystickButton DeployIntakeButton = new JoystickButton(m_operatorJoystick, 1);
-    
-    DeployIntakeButton.whenHeld(DeployIntakeCommand);
-    JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
+    JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 2);
+    JoystickButton reverseSerializerButton = new JoystickButton(m_operatorJoystick,3);
     JoystickButton launchButton = new JoystickButton(m_operatorJoystick,6);
 
+    JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
+    
+    
 
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
-    
-    launchButton.whenHeld(launchCommand);
-    JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 2);
-    serializerButton.whenHeld(this.m_launchSerializer);
 
+    DeployIntakeButton.whenHeld(DeployIntakeCommand);
+    serializerButton.whenHeld(this.m_launchSerializer);
+    reverseSerializerButton.whenHeld(reverseSerializerCommand);
+    launchButton.whenHeld(launchCommand);
   }
 
   /**
