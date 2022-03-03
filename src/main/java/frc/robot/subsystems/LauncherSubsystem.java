@@ -47,7 +47,11 @@ public class LauncherSubsystem extends SubsystemBase {
   public void stopLauncher() {
     launcherMotor.set(ControlMode.Velocity, 0);
   }
-
+  public void purgeLauncher(){
+    launcherMotor.set(ControlMode.PercentOutput, 0.5);
+    launcherMotor.setInverted(true);
+    launcherMotor2.follow(launcherMotor);
+  }
 }
   
 
