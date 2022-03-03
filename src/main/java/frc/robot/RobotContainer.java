@@ -29,7 +29,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_drivetrain;
-  private final IntakeSubsystem m_intake;
+  private IntakeSubsystem m_intake;
   private SerializerSubsystem m_serializer;
   private LauncherSubsystem m_launcher;
 
@@ -39,15 +39,10 @@ public class RobotContainer {
   private final ShiftGearCommand m_shiftGearCommand;
 
   public static DeployIntakeCommand DeployIntakeCommand;
-  private final LaunchSerializerCommand m_launchSerializer;
+  private LaunchSerializerCommand m_launchSerializer;
   private final ReverseSerializerCommand reverseSerializerCommand;
   private final ActivateLauncherCommand launchCommand;
   private final PurgeLauncherCommand purgeLaunchCommand;
-
-
-  
-  private final SerializerSubsystem m_serializer;
-  private LauncherSubsystem m_launcher;
 
 
   public static Joystick m_driverJoystick;
@@ -81,7 +76,7 @@ public class RobotContainer {
   
     m_intake = new IntakeSubsystem();
 
-    DeployIntakeCommand = new DeployIntakeCommand(m_intake);  
+    DeployIntakeCommand = new DeployIntakeCommand(m_intake, m_serializer);  
     purgeLaunchCommand = new PurgeLauncherCommand(m_serializer,m_launcher);
     // m_driveCommand = new DriveCommand(m_drivetrain, m_driverJoystick.getRawAxis(0), m_driverJoystick.getRawAxis(1));
     configureButtonBindings();
