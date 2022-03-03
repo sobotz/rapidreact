@@ -23,6 +23,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   boolean lowGear;
 
+  boolean finishDrive;
+
   public DriveSubsystem() {
     this.frontLeftController = new WPI_TalonFX(Constants.DriveConstants.LEFT_FRONT_TALON);
     this.frontRightController = new WPI_TalonFX(Constants.DriveConstants.RIGHT_FRONT_TALON);
@@ -88,9 +90,11 @@ public class DriveSubsystem extends SubsystemBase {
     // this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY,
        // Constants.DriveConstants.GEAR_SHIFT_RETRACT);
     
-     this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY, Constants.DriveConstants.GEAR_SHIFT_RETRACT);
+    this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY, Constants.DriveConstants.GEAR_SHIFT_RETRACT);
 
     this.lowGear = true;
+
+    this.finishDrive = false;
 
   }
 
@@ -143,12 +147,17 @@ public class DriveSubsystem extends SubsystemBase {
         DemandType.ArbitraryFeedForward, rotation);
       this.backRightController.follow(this.frontRightController);
 		}*/
+    this.finishDrive = true;
   }
 
   public boolean shiftGear() {
     gearShifter.set((this.lowGear) ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
     this.lowGear = !this.lowGear;
     return lowGear;
+  }
+
+  public boolean finishDrive(){
+    return finishDrive;
   }
 
   @Override
