@@ -39,7 +39,7 @@ public class PathBR11 extends CommandBase {
 
     driveFinished = new DriveSubsystem();
     
-    addRequirements(this.m_drive, this.m_intake, this.m_launcher);
+    addRequirements(this.m_drive, this.m_intake, this.m_launcher, this.m_serializer);
   }
   @Override
   public void initialize() {
