@@ -11,10 +11,16 @@ import frc.robot.auto.*;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.DriveSubsystem;
-
+import frc.robot.subsystems.LauncherSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.SerializerSubsystem;
+import frc.robot.commands.LaunchSerializerCommand;
+import frc.robot.commands.PurgeLauncherCommand;
+import frc.robot.commands.ReverseSerializerCommand;
+import frc.robot.commands.ActivateLauncherCommand;
+import frc.robot.commands.DeployIntakeCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,10 +33,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_drivetrain;
-
+  private final IntakeSubsystem m_intake;
+  private SerializerSubsystem m_serializer;
+  private LauncherSubsystem m_launcher;
   private final DriveCommand m_driveCommand;
-
   private final ShiftGearCommand m_shiftGearCommand;
+
+  public static DeployIntakeCommand DeployIntakeCommand;
+  private final LaunchSerializerCommand m_launchSerializer;
+  private final ReverseSerializerCommand reverseSerializerCommand;
+  private final ActivateLauncherCommand launchCommand;
+  private final PurgeLauncherCommand purgeLaunchCommand;
 
   private final PathBR00 m_pathbr00;
   private final PathBR11 m_pathbr11;
@@ -41,6 +54,7 @@ public class RobotContainer {
 
 
   public static Joystick m_driverJoystick;
+  public Joystick m_operatorJoystick;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -48,7 +62,13 @@ public class RobotContainer {
     // Configure the button bindings
 
     this.m_driverJoystick = new Joystick(0);
+    m_operatorJoystick = new Joystick(1);
+    
     this.m_drivetrain = new DriveSubsystem();
+    this.m_intake = new IntakeSubsystem();
+    this.m_serializer = new SerializerSubsystem();
+    this.m_launcher = new LauncherSubsystem();
+    
     
     //this.m_autocommand = new AutoCommand(this.m_drivetrain);
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
@@ -60,14 +80,18 @@ public class RobotContainer {
     this.m_pathbr41 = new PathBR41(this.m_drivetrain);
     this.m_pathbr61 = new PathBR61(this.m_drivetrain);
 
-    configureButtonBindings();
-
     m_chooser.setDefaultOption("Path BR00", m_pathbr00); // https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
     m_chooser.addOption("Path BR11", m_pathbr11);
     m_chooser.addOption("Path BR41", m_pathbr41);
     m_chooser.addOption("Path BR61", m_pathbr61);
 
     SmartDashboard.putData("Auto Mode:" , m_chooser);
+
+    DeployIntakeCommand = new DeployIntakeCommand(this.m_intake, this.m_serializer);  
+    m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
+    reverseSerializerCommand = new ReverseSerializerCommand(this.m_intake, this.m_serializer);
+    launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher);
+    purgeLaunchCommand = new PurgeLauncherCommand(this.m_serializer, this.m_launcher);
 
     this.configureButtonBindings();
   }
@@ -79,8 +103,19 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
-    // gearShiftButton.whenPressed(this.m_shiftGearCommand);
+    JoystickButton DeployIntakeButton = new JoystickButton(m_operatorJoystick, 1);
+    JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 2);
+    JoystickButton reverseSerializerButton = new JoystickButton(m_operatorJoystick,3);
+    JoystickButton launchButton = new JoystickButton(m_operatorJoystick,6);
+    JoystickButton purgeLaunchButton = new JoystickButton(m_operatorJoystick,5);
+    JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
+
+    gearShiftButton.whenPressed(this.m_shiftGearCommand);
+    DeployIntakeButton.whenHeld(DeployIntakeCommand);
+    serializerButton.whenHeld(this.m_launchSerializer);
+    reverseSerializerButton.whenHeld(reverseSerializerCommand);
+    launchButton.whenHeld(launchCommand);
+    purgeLaunchButton.whenHeld(purgeLaunchCommand);
   }
 
   /**
