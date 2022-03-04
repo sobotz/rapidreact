@@ -61,7 +61,6 @@ public class RobotContainer {
     m_intake = new IntakeSubsystem();
     m_serializer = new SerializerSubsystem();
     m_launcher = new LauncherSubsystem();
-
     m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
     m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
 
