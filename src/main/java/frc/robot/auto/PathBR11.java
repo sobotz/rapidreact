@@ -48,9 +48,9 @@ public class PathBR11 extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.testDrive(-1.0, 4.0); // move 4 ft ~ takes approximately 2 secon
+    m_drive.testDrive(-1.0, 4.0); // move 4 ft ~ takes approximately 2 seconds
 
-    if(driveFinished.finishDrive()){
+    if(m_drive.finishDrive()){
       timer.start();
       if(timer.get()<1.5){ // in 1.5 seconds, intake ball
         m_intake.runIntake(1.0);
@@ -61,7 +61,7 @@ public class PathBR11 extends CommandBase {
     
     this.m_intake.runIntake(0.0); // stop running intake
     
-    m_drive.testDrive(-1.0, 2.0); // move 2 ft
+    /*m_drive.testDrive(-1.0, 2.0); // move 2 ft
 
     timer.reset();
     timer.start();
@@ -78,7 +78,7 @@ public class PathBR11 extends CommandBase {
       this.m_serializer.stopBelt();
       this.m_serializer.acceptingBalls = true;
       this.isFinished = true;
-    }
+    }*/
   }
 
   // Called once the command ends or is interrupted.
