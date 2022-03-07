@@ -46,7 +46,7 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public void correctX () {
-    double speed = 1;
+    double speed = 0;
     if (this.hasTarget) {
       speed = 2.0/(1.0 + Math.pow(Math.E, VisionConstants.LOGISTIC_GROWTH_RATE * this.xOffset)) - 1.0;
       if (speed < VisionConstants.MIN_ADJUST_SPEED){
@@ -54,6 +54,9 @@ public class VisionSubsystem extends SubsystemBase {
       } else if (this.xOffset < VisionConstants.DEADBAND_RANGE) {
         speed = 0.0;
       }
+    }
+    if (Math.abs(this.actuationMotor.getSelectedSensorPosition()) > VisionConstants.MAX_ROTATION_VALUE){
+      speed = 0;
     }
     this.actuationMotor.set(ControlMode.PercentOutput, speed);
   }

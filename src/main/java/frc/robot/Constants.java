@@ -29,6 +29,7 @@ public final class Constants {
 
     public static final class VisionConstants {
         public static final int ACTUATION_MOTOR = 5;
+        public static final int MAX_ROTATION_VALUE = 10000;
 
         public static final double LOGISTIC_GROWTH_RATE = .45;
         public static final double MIN_ADJUST_SPEED = .075;
