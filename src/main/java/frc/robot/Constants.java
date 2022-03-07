@@ -39,10 +39,6 @@ public final class Constants {
         public static final int INTAKE_SOLENOID_RETRACT = 3;
     }
 
-		public static final int GEAR_SHIFT_DEPLOY = 1;
-		public static final int GEAR_SHIFT_RETRACT = 0;
-
-    
     public static final class SerializerConstants{
         public static final int SERIALIZER_SENSOR_1 = 0;
         public static final int SERIALIZER_SENSOR_2 = 1;

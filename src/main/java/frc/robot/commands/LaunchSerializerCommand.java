@@ -27,22 +27,23 @@ public class LaunchSerializerCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.nFramesRun = 0;
+    //this.nFramesRun = 0;
+    serializer.toggleSerializer();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    if (this.nFramesRun > 50) {
-      this.serializer.runSerializer(1);
+    //if (this.nFramesRun > 50) {
+      //this.serializer.runSerializer(1);
       
-    }
+    //}
 
-    else{
-      this.serializer.stopBelt();
-    }
-    this.nFramesRun++;
+    //else{
+      //this.serializer.stopBelt();
+    //}
+    //this.nFramesRun++;
 
     // while (this.serializer.ballCount != 0) {
     //   this.launcher.stopRollers();
@@ -58,13 +59,13 @@ public class LaunchSerializerCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.nFramesRun = 0;
-    
+    //this.nFramesRun = 0;
+    serializer.toggleSerializer();
   }
 
   // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-     return this.nFramesRun > 500;
-  }
+  //@Override
+  //public boolean isFinished() {
+     //return this.nFramesRun > 500;
+  //}
 }
