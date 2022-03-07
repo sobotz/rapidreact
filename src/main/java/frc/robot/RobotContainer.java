@@ -39,7 +39,7 @@ public class RobotContainer {
   private final DriveCommand m_driveCommand;
   private final ShiftGearCommand m_shiftGearCommand;
 
-  public static DeployIntakeCommand DeployIntakeCommand;
+  public static DeployIntakeCommand deployIntakeCommand;
   private final LaunchSerializerCommand m_launchSerializer;
   private final ReverseSerializerCommand reverseSerializerCommand;
   private final ActivateLauncherCommand launchCommand;
@@ -87,7 +87,7 @@ public class RobotContainer {
 
     SmartDashboard.putData("Auto Mode:" , m_chooser);
 
-    DeployIntakeCommand = new DeployIntakeCommand(this.m_intake, this.m_serializer);  
+    deployIntakeCommand = new DeployIntakeCommand(this.m_intake, this.m_serializer);  
     m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
     reverseSerializerCommand = new ReverseSerializerCommand(this.m_intake, this.m_serializer);
     launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher);
@@ -111,7 +111,7 @@ public class RobotContainer {
     JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
 
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
-    DeployIntakeButton.whenHeld(DeployIntakeCommand);
+    DeployIntakeButton.whenHeld(deployIntakeCommand);
     serializerButton.whenHeld(this.m_launchSerializer);
     reverseSerializerButton.whenHeld(reverseSerializerCommand);
     launchButton.whenHeld(launchCommand);
