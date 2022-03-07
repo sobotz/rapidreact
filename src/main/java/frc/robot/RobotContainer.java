@@ -9,9 +9,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.auto.*;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.DriveSubsystem;
-
+import frc.robot.subsystems.LauncherSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -27,8 +28,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_drivetrain;
+  private final LauncherSubsystem m_launcherSubsystem;
 
   private final DriveCommand m_driveCommand;
+  private final LaunchCommand m_launchCommand;
 
   private final ShiftGearCommand m_shiftGearCommand;
 
@@ -48,9 +51,11 @@ public class RobotContainer {
 
     this.m_driverJoystick = new Joystick(0);
     this.m_drivetrain = new DriveSubsystem();
+    this.m_launcherSubsystem = new LauncherSubsystem();
     
     //this.m_autocommand = new AutoCommand(this.m_drivetrain);
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
+    this.m_launchCommand = new LaunchCommand(this.m_launcherSubsystem);
 
     this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
    
@@ -74,8 +79,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
+    JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 2);
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
+    JoystickButton launcherButton = new JoystickButton(this.m_driverJoystick, 1);
+    launcherButton.whileHeld(this.m_launchCommand);
   }
 
   /**
