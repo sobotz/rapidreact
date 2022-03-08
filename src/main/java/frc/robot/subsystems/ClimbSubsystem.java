@@ -20,9 +20,9 @@ public class ClimbSubsystem extends SubsystemBase {
   WPI_TalonFX frontLeftController, frontRightController, backLeftController, backRightController;
   WPI_TalonFX rotateMotor, liftMotor;
 
-  DoubleSolenoid armLock;
+  DoubleSolenoid armLock, armRelease;
 
-  boolean lowGear;
+  boolean lowLock, lowRelease;
 
   public ClimbSubsystem() {
     this.rotateMotor = new WPI_TalonFX(Constants.ClimbConstants.ROTATE_MOTOR);
@@ -34,7 +34,8 @@ public class ClimbSubsystem extends SubsystemBase {
 
     this.armLock = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.ClimbConstants.ARM_LOCK_DEPLOY,
     Constants.ClimbConstants.ARM_LOCK_RETRACT);
-    this.lowGear = true;
+    this.lowLock = true;
+    this.lowRelease = true;
   }
 
   public void rotateClockwise (){
@@ -67,14 +68,20 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public boolean armLock() {
-    armLock.set((this.lowGear) ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
-    this.lowGear = !this.lowGear;
-    return lowGear;
+    armLock.set((this.lowLock) ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
+    this.lowLock = !this.lowLock;
+    return lowLock;
+  }
+
+  public boolean armRelease(){
+    armRelease.set((this.lowRelease) ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
+    this.lowRelease = !this.lowRelease;
+    return lowRelease;
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Low Gear:", this.lowGear);
+    SmartDashboard.putBoolean("Low Lock:", this.lowLock);
     // This method will be called once per scheduler run
   }
 

@@ -37,5 +37,7 @@ public final class Constants {
 
         public static final int ARM_LOCK_DEPLOY = 1;
         public static final int ARM_LOCK_RETRACT = 0;
+
+        public static final int ARM_RELEASE_DEPLOY = 1;
     }
 }

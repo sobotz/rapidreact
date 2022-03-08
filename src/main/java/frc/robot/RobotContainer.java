@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ArmReleaseCommand;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.LiftCommand;
@@ -80,6 +81,7 @@ public class RobotContainer {
 
     JoystickButton armReleaseButton = new JoystickButton(this.m_operatorJoystick, 11);
     armReleaseButton.whenPressed(this.m_armReleaseCommand);
+
   }
 
   /**
