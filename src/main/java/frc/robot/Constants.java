@@ -51,6 +51,8 @@ public final class Constants {
 		public static final int LAUNCHER_MOTOR_1 = 5;
 		public static final int LAUNCHER_MOTOR_2 = 6;
         public static final int ROLLER_MOTOR = 10;
+        public static final int TEAM_VELOCITY = 21500;
+        public static final int ENEMY_VELOCITY = 10000;
     }
 
         // Configuration Constants
