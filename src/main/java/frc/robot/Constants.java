@@ -52,6 +52,9 @@ public final class Constants {
         // ADD PORT WHEN MOTOR IS WIRED
 		public static final int LAUNCHER_MOTOR_2 = 1000;
         public static final int ROLLER_MOTOR = 10;
+        public static final int TEAM_VELOCITY = 21500;
+        public static final int ENEMY_VELOCITY = 10000;
+        
     }
     
 	

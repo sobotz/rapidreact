@@ -18,14 +18,15 @@ import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-  
+  public WPI_TalonSRX intakeTalon;
   CANSparkMax intakeController;
   private DoubleSolenoid intakeDeploy;
 
   public boolean hasDeployed;
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
-    intakeController = new CANSparkMax(IntakeConstants.INTAKE_MOTOR, MotorType.kBrushless);
+    //intakeController = new CANSparkMax(IntakeConstants.INTAKE_MOTOR, MotorType.kBrushless);
+    intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_MOTOR);
     //Change CTREPCM to REVPM
     intakeDeploy = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.INTAKE_SOLENOID_DEPLOY,IntakeConstants.INTAKE_SOLENOID_RETRACT);
 
@@ -46,6 +47,7 @@ public class IntakeSubsystem extends SubsystemBase {
   
   public void deployIntake() {
     runIntake(0.0);
+    //intakeDeploy.set(Value.kForward);
     intakeDeploy.set(Value.kForward);
   }
   

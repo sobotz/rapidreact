@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 
@@ -35,7 +36,7 @@ public class ActivateLauncherCommand extends CommandBase {
   @Override
   public void execute() {
     //launcher.get_velocity maybe
-    if (this.nFramesRun > 50) {
+    if (launcher.getVelocity() > LauncherConstants.TEAM_VELOCITY) {
       this.launcher.startRollers();
       this.serializer.runBelt();
     }
