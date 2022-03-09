@@ -6,12 +6,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.LauncherConstants;
+import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 
 public class ActivateLauncherCommand extends CommandBase {
   private SerializerSubsystem serializer;
   private LauncherSubsystem launcher;
+  private ColorSensorSubsystem colorSensor;
   private int nFramesRun;
 
   /**
@@ -21,6 +23,8 @@ public class ActivateLauncherCommand extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     this.serializer = serializer1;
     this.launcher = launcher1;
+
+
     addRequirements(serializer, launcher);
   }
 
@@ -36,11 +40,21 @@ public class ActivateLauncherCommand extends CommandBase {
   @Override
   public void execute() {
     //launcher.get_velocity maybe
-    if (launcher.getVelocity() > LauncherConstants.TEAM_VELOCITY) {
-      this.launcher.startRollers();
-      this.serializer.runBelt();
+    if(colorSensor.getShootOne()){
+      if (launcher.getVelocity() > LauncherConstants.TEAM_VELOCITY) {
+        this.launcher.startRollers();
+        this.serializer.runBelt();
+        colorSensor.removeFirstBall();
+      }
     }
+    if(!colorSensor.getShootOne()){
+      if(launcher.getVelocity()> LauncherConstants.ENEMY_VELOCITY){
+        launcher.startRollers();
+        this.serializer.runBelt();
+        colorSensor.removeFirstBall();
+      }
 
+    }
     this.nFramesRun++;
  
   }
