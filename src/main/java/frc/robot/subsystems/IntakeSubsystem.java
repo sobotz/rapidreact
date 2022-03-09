@@ -7,7 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+//import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -33,7 +33,9 @@ public class IntakeSubsystem extends SubsystemBase {
     //intakeController.configFactoryDefault();
 
     hasDeployed = false;
-
+    intakeTalon.configFactoryDefault();
+    
+    
 
   }
 
@@ -52,7 +54,8 @@ public class IntakeSubsystem extends SubsystemBase {
   }
   
   public void runIntake(double speed) {
-    intakeController.set(speed * IntakeConstants.MAXIMUM_INTAKE_SPEED);
+    //intakeController.set(speed * IntakeConstants.MAXIMUM_INTAKE_SPEED);
+    intakeTalon.set(ControlMode.PercentOutput,speed * IntakeConstants.MAXIMUM_INTAKE_SPEED);
   }
   
   public void retractIntake() {
