@@ -46,19 +46,21 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public void correctX () {
-    double speed = 0;
+    double speedPercent = 0;
     if (this.hasTarget) {
-      speed = 2.0/(1.0 + Math.pow(Math.E, VisionConstants.LOGISTIC_GROWTH_RATE * this.xOffset)) - 1.0;
-      if (speed < VisionConstants.MIN_ADJUST_SPEED){
-        speed = VisionConstants.MIN_ADJUST_SPEED;
-      } else if (this.xOffset < VisionConstants.DEADBAND_RANGE) {
-        speed = 0.0;
+      speedPercent = 2.0/(1.0 + Math.pow(Math.E, VisionConstants.LOGISTIC_GROWTH_RATE * this.xOffset)) - 1.0;
+      if (Math.abs(speedPercent) < VisionConstants.MIN_ADJUST_SPEED){
+        speedPercent = VisionConstants.MIN_ADJUST_SPEED;
+      }
+      if (Math.abs(this.xOffset) < VisionConstants.DEADBAND_RANGE){
+        speedPercent = 0;
+      }
+      if (Math.abs(this.actuationMotor.getSelectedSensorPosition()) > VisionConstants.MAX_ROTATION_VALUE) {
+        speedPercent = (Math.signum(this.actuationMotor.getSelectedSensorPosition()) == -1) ? VisionConstants.MIN_ADJUST_SPEED : -VisionConstants.MIN_ADJUST_SPEED;
       }
     }
-    if (Math.abs(this.actuationMotor.getSelectedSensorPosition()) > VisionConstants.MAX_ROTATION_VALUE){
-      speed = 0;
-    }
-    this.actuationMotor.set(ControlMode.PercentOutput, speed);
+    SmartDashboard.putNumber("SpeedPercent: ",speedPercent);
+    this.actuationMotor.set(ControlMode.PercentOutput, VisionConstants.MAX_SPEED * -speedPercent);
   }
 
   public void stopMotor () {

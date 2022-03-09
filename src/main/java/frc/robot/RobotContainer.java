@@ -67,7 +67,7 @@ public class RobotContainer {
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
 
     JoystickButton visionButton = new JoystickButton(this.m_operatorJoystick, 1);
-    visionButton.toggleWhenPressed(this.m_visionCommand);
+    visionButton.whenHeld(this.m_visionCommand);
   }
 
   /**
