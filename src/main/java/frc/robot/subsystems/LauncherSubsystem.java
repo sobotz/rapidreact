@@ -42,7 +42,8 @@ public class LauncherSubsystem extends SubsystemBase {
 
   public void startLauncher() {
     launcherMotor.set(ControlMode.Velocity, 1);
-    
+    launcherMotor.setInverted(true);
+    launcherMotor2.follow(launcherMotor);
   }
 
   public void stopLauncher() {
@@ -50,11 +51,14 @@ public class LauncherSubsystem extends SubsystemBase {
   }
   public void purgeLauncher(){
     launcherMotor.set(ControlMode.Velocity, 0.5);
-    
+    launcherMotor.setInverted(true);
+    launcherMotor2.follow(launcherMotor);
   }
   public double getVelocity(){
-    return launcherMotor.getSelectedSensorVelocity();
+    return this.launcherMotor.getSelectedSensorVelocity();
   }
+
+
 }
   
 

@@ -23,26 +23,26 @@ public class PathBR11 extends CommandBase {
   private final LauncherSubsystem m_launcher;
 
   private final SerializerSubsystem m_serializer;
-
   private final DriveSubsystem driveFinished;
 
   private boolean isFinished = false;
 
-  public PathBR11(DriveSubsystem drive ) {
+  public PathBR11(DriveSubsystem drive, IntakeSubsystem intake, LauncherSubsystem launcher,SerializerSubsystem serializer ) {
     this.m_drive = drive;
 
-    timer = new Timer();
+    this.timer = new Timer();
     // initialize launcher, serializer + intake variables when import
-    this.m_intake = new IntakeSubsystem();
-    this.m_launcher = new LauncherSubsystem();
-    this.m_serializer = new SerializerSubsystem();
+    this.m_intake = intake;
+    this.m_launcher = launcher;
+    this.m_serializer = serializer;
 
-    driveFinished = new DriveSubsystem();
+    this.driveFinished = drive;
     
     addRequirements(this.m_drive, this.m_intake, this.m_launcher, this.m_serializer);
   }
   @Override
   public void initialize() {
+    m_intake.runIntake(0.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -53,15 +53,15 @@ public class PathBR11 extends CommandBase {
     if(m_drive.finishDrive()){
       timer.start();
       if(timer.get()<1.5){ // in 1.5 seconds, intake ball
-        m_intake.runIntake(1.0);
+        // m_intake.toggleIntake();
+    
       }
     }
-    
     timer.stop();
     
-    this.m_intake.runIntake(0.0); // stop running intake
-    
-    /*m_drive.testDrive(-1.0, 2.0); // move 2 ft
+    m_intake.toggleIntake(); // stop running intake
+     /*
+    m_drive.testDrive(-1.0, 2.0); // move 2 ft
 
     timer.reset();
     timer.start();
@@ -78,7 +78,9 @@ public class PathBR11 extends CommandBase {
       this.m_serializer.stopBelt();
       this.m_serializer.acceptingBalls = true;
       this.isFinished = true;
-    }*/
+    }
+    }
+    */
   }
 
   // Called once the command ends or is interrupted.
