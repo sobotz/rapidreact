@@ -73,7 +73,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
         if( teamColor.equals("blue")){
           willShoot.add(false);
         }  
-        //SmartDashboard.putStringArray("Ball Color Values", ballColors.toArray(_ballColors));
+        SmartDashboard.putStringArray("Ball Color Values", ballColors.toArray(_ballColors));
       
     }
     else if(detectedColor.blue > ColorSensorConstants.COLOR_THRESHOLD && lastBlue < ColorSensorConstants.COLOR_THRESHOLD){
@@ -85,7 +85,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
         if( teamColor.equals("red")){
           willShoot.add(false);
         }
-        //SmartDashboard.putStringArray("Ball Color Values", ballColors.toArray(_ballColors));
+        SmartDashboard.putStringArray("Ball Color Values", ballColors.toArray(_ballColors));
         
     }
     lastRed = detectedColor.red;
