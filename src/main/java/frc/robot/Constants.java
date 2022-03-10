@@ -57,5 +57,8 @@ public final class Constants {
         
     }
     
+    public final class ColorSensorConstants{
+        public static final double COLOR_THRESHOLD = .35;
+    }
 	
 }

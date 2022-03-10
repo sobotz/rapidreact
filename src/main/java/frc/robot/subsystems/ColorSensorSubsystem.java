@@ -91,6 +91,26 @@ public class ColorSensorSubsystem extends SubsystemBase{
     lastRed = detectedColor.red;
     lastBlue = detectedColor.blue;
   }
+  
+
+  public Boolean getShootOne(){  //USED
+    return willShoot.get(0);
+  }
+
+  public void removeFirstBall(){  //USED
+    ballColors.remove(0);
+    willShoot.remove(0);
+  }
+
+  public boolean ballOneDetected(){
+    if(ballColors.get(0) != null){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
   public ArrayList getBallValues(){
     return ballColors;
   }
@@ -102,22 +122,12 @@ public class ColorSensorSubsystem extends SubsystemBase{
   public String getBallOne(){
     return ballColors.get(0);
   }
-
-  public Boolean getShootOne(){  //USED
-    return willShoot.get(0);
-  }
-
   public String getBallTwo(){
     return ballColors.get(1);
   }
 
   public Boolean getShootTwo(){
     return willShoot.get(1);
-  }
-
-  public void removeFirstBall(){  //USED
-    ballColors.remove(0);
-    willShoot.remove(0);
   }
 
   public void removeLastBall(){

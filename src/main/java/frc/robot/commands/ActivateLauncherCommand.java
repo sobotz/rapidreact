@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.ColorSensorSubsystem;
@@ -46,7 +47,7 @@ public class ActivateLauncherCommand extends CommandBase {
         /**this.launcher.startRollers();
         this.serializer.runBelt();*/
         colorSensor.removeFirstBall();
-        smartdashboard.putBoolean("Shoot", true);
+        SmartDashboard.putBoolean("Shoot", true);
       }
     }
     if(!colorSensor.getShootOne()){
@@ -54,7 +55,7 @@ public class ActivateLauncherCommand extends CommandBase {
         /**launcher.startRollers();
         this.serializer.runBelt();*/
         colorSensor.removeFirstBall();
-        smartdashboard.putBoolean("Shoot", false);
+        SmartDashboard.putBoolean("Shoot", false);
       }
 
     }
