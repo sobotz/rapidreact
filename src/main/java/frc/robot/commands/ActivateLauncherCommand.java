@@ -34,6 +34,7 @@ public class ActivateLauncherCommand extends CommandBase {
     this.nFramesRun = 0;
     this.launcher.startLauncher();
     this.serializer.acceptingBalls = false;
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,16 +43,18 @@ public class ActivateLauncherCommand extends CommandBase {
     //launcher.get_velocity maybe
     if(colorSensor.getShootOne()){
       if (launcher.getVelocity() > LauncherConstants.TEAM_VELOCITY) {
-        this.launcher.startRollers();
-        this.serializer.runBelt();
+        /**this.launcher.startRollers();
+        this.serializer.runBelt();*/
         colorSensor.removeFirstBall();
+        smartdashboard.putBoolean("Shoot", true);
       }
     }
     if(!colorSensor.getShootOne()){
       if(launcher.getVelocity()> LauncherConstants.ENEMY_VELOCITY){
-        launcher.startRollers();
-        this.serializer.runBelt();
+        /**launcher.startRollers();
+        this.serializer.runBelt();*/
         colorSensor.removeFirstBall();
+        smartdashboard.putBoolean("Shoot", false);
       }
 
     }
