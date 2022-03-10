@@ -29,13 +29,8 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeTalon.configFactoryDefault();
 
     hasDeployed = false;
-
-
   }
 
-  
-  
-  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -51,7 +46,9 @@ public class IntakeSubsystem extends SubsystemBase {
   }
   
   public void retractIntake() {
-    intakeDeploy.set(Value.kReverse);
+    // intakeDeploy.set(Value.kReverse);
+    intakeDeploy.set(DoubleSolenoid.Value.kForward);
+    runIntake(0);
   }
 
   

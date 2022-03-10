@@ -23,7 +23,6 @@ public class PathBR11 extends CommandBase {
   private final LauncherSubsystem m_launcher;
 
   private final SerializerSubsystem m_serializer;
-  private final DriveSubsystem driveFinished;
 
   private boolean isFinished = false;
 
@@ -35,58 +34,51 @@ public class PathBR11 extends CommandBase {
     this.m_intake = intake;
     this.m_launcher = launcher;
     this.m_serializer = serializer;
-
-    this.driveFinished = drive;
     
     addRequirements(this.m_drive, this.m_intake, this.m_launcher, this.m_serializer);
   }
   @Override
   public void initialize() {
     m_intake.runIntake(0.0);
+    m_intake.toggleIntake(); // drops intake
+    timer.start();
+    // m_intake.deployIntake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // m_intake.toggleIntake();
     m_drive.testDrive(-1.0, 4.0); // move 4 ft ~ takes approximately 2 seconds
-
-    if(m_drive.finishDrive()){
-      timer.start();
-      if(timer.get()<1.5){ // in 1.5 seconds, intake ball
-        // m_intake.toggleIntake();
+    timer.delay(0.75);
+    m_intake.runIntake(0.0);
+    m_intake.retractIntake();
     
-      }
-    }
-    timer.stop();
-    
-    m_intake.toggleIntake(); // stop running intake
-     /*
+    timer.delay(1.5);
     m_drive.testDrive(-1.0, 2.0); // move 2 ft
+    m_drive.drive(0,0);
 
-    timer.reset();
-    timer.start();
+    timer.delay(1.5);
+
+    this.m_launcher.startLauncher();
+    this.m_launcher.startRollers();
+    this.m_serializer.runBelt();
+    this.m_serializer.acceptingBalls = false;
     
-    if (timer.get()<3 ){ // shoot
-      this.m_launcher.startLauncher();
-      this.m_launcher.startRollers();
-      this.m_serializer.runBelt();
-      this.m_serializer.acceptingBalls = false;
-    }
-    else{
-      this.m_launcher.stopLauncher();
-      this.m_launcher.stopRollers();
-      this.m_serializer.stopBelt();
-      this.m_serializer.acceptingBalls = true;
-      this.isFinished = true;
-    }
-    }
-    */
+ 
+    timer.delay(1);
+    this.m_launcher.stopLauncher();
+    this.m_launcher.stopRollers();
+    this.m_serializer.stopBelt();
+    this.m_serializer.acceptingBalls = true;
+    this.isFinished = true;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     this.m_drive.drive(0, 0);
+    timer.reset();
   }
 
   // Returns true when the command should end.
