@@ -39,27 +39,20 @@ public class PathBR11 extends CommandBase {
   }
   @Override
   public void initialize() {
-    m_intake.runIntake(0.0);
     m_intake.toggleIntake(); // drops intake
     timer.start();
     // m_intake.deployIntake();
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
     // m_intake.toggleIntake();
     m_drive.testDrive(-1.0, 4.0); // move 4 ft ~ takes approximately 2 seconds
-    timer.delay(0.75);
-    m_intake.runIntake(0.0);
-    m_intake.retractIntake();
+    timer.delay(2);
+    m_intake.toggleIntake();
     
     timer.delay(1.5);
-    m_drive.testDrive(-1.0, 2.0); // move 2 ft
-    m_drive.drive(0,0);
+     // move 2 ft
+    m_drive.testDrive(-1.0, 2.0);
 
     timer.delay(1.5);
-
+    m_drive.drive(0,0);
     this.m_launcher.startLauncher();
     this.m_launcher.startRollers();
     this.m_serializer.runBelt();
@@ -72,13 +65,20 @@ public class PathBR11 extends CommandBase {
     this.m_serializer.stopBelt();
     this.m_serializer.acceptingBalls = true;
     this.isFinished = true;
+
+    this.m_drive.drive(0, 0);
+    timer.reset();
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.m_drive.drive(0, 0);
-    timer.reset();
+    
   }
 
   // Returns true when the command should end.

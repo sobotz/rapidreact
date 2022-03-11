@@ -21,6 +21,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   DoubleSolenoid gearShifter;
 
+  double totalSensorPosition;
+
   boolean lowGear;
 
   boolean finishDrive;
@@ -96,6 +98,8 @@ public class DriveSubsystem extends SubsystemBase {
 
     this.finishDrive = false;
 
+    this.totalSensorPosition = 0;
+
   }
 
   public void drive(double speed, double rotation) {
@@ -111,13 +115,15 @@ public class DriveSubsystem extends SubsystemBase {
   public void testDrive(double speed, double distance){
 
     // if (true || joystick) {
-      double targetPosition = 22788.5556*speed*distance; // 48 3/8 inches desired
+      double targetPosition = (22788.5556*speed*distance) + totalSensorPosition; // 48 3/8 inches desired
 			/* 2000 RPM in either direction */
       this.frontLeftController.set(ControlMode.MotionMagic, targetPosition);
       this.backLeftController.follow(this.frontLeftController);
 
       this.frontRightController.set(ControlMode.MotionMagic, -targetPosition);
       this.backRightController.follow(this.frontRightController);//}
+
+      totalSensorPosition+=targetPosition;
 			
       /* Velocity Closed Loop */
 
@@ -148,7 +154,7 @@ public class DriveSubsystem extends SubsystemBase {
         DemandType.ArbitraryFeedForward, rotation);
       this.backRightController.follow(this.frontRightController);
 		}*/
-    this.finishDrive = true;
+    
   }
 
   public boolean shiftGear() {
@@ -157,9 +163,6 @@ public class DriveSubsystem extends SubsystemBase {
     return lowGear;
   }
 
-  public boolean finishDrive(){
-    return finishDrive;
-  }
 
   @Override
   public void periodic() {
