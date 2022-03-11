@@ -55,4 +55,6 @@ public class PurgeLauncherCommand extends CommandBase {
   public boolean isFinished() {
     return this.nFramesRun > 500;
   }
+
 }
+

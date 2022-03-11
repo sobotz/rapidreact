@@ -25,12 +25,15 @@ public class DeployIntakeCommand extends InstantCommand {
   @Override
   public void initialize() {
     m_intake.toggleIntake();
+
     serializer.toggleSerializer();
   }
   
   public void end() {
     m_intake.toggleIntake();
+
     serializer.toggleSerializer();
+
     
   }
 
@@ -46,4 +49,6 @@ public class DeployIntakeCommand extends InstantCommand {
 
   
   
+
 }
+

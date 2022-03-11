@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.LauncherConstants;
@@ -15,6 +16,7 @@ public class ActivateLauncherCommand extends CommandBase {
   private SerializerSubsystem serializer;
   private LauncherSubsystem launcher;
   private ColorSensorSubsystem colorSensor;
+
   private int nFramesRun;
 
   /**
@@ -25,7 +27,6 @@ public class ActivateLauncherCommand extends CommandBase {
     this.serializer = serializer1;
     this.launcher = launcher1;
 
-
     addRequirements(serializer, launcher);
   }
 
@@ -35,13 +36,14 @@ public class ActivateLauncherCommand extends CommandBase {
     this.nFramesRun = 0;
     this.launcher.startLauncher();
     this.serializer.acceptingBalls = false;
-    
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     //launcher.get_velocity maybe
+
     if(colorSensor.getShootOne()){
       if (launcher.getVelocity() > LauncherConstants.TEAM_VELOCITY) {
         /**this.launcher.startRollers();
@@ -63,6 +65,7 @@ public class ActivateLauncherCommand extends CommandBase {
       }
 
     }
+
     this.nFramesRun++;
  
   }
@@ -81,4 +84,6 @@ public class ActivateLauncherCommand extends CommandBase {
   public boolean isFinished() {
      return this.nFramesRun > 500;
   }
+
 }
+
