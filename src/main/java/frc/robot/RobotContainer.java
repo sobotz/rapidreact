@@ -45,7 +45,8 @@ public class RobotContainer {
   private final ActivateLauncherCommand launchCommand;
   private final PurgeLauncherCommand purgeLaunchCommand;
 
-  private final PathBR00 m_pathbr00;
+  private final PathBR01 m_pathbr01;
+  private final PathBR02 m_pathbr02;
   private final PathBR11 m_pathbr11;
   private final PathBR41 m_pathbr41;
   private final PathBR61 m_pathbr61;
@@ -74,12 +75,14 @@ public class RobotContainer {
 
     this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
    
-    this.m_pathbr00 = new PathBR00(this.m_drivetrain);
+    this.m_pathbr01 = new PathBR01(this.m_drivetrain);
+    this.m_pathbr02 = new PathBR02(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
     this.m_pathbr11 = new PathBR11(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
-    this.m_pathbr41 = new PathBR41(this.m_drivetrain);
-    this.m_pathbr61 = new PathBR61(this.m_drivetrain, this.m_intake);
+    this.m_pathbr41 = new PathBR41(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
+    this.m_pathbr61 = new PathBR61(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
 
-    m_chooser.setDefaultOption("Path BR00", m_pathbr00); // https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
+    m_chooser.setDefaultOption("Path BR01", m_pathbr01); // https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
+    m_chooser.addOption("Path BR02", m_pathbr02);
     m_chooser.addOption("Path BR11", m_pathbr11);
     m_chooser.addOption("Path BR41", m_pathbr41);
     m_chooser.addOption("Path BR61", m_pathbr61);
