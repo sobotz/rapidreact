@@ -13,6 +13,7 @@ import frc.robot.commands.LaunchSerializerCommand;
 import frc.robot.commands.PurgeLauncherCommand;
 import frc.robot.commands.ReverseSerializerCommand;
 import frc.robot.commands.ShiftGearCommand;
+import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -32,7 +33,7 @@ public class RobotContainer {
   private IntakeSubsystem m_intake;
   private SerializerSubsystem m_serializer;
   private LauncherSubsystem m_launcher;
-
+  private ColorSensorSubsystem m_colorsensor;
 
 
   private final DriveCommand m_driveCommand;
@@ -63,6 +64,7 @@ public class RobotContainer {
     m_launcher = new LauncherSubsystem();
     m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
     m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
+    m_colorsensor = new ColorSensorSubsystem();
 
     
   
