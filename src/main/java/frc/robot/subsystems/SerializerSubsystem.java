@@ -119,4 +119,7 @@ public class SerializerSubsystem extends SubsystemBase {
     }
     
   }
+  public boolean checkBallLeft(){
+    return launcherSensor.getVoltage() < .85;
+  }
 }

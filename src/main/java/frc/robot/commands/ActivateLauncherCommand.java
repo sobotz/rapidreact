@@ -46,16 +46,20 @@ public class ActivateLauncherCommand extends CommandBase {
       if (launcher.getVelocity() > LauncherConstants.TEAM_VELOCITY) {
         /**this.launcher.startRollers();
         this.serializer.runBelt();*/
-        colorSensor.removeFirstBall();
-        SmartDashboard.putBoolean("Shoot", true);
+        if(serializer.checkBallLeft()){
+          colorSensor.removeFirstBall();
+          SmartDashboard.putBoolean("Shoot", true);
+        }
       }
     }
     if(!colorSensor.getShootOne()){
       if(launcher.getVelocity()> LauncherConstants.ENEMY_VELOCITY){
         /**launcher.startRollers();
         this.serializer.runBelt();*/
-        colorSensor.removeFirstBall();
-        SmartDashboard.putBoolean("Shoot", false);
+        if(serializer.checkBallLeft()){
+          colorSensor.removeFirstBall();
+          SmartDashboard.putBoolean("Shoot", false);
+        }
       }
 
     }
