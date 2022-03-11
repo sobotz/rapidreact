@@ -45,6 +45,7 @@ public class DriveSubsystem extends SubsystemBase {
     this.backLeftController.configFactoryDefault();
     this.backRightController.configFactoryDefault();
 
+
      /* Set Motion Magic gains in slot0 - see documentation */
 		this.frontLeftController.selectProfileSlot(Constants.kSlotIdx, Constants.kPIDLoopIdx);
     this.frontLeftController.config_kF(Constants.kSlotIdx, Constants.kF, Constants.kTimeoutMs);
@@ -95,6 +96,7 @@ public class DriveSubsystem extends SubsystemBase {
     this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY, Constants.DriveConstants.GEAR_SHIFT_RETRACT);
 
     this.lowGear = true;
+
 
     this.finishDrive = false;
 

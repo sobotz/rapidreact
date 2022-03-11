@@ -6,6 +6,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+import frc.robot.subsystems.ColorSensorSubsystem;
+
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 
@@ -13,6 +15,7 @@ public class ReverseSerializerCommand extends CommandBase {
   /** Creates a new ReverseSerializer. */
   private SerializerSubsystem serializer;
   private IntakeSubsystem intake;
+
 
   public ReverseSerializerCommand(IntakeSubsystem r_intake, SerializerSubsystem r_serializer) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -33,6 +36,7 @@ public class ReverseSerializerCommand extends CommandBase {
   @Override
   public void execute() {
     this.serializer.reverseBelt();
+
   }
 
   // Called once the command ends or is interrupted.
@@ -47,4 +51,6 @@ public class ReverseSerializerCommand extends CommandBase {
   public boolean isFinished() {
     return false;
   }
+
 }
+
