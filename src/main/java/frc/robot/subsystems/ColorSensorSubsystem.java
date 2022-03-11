@@ -111,6 +111,15 @@ public class ColorSensorSubsystem extends SubsystemBase{
     }
   }
 
+  public boolean ballTwoDetected(){
+    if(ballColors.get(1) != null){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
   public ArrayList getBallValues(){
     return ballColors;
   }
