@@ -56,7 +56,6 @@ public class IntakeSubsystem extends SubsystemBase {
   
   public void deployIntake() {
     runIntake(0.0);
-
     intakeDeploy.set(Value.kForward);
   }
   

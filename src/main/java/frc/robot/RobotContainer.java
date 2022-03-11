@@ -13,6 +13,7 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.LaunchSerializerCommand;
 import frc.robot.commands.PurgeLauncherCommand;
 import frc.robot.commands.ReverseSerializerCommand;
+import frc.robot.commands.DeployIntakeCommand;
 import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -29,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,6 +44,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_intake;
   private SerializerSubsystem m_serializer;
   private LauncherSubsystem m_launcher;
+  private ColorSensorSubsystem m_colorSensor;
   private final DriveCommand m_driveCommand;
   private final ShiftGearCommand m_shiftGearCommand;
 
@@ -103,7 +106,7 @@ public class RobotContainer {
     launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher);
     purgeLaunchCommand = new PurgeLauncherCommand(this.m_serializer, this.m_launcher);
 
-    m_colorsensor = new ColorSensorSubsystem();
+    m_colorSensor = new ColorSensorSubsystem();
   
    
 

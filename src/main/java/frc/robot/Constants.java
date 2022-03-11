@@ -26,6 +26,8 @@ public final class Constants {
         public static final int LEFT_BACK_TALON = 1;
     
         public static final double ACCELERATION_CONSTANT = 2;
+        public static final int GEAR_SHIFT_DEPLOY = 1;
+        public static final int GEAR_SHIFT_RETRACT = 0;
     }
 
 
@@ -35,10 +37,6 @@ public final class Constants {
         public static final int INTAKE_SOLENOID_DEPLOY = 2;
         public static final int INTAKE_SOLENOID_RETRACT = 3;
     }
-
-
-        public static final int GEAR_SHIFT_DEPLOY = 1;
-        public static final int GEAR_SHIFT_RETRACT = 0;
 
         // Sets the sensitivity of the joystick, higher constant = more gradual
         // acceleration
@@ -66,8 +64,7 @@ public final class Constants {
         public static final double COLOR_THRESHOLD = .35;
     }
 
-
-        // Configuration Constants
+    // Configuration Constants
         /**
          * Which PID slot to pull gains from. Starting 2018, you can choose from
          * 0,1,2 or 3. Only the first two (0,1) are visible in web-based
@@ -92,4 +89,6 @@ public final class Constants {
         public static final double kD = 0;
         public static final double kF = 0.034875;
 }
+
+
 
