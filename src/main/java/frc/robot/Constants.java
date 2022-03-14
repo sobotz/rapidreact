@@ -27,7 +27,11 @@ public final class Constants {
     
         public static final double ACCELERATION_CONSTANT = 2;
         public static final int GEAR_SHIFT_DEPLOY = 1;
+<<<<<<< Updated upstream
         public static final int GEAR_SHIFT_RETRACT = 0;
+=======
+		public static final int GEAR_SHIFT_RETRACT = 0;
+>>>>>>> Stashed changes
     }
 
 
@@ -38,8 +42,15 @@ public final class Constants {
         public static final int INTAKE_SOLENOID_RETRACT = 3;
     }
 
+<<<<<<< Updated upstream
         // Sets the sensitivity of the joystick, higher constant = more gradual
         // acceleration
+=======
+
+		
+
+        // Sets the sensitivity of the joystick, higher constant = more gradual acceleration
+>>>>>>> Stashed changes
         // TO REVERT TO LINEAR ACCELERATION SET TO 1
     // public static final double ACCELERATION_CONSTANT = 2;
     public static final class SerializerConstants{
@@ -59,6 +70,7 @@ public final class Constants {
         public static final int ENEMY_VELOCITY = 10000;
         
     }
+<<<<<<< Updated upstream
     
     public final class ColorSensorConstants{
         public static final double COLOR_THRESHOLD = .35;
@@ -88,6 +100,12 @@ public final class Constants {
         public static final double kI = 0;
         public static final double kD = 0;
         public static final double kF = 0.034875;
+=======
+    public static final class ColorSensorConstants{
+        public static final double COLOR_THRESHOLD = 0.35;
+    }
+	
+>>>>>>> Stashed changes
 }
 
 
