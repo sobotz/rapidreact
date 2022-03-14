@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -45,6 +47,18 @@ public class DriveSubsystem extends SubsystemBase {
     this.backLeftController.configFactoryDefault();
     this.backRightController.configFactoryDefault();
 
+
+    this.frontLeftController.configOpenloopRamp(0.5);
+    this.backLeftController.configOpenloopRamp(0.5);
+    this.frontRightController.configOpenloopRamp(0.5);
+    this.backRightController.configOpenloopRamp(0.5);
+
+    this.frontLeftController.configClosedloopRamp(0);
+    this.backLeftController.configClosedloopRamp(0);
+    this.frontRightController.configClosedloopRamp(0);
+    this.backRightController.configClosedloopRamp(0);
+
+    this.frontLeftController.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 10, 15, 0.5));
 
      /* Set Motion Magic gains in slot0 - see documentation */
 		this.frontLeftController.selectProfileSlot(Constants.kSlotIdx, Constants.kPIDLoopIdx);
