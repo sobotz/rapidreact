@@ -40,13 +40,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
   
   public ColorSensorSubsystem(){
-    weAreBlue = SmartDashboard.getBoolean("weAreBlue", true);
-    if(weAreBlue){
-      teamColor = "blue";
-    }
-    if(!weAreBlue){
-      teamColor = "red";
-    }
+    
   }
 
   
@@ -54,6 +48,14 @@ public class ColorSensorSubsystem extends SubsystemBase{
   //@Override
   public void periodic() {
     Color detectedColor = colorSensor.getColor();
+    weAreBlue = SmartDashboard.getBoolean("weAreBlue", true);
+    if(weAreBlue){
+      teamColor = "blue";
+    }
+    if(!weAreBlue){
+      teamColor = "red";
+    }
+    
     SmartDashboard.putString("ballColors", ballColors.toString());
 
     SmartDashboard.putNumber("Red", detectedColor.red);

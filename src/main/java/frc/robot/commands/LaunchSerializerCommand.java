@@ -37,7 +37,7 @@ public class LaunchSerializerCommand extends CommandBase {
   @Override
   public void initialize() {
     //this.nFramesRun = 0;
-    serializer.toggleSerializer();
+    //serializer.toggleSerializer();
 
   }
 
@@ -45,15 +45,15 @@ public class LaunchSerializerCommand extends CommandBase {
   @Override
   public void execute() {
 
-    if(colorSensor.ballOneDetected() && !colorSensor.ballTwoDetected()){
-      if (this.nFramesRun > 50) {
+    //if(colorSensor.ballOneDetected() && !colorSensor.ballTwoDetected()){
+      //if (this.nFramesRun > 50) {
         this.serializer.runSerializer(1);
       
-      }
+      //}
 
-      else{
-        this.serializer.stopBelt();
-      }
+      //else{
+        //this.serializer.stopBelt();
+      //}
       this.nFramesRun++;
 
 
@@ -66,7 +66,7 @@ public class LaunchSerializerCommand extends CommandBase {
     //   Timer.delay(0.2); //check
     // }
 
-    }
+    //}
 
   }
 
@@ -75,7 +75,8 @@ public class LaunchSerializerCommand extends CommandBase {
   public void end(boolean interrupted) {
 
     //this.nFramesRun = 0;
-    serializer.toggleSerializer();
+    //serializer.toggleSerializer();
+    serializer.runSerializer(0);
   }
 
   // Returns true when the command should end.

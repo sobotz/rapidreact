@@ -122,9 +122,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton DeployIntakeButton = new JoystickButton(m_operatorJoystick, 1);
-    JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 2);
-    JoystickButton reverseSerializerButton = new JoystickButton(m_operatorJoystick,3);
+    JoystickButton DeployIntakeButton = new JoystickButton(m_operatorJoystick, 4);
+    JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 3);
+    JoystickButton reverseSerializerButton = new JoystickButton(m_operatorJoystick,2);
     JoystickButton launchButton = new JoystickButton(m_operatorJoystick,6);
     JoystickButton purgeLaunchButton = new JoystickButton(m_operatorJoystick,5);
     JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);

@@ -44,25 +44,25 @@ public class ActivateLauncherCommand extends CommandBase {
   public void execute() {
     //launcher.get_velocity maybe
 
-    if(colorSensor.getShootOne()){
+   // if(colorSensor.getShootOne()){
       if (launcher.getVelocity() > LauncherConstants.TEAM_VELOCITY) {
-        /**this.launcher.startRollers();
-        this.serializer.runBelt();*/
-        if(serializer.checkBallLeft()){
+        this.launcher.startRollers();
+        this.serializer.runBelt();
+        /**if(serializer.checkBallLeft()){
           colorSensor.removeFirstBall();
           SmartDashboard.putBoolean("Shoot", true);
-        }
+        }*/
       }
-    }
-    if(!colorSensor.getShootOne()){
+    //}
+   // if(!colorSensor.getShootOne()){
       if(launcher.getVelocity()> LauncherConstants.ENEMY_VELOCITY){
-        /**launcher.startRollers();
-        this.serializer.runBelt();*/
-        if(serializer.checkBallLeft()){
+        launcher.startRollers();
+        this.serializer.runBelt();
+        /**if(serializer.checkBallLeft()){
           colorSensor.removeFirstBall();
           SmartDashboard.putBoolean("Shoot", false);
-        }
-      }
+        }*/
+   //   }
 
     }
 

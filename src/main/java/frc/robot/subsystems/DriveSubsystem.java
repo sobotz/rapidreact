@@ -48,7 +48,7 @@ public class DriveSubsystem extends SubsystemBase {
     this.backLeftController.configFactoryDefault();
     this.backRightController.configFactoryDefault();
 
-<<<<<<< Updated upstream
+
 
     this.frontLeftController.configOpenloopRamp(0.5);
     this.backLeftController.configOpenloopRamp(0.5);
@@ -117,10 +117,7 @@ public class DriveSubsystem extends SubsystemBase {
     this.finishDrive = false;
 
     this.totalSensorPosition = 0;
-=======
-    this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, DriveConstants.GEAR_SHIFT_DEPLOY, DriveConstants.GEAR_SHIFT_RETRACT);
-    this.lowGear = false;
->>>>>>> Stashed changes
+
 
   }
 
