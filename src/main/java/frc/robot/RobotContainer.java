@@ -24,8 +24,6 @@ import frc.robot.subsystems.SerializerSubsystem;
 
 
 import frc.robot.commands.ActivateLauncherCommand;
-
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -54,6 +52,7 @@ public class RobotContainer {
   private final ActivateLauncherCommand launchCommand;
   private final PurgeLauncherCommand purgeLaunchCommand;
 
+
   private final PathBR01 m_pathbr01;
   private final PathBR02 m_pathbr02;
   private final PathBR11 m_pathbr11;
@@ -80,6 +79,7 @@ public class RobotContainer {
     this.m_intake = new IntakeSubsystem();
     this.m_serializer = new SerializerSubsystem();
     this.m_launcher = new LauncherSubsystem();
+    this.m_colorSensor = new ColorSensorSubsystem();
     
     //this.m_autocommand = new AutoCommand(this.m_drivetrain);
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
@@ -105,9 +105,7 @@ public class RobotContainer {
     reverseSerializerCommand = new ReverseSerializerCommand(this.m_intake, this.m_serializer);
     launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher);
     purgeLaunchCommand = new PurgeLauncherCommand(this.m_serializer, this.m_launcher);
-
-    m_colorSensor = new ColorSensorSubsystem();
-  
+ 
    
 
     
@@ -128,7 +126,7 @@ public class RobotContainer {
     JoystickButton launchButton = new JoystickButton(m_operatorJoystick,6);
     JoystickButton purgeLaunchButton = new JoystickButton(m_operatorJoystick,5);
     JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
-
+    JoystickButton switchTeamColor = new JoystickButton(m_operatorJoystick, 1);
 
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
     DeployIntakeButton.whenHeld(deployIntakeCommand);

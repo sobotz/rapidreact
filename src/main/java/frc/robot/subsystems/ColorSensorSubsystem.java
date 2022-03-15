@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.ColorSensorConstants;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -40,21 +41,19 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
   
   public ColorSensorSubsystem(){
-    
+    if(DriverStation.getAlliance() == DriverStation.Alliance.Blue){
+      weAreBlue = true;
+     }
+    else{
+      weAreBlue = false;
+    }
   }
 
   
 
   //@Override
   public void periodic() {
-    Color detectedColor = colorSensor.getColor();
-    weAreBlue = SmartDashboard.getBoolean("weAreBlue", true);
-    if(weAreBlue){
-      teamColor = "blue";
-    }
-    if(!weAreBlue){
-      teamColor = "red";
-    }
+    
     
     SmartDashboard.putString("ballColors", ballColors.toString());
 
@@ -146,9 +145,6 @@ public class ColorSensorSubsystem extends SubsystemBase{
     willShoot.remove(ballColors.size() - 1);
   }
   
-  public String getTeamColor(){
-    return teamColor;
-  }
 
   public void clearBallValues(){
     ballColors.remove(0);
@@ -156,7 +152,8 @@ public class ColorSensorSubsystem extends SubsystemBase{
     willShoot.remove(0);
     willShoot.remove(1);
   }
- 
+  
+  
   
 }
 
