@@ -17,7 +17,8 @@ public class ActivateLauncherCommand extends CommandBase {
   private LauncherSubsystem launcher;
   private ColorSensorSubsystem colorSensor;
 
-  private int nFramesRun;
+
+  private int targetVelocity;
 
   /**
    * Creates a new LaunchAllCommand.
@@ -26,6 +27,7 @@ public class ActivateLauncherCommand extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     this.serializer = serializer1;
     this.launcher = launcher1;
+    this.targetVelocity = 0;
 
     addRequirements(serializer, launcher);
   }
@@ -33,8 +35,8 @@ public class ActivateLauncherCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.nFramesRun = 0;
-    this.launcher.startLauncher();
+    this.targetVelocity = /* (allyBall) ?  : LauncherConstants.ENEMY_VELOCITY*/ LauncherConstants.TEAM_VELOCITY;
+    this.launcher.startLauncher(targetVelocity);
     this.serializer.acceptingBalls = false;
 
   }
@@ -42,32 +44,10 @@ public class ActivateLauncherCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //launcher.get_velocity maybe
-
-   // if(colorSensor.getShootOne()){
-      if (launcher.getVelocity() > LauncherConstants.TEAM_VELOCITY) {
+      if (launcher.getVelocity() > LauncherConstants.TEAM_VELOCITY - 200 && launcher.getVelocity() < LauncherConstants.TEAM_VELOCITY + 200) {
         this.launcher.startRollers();
         this.serializer.runBelt();
-        /**if(serializer.checkBallLeft()){
-          colorSensor.removeFirstBall();
-          SmartDashboard.putBoolean("Shoot", true);
-        }*/
-      }
-    //}
-   // if(!colorSensor.getShootOne()){
-      if(launcher.getVelocity()> LauncherConstants.ENEMY_VELOCITY){
-        launcher.startRollers();
-        this.serializer.runBelt();
-        /**if(serializer.checkBallLeft()){
-          colorSensor.removeFirstBall();
-          SmartDashboard.putBoolean("Shoot", false);
-        }*/
-   //   }
-
-    }
-
-    this.nFramesRun++;
- 
+      } 
   }
 
   // Called once the command ends or is interrupted.
@@ -77,12 +57,6 @@ public class ActivateLauncherCommand extends CommandBase {
     this.launcher.stopLauncher();
     this.serializer.stopBelt();
     this.serializer.acceptingBalls = true;
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-     return this.nFramesRun > 500;
   }
 
 }

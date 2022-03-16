@@ -11,7 +11,6 @@ import frc.robot.auto.*;
 
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.LaunchSerializerCommand;
-import frc.robot.commands.PurgeLauncherCommand;
 import frc.robot.commands.ReverseSerializerCommand;
 import frc.robot.commands.DeployIntakeCommand;
 import frc.robot.commands.ShiftGearCommand;
@@ -50,7 +49,6 @@ public class RobotContainer {
   private final LaunchSerializerCommand m_launchSerializer;
   private final ReverseSerializerCommand reverseSerializerCommand;
   private final ActivateLauncherCommand launchCommand;
-  private final PurgeLauncherCommand purgeLaunchCommand;
 
 
   private final PathBR01 m_pathbr01;
@@ -104,7 +102,6 @@ public class RobotContainer {
     m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
     reverseSerializerCommand = new ReverseSerializerCommand(this.m_intake, this.m_serializer);
     launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher);
-    purgeLaunchCommand = new PurgeLauncherCommand(this.m_serializer, this.m_launcher);
  
    
 
@@ -124,7 +121,6 @@ public class RobotContainer {
     JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 3);
     JoystickButton reverseSerializerButton = new JoystickButton(m_operatorJoystick,2);
     JoystickButton launchButton = new JoystickButton(m_operatorJoystick,6);
-    JoystickButton purgeLaunchButton = new JoystickButton(m_operatorJoystick,5);
     JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
     JoystickButton switchTeamColor = new JoystickButton(m_operatorJoystick, 1);
 
@@ -135,7 +131,6 @@ public class RobotContainer {
     serializerButton.whenHeld(this.m_launchSerializer);
     reverseSerializerButton.whenHeld(reverseSerializerCommand);
     launchButton.whenHeld(launchCommand);
-    purgeLaunchButton.whenHeld(purgeLaunchCommand);
   }
 
   /**

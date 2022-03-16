@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LauncherConstants;
-import frc.robot.Constants;
 public class LauncherSubsystem extends SubsystemBase {
   /** Creates a new LauncherSubsystem. */
   public WPI_TalonFX launcherMotor;
@@ -25,38 +24,37 @@ public class LauncherSubsystem extends SubsystemBase {
 
     
     launcherMotor.setInverted(true);
-    launcherMotor2.follow(launcherMotor);
     
 
 
     launcherMotor2.setInverted(InvertType.OpposeMaster);
 
-    launcherMotor.configFactoryDefault();
-    launcherMotor2.configFactoryDefault();
-    feedMotor.configFactoryDefault();
+    launcherMotor.config_kP(0, .25);
+    launcherMotor.config_kI(0, .0025);
+    launcherMotor.config_kD(0, 100);
   }
 
   public void startRollers() {
     feedMotor.set(ControlMode.PercentOutput, 1);
+    launcherMotor2.follow(launcherMotor);
   }
 
   public void stopRollers() {
     feedMotor.set(ControlMode.PercentOutput, 0);
+    launcherMotor2.follow(launcherMotor);
   }
 
-  public void startLauncher() {
-    launcherMotor.set(ControlMode.Velocity, 1);
+  public void startLauncher(int velocity) {
+    launcherMotor.set(ControlMode.Velocity, velocity);
+    launcherMotor2.follow(launcherMotor);
 
   }
 
   public void stopLauncher() {
     launcherMotor.set(ControlMode.Velocity, 0);
+    launcherMotor2.follow(launcherMotor);
   }
-  public void purgeLauncher(){
-    launcherMotor.set(ControlMode.Velocity, 0.5);
-
-    
-  }
+  
   public double getVelocity(){
     return launcherMotor.getSelectedSensorVelocity();
   }
