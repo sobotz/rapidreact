@@ -64,6 +64,11 @@ public class SerializerSubsystem extends SubsystemBase {
     //SmartDashboard.putNumber("Sensor 2: ", serializerSensor2.getVoltage()); // true
     
     serializerMotor1.set(ControlMode.PercentOutput, ((serializerSensor1.getVoltage() < .85 || serializerSensor2.getVoltage() < .85) && launcherSensor.getVoltage() > .85 ) ? -SerializerConstants.SERIALIZER_SPEED : 0);
+
+    if (previousLSValue && launcherSensor.getVoltage() > .85){
+      
+    }
+    previousLSValue = launcherSensor.getVoltage() < .85;
   }
   
   public void runBelt() {
@@ -71,7 +76,7 @@ public class SerializerSubsystem extends SubsystemBase {
     // serializer
     acceptingBalls = false;
     // turns serializer motor on
-    serializerMotor1.set(ControlMode.PercentOutput, -10);
+    serializerMotor1.set(ControlMode.PercentOutput, -SerializerConstants.SERIALIZER_SPEED);
     // lets us know if the belts are running
     //SmartDashboard.putBoolean("Belts On: ", true);
     // changes the amount of time moved forward based on the ball count
@@ -106,9 +111,10 @@ public class SerializerSubsystem extends SubsystemBase {
     //}
   }
   
-  public void runSerializer(double speedd){
-    serializerMotor1.set(ControlMode.PercentOutput, -speedd *SerializerConstants.SERIALIZER_SPEED);
+  public void runSerializer(double speed){
+    serializerMotor1.set(ControlMode.PercentOutput, -speed *SerializerConstants.SERIALIZER_SPEED);
   }
+
   public void toggleSerializer(){
     if (hasDeployedSerializer) {
       runSerializer(0);
@@ -117,7 +123,6 @@ public class SerializerSubsystem extends SubsystemBase {
       runSerializer(1);
       hasDeployedSerializer = true;
     }
-    
   }
 
   public boolean checkBallLeft(){
