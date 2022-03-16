@@ -25,27 +25,18 @@ public class PathBR01 extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.timer.start();
     // encoder.setDistancePerPulse(1. / 315.924339); // feet per PPR
+    m_drive.testDrive(-1.0, 4.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (timer.get() < 0.7) {
-      m_drive.drive(-0.5, 0);
-    }
-    else{
-      m_drive.drive(0,0);
-    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.m_drive.drive(0, 0);
-    this.timer.stop();
-    this.timer.reset();
   }
 
   // Returns true when the command should end.

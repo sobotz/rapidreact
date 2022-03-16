@@ -49,7 +49,6 @@ public class PathBR61 extends CommandBase {
     m_drive.testDrive(-1.0, 1);
 
     timer.delay(1.5);
-    m_drive.drive(0,0);
     this.m_launcher.startLauncher();
     this.m_launcher.startRollers();
     this.m_serializer.runBelt();
@@ -62,7 +61,6 @@ public class PathBR61 extends CommandBase {
     this.m_serializer.acceptingBalls = true;
     this.isFinished = true;
 
-    this.m_drive.drive(0, 0);
     timer.reset();
   }
 

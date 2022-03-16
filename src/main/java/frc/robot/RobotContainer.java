@@ -23,6 +23,7 @@ import frc.robot.subsystems.SerializerSubsystem;
 
 
 import frc.robot.commands.ActivateLauncherCommand;
+import frc.robot.commands.ColorSensorCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -42,6 +43,7 @@ public class RobotContainer {
   private SerializerSubsystem m_serializer;
   private LauncherSubsystem m_launcher;
   private ColorSensorSubsystem m_colorSensor;
+  
   private final DriveCommand m_driveCommand;
   private final ShiftGearCommand m_shiftGearCommand;
 
@@ -49,6 +51,7 @@ public class RobotContainer {
   private final LaunchSerializerCommand m_launchSerializer;
   private final ReverseSerializerCommand reverseSerializerCommand;
   private final ActivateLauncherCommand launchCommand;
+  private ColorSensorCommand colorSensorCommand;
 
 
   private final PathBR01 m_pathbr01;
@@ -102,6 +105,7 @@ public class RobotContainer {
     m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
     reverseSerializerCommand = new ReverseSerializerCommand(this.m_intake, this.m_serializer);
     launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher);
+    colorSensorCommand = new ColorSensorCommand();
  
    
 
@@ -130,7 +134,8 @@ public class RobotContainer {
     
     serializerButton.whenHeld(this.m_launchSerializer);
     reverseSerializerButton.whenHeld(reverseSerializerCommand);
-    launchButton.whenHeld(launchCommand);
+    launchButton.whenHeld(launchCommand);=
+    switchTeamColor.whenPressed(colorSensorCommand);
   }
 
   /**

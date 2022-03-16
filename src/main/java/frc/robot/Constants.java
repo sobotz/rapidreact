@@ -95,10 +95,12 @@ public final class Constants {
          */
         public static final int kTimeoutMs = 30;
 
-        public static final double kP = 0.5;
+        public static final double kP = 0.3;
         public static final double kI = 0;
-        public static final double kD = 0;
+        public static final double kD = 100;
         public static final double kF = 0.034875;
+
+        public static final double autoDrive = 8050;
 
     
     

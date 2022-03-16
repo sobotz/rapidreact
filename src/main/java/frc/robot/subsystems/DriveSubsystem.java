@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
@@ -87,6 +88,11 @@ public class DriveSubsystem extends SubsystemBase {
 		this.backRightController.config_kI(Constants.kSlotIdx, Constants.kI, Constants.kTimeoutMs);
 		this.backRightController.config_kD(Constants.kSlotIdx, Constants.kD, Constants.kTimeoutMs);
 
+    this.frontLeftController.setNeutralMode(NeutralMode.Brake);
+    this.backLeftController.follow(this.frontLeftController);
+    this.frontRightController.setNeutralMode(NeutralMode.Brake);
+    this.backRightController.follow(this.frontRightController);
+
     /* Set acceleration and vcruise velocity - see documentation */
 		this.frontLeftController.configMotionCruiseVelocity(11000, Constants.kTimeoutMs);
 		this.frontLeftController.configMotionAcceleration(11000, Constants.kTimeoutMs);
@@ -134,7 +140,8 @@ public class DriveSubsystem extends SubsystemBase {
   public void testDrive(double speed, double distance){
 
     // if (true || joystick) {
-      double targetPosition = (22788.5556*speed*distance) + totalSensorPosition; // 48 3/8 inches desired
+      // double targetPosition = (22788.5556*speed*distance); // 48 3/8 inches desired
+      double targetPosition = (Constants.autoDrive*speed*distance);
 			/* 2000 RPM in either direction */
       this.frontLeftController.set(ControlMode.MotionMagic, targetPosition);
       this.backLeftController.follow(this.frontLeftController);
@@ -142,7 +149,11 @@ public class DriveSubsystem extends SubsystemBase {
       this.frontRightController.set(ControlMode.MotionMagic, -targetPosition);
       this.backRightController.follow(this.frontRightController);//}
 
-      totalSensorPosition+=targetPosition;
+      this.frontRightController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+      this.backRightController.follow(this.frontRightController);
+      this.frontLeftController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+      this.backLeftController.follow(this.frontLeftController);
+
 			
       /* Velocity Closed Loop */
 
