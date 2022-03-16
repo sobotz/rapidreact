@@ -41,6 +41,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
   
   public ColorSensorSubsystem(){
+    
     if(DriverStation.getAlliance() == DriverStation.Alliance.Blue){
       weAreBlue = true;
      }
@@ -54,7 +55,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
   //@Override
   public void periodic() {
     
-    
+    Color detectedColor = colorSensor.getColor();
     SmartDashboard.putString("ballColors", ballColors.toString());
 
     SmartDashboard.putNumber("Red", detectedColor.red);
