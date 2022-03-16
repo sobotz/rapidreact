@@ -6,6 +6,7 @@
 
 package frc.robot.auto;
 
+import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -53,7 +54,7 @@ public class PathBR41 extends CommandBase {
     m_drive.testDrive(-1.0, 2.0);
 
     timer.delay(1.5);
-    this.m_launcher.startLauncher();
+    this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
     this.m_launcher.startRollers();
     this.m_serializer.runBelt();
     this.m_serializer.acceptingBalls = false;

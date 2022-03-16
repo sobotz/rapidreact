@@ -11,6 +11,8 @@ import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 
+import frc.robot.Constants.LauncherConstants;
+
 public class PathBR02 extends CommandBase {
   private final DriveSubsystem m_drive;
 
@@ -43,7 +45,7 @@ public class PathBR02 extends CommandBase {
     m_drive.testDrive(-1.0, 6.0); // move 6 ft 
     timer.delay(2);
 
-    this.m_launcher.startLauncher();
+    this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
     this.m_launcher.startRollers();
     this.m_serializer.runBelt();
     this.m_serializer.acceptingBalls = false;

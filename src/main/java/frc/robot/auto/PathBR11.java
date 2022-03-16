@@ -6,6 +6,7 @@
 
 package frc.robot.auto;
 
+import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
@@ -51,7 +52,7 @@ public class PathBR11 extends CommandBase {
 
     timer.delay(1.5);
 
-    this.m_launcher.startLauncher();
+    this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
     this.m_launcher.startRollers();
     this.m_serializer.runBelt();
     this.m_serializer.acceptingBalls = false;
