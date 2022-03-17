@@ -7,51 +7,56 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import com.revrobotics.CANSparkMax;
-//import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.IntakeConstants;
 
+import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.SerializerConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
 
   public WPI_TalonSRX intakeTalon;
-  CANSparkMax intakeController;
 
   private DoubleSolenoid intakeDeploy;
+  
+  AnalogInput serializerSensor;
+  AnalogInput intakeSensor;
+  AnalogInput launcherSensor;
 
   public boolean hasDeployed;
+  private boolean notAccepting;
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
 
-    //intakeController = new CANSparkMax(IntakeConstants.INTAKE_MOTOR, MotorType.kBrushless);
-
     intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_MOTOR);
+    intakeTalon.configFactoryDefault();
+
+    serializerSensor = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_2);
+    intakeSensor = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_1);
+    launcherSensor = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_3);
+
     //Change CTREPCM to REVPM
     intakeDeploy = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.INTAKE_SOLENOID_DEPLOY,IntakeConstants.INTAKE_SOLENOID_RETRACT);
 
-
-    //intakeController.configFactoryDefault();
-
     hasDeployed = false;
-    intakeTalon.configFactoryDefault();
-    
-    
-
+    notAccepting = false;
   }
 
-  
-  
-  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    if (launcherSensor.getVoltage() < .85 && serializerSensor.getVoltage() < .85) {
+      notAccepting = true;
+    } else {
+      if (intakeSensor.getVoltage() < .85) {
+        runIntake(1);
+      }
+    }
   }
   
   public void deployIntake() {
@@ -60,17 +65,13 @@ public class IntakeSubsystem extends SubsystemBase {
   }
   
   public void runIntake(double speed) {
-
-    //intakeController.set(speed * IntakeConstants.MAXIMUM_INTAKE_SPEED);
-    intakeTalon.set(ControlMode.PercentOutput,speed * IntakeConstants.MAXIMUM_INTAKE_SPEED);
+    intakeTalon.set(ControlMode.PercentOutput, (notAccepting) ? 0.0 : speed * IntakeConstants.MAXIMUM_INTAKE_SPEED);
   }
   
   public void retractIntake() {
     intakeDeploy.set(Value.kReverse);
-
   }
 
-  
   public boolean toggleIntake() {
     if (hasDeployed) {
       intakeDeploy.set(DoubleSolenoid.Value.kForward);
@@ -82,7 +83,7 @@ public class IntakeSubsystem extends SubsystemBase {
       hasDeployed = true;
     }
     
-    return !hasDeployed;
+    return hasDeployed;
   }
 
 

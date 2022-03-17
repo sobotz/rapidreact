@@ -27,7 +27,6 @@ public class ReverseSerializerCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    serializer.acceptingBalls = false;
     if (intake.hasDeployed)
       this.intake.toggleIntake();
   }
@@ -43,7 +42,6 @@ public class ReverseSerializerCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     serializer.stopBelt();
-    this.serializer.acceptingBalls = true;
   }
 
   // Returns true when the command should end.

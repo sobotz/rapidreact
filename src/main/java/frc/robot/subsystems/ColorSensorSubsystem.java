@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.ColorSensorConstants;
+import frc.robot.Constants.SerializerConstants;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.I2C;
@@ -34,11 +36,15 @@ public class ColorSensorSubsystem extends SubsystemBase{
   private double lastRed = 0.0;
   private double lastBlue = 0.0;
   //our color
-
   private Alliance teamColor;
+  private AnalogInput launcherSensor;
+
+  private boolean lastLSVal;
 
   public ColorSensorSubsystem(){
     this.teamColor = DriverStation.getAlliance();
+    launcherSensor = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_3);
+    lastLSVal = false;
   }
 
   //@Override
@@ -54,8 +60,15 @@ public class ColorSensorSubsystem extends SubsystemBase{
     else if(detectedColor.blue > ColorSensorConstants.COLOR_THRESHOLD && lastBlue < ColorSensorConstants.COLOR_THRESHOLD){
       ballColors.add(Alliance.Blue);
     }
+
     lastRed = detectedColor.red;
     lastBlue = detectedColor.blue;
+
+    if (launcherSensor.getVoltage() > .85 && lastLSVal) {
+      ballColors.remove(0);
+    }
+    
+    lastLSVal = launcherSensor.getVoltage() < .85;
   }
 
   public Boolean allyBall () {
