@@ -4,11 +4,22 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.ColorSensorSubsystem;
+import frc.robot.subsystems.LauncherSubsystem;
+import frc.robot.subsystems.SerializerSubsystem;
 
 public class RunAll extends CommandBase {
+  private ColorSensorSubsystem colorsensor;
+  private LauncherSubsystem launcher;
+  private SerializerSubsystem serializer;
+  private Timer timer;
   /** Creates a new RunAll. */
   public RunAll() {
+    colorsensor = new ColorSensorSubsystem();
+    launcher = new LauncherSubsystem();
+    serializer = new SerializerSubsystem();
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -18,7 +29,14 @@ public class RunAll extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    this.launcher.LaunchAll();
+    this.serializer.runBelt();
+    
+    timer.delay(3);
+    this.launcher.stopLauncher();
+    this.serializer.stopBelt();
+  }
 
   // Called once the command ends or is interrupted.
   @Override

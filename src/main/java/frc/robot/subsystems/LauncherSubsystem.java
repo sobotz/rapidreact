@@ -42,6 +42,11 @@ public class LauncherSubsystem extends SubsystemBase {
     return launcherMotor.getSelectedSensorVelocity();
   }
 
+  public void LaunchAll(){
+    launcherMotor.set(ControlMode.PercentOutput, 0.3);
+    launcherMotor2.follow(launcherMotor);
+  }
+
 }
   
 
