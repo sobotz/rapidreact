@@ -25,30 +25,11 @@ public class DeployIntakeCommand extends InstantCommand {
   @Override
   public void initialize() {
     m_intake.toggleIntake();
-
-    serializer.toggleSerializer();
   }
   
   public void end() {
     m_intake.toggleIntake();
-
-    serializer.toggleSerializer();
-
     
   }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  
-
-  
-  // Called once the command ends or is interrupted.
- 
-  
-
-  // Returns true when the command should end.
-
-  
-  
-
 }
 
