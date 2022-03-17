@@ -26,6 +26,10 @@ public class DeployIntakeCommand extends InstantCommand {
   public void initialize() {
     m_intake.toggleIntake();
   }
+
+  public void execute () {
+    m_intake.runIntake(1);
+  }
   
   public void end() {
     m_intake.toggleIntake();
