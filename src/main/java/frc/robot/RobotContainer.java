@@ -134,7 +134,7 @@ public class RobotContainer {
     
     serializerButton.whenHeld(this.m_launchSerializer);
     reverseSerializerButton.whenHeld(reverseSerializerCommand);
-    launchButton.whenHeld(launchCommand);=
+    launchButton.whenHeld(launchCommand);
     switchTeamColor.whenPressed(colorSensorCommand);
   }
 
