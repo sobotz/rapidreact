@@ -43,7 +43,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
   public ColorSensorSubsystem(){
     this.teamColor = DriverStation.getAlliance();
-    launcherSensor = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_3);
+    launcherSensor = new AnalogInput(3);
     lastLSVal = false;
   }
 

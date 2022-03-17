@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -18,27 +19,27 @@ import frc.robot.Constants.SerializerConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
+  private DigitalInput intakeSensor;
+  private DigitalInput serializerSensor;
+  private DigitalInput launcherSensor;
 
   public WPI_TalonSRX intakeTalon;
 
   private DoubleSolenoid intakeDeploy;
-  
-  AnalogInput serializerSensor;
-  AnalogInput intakeSensor;
-  AnalogInput launcherSensor;
 
+  private SensorSubsystem sensors;
+  
+  
   public boolean hasDeployed;
   private boolean notAccepting;
   /** Creates a new IntakeSubsystem. */
-  public IntakeSubsystem() {
+  public IntakeSubsystem(SensorSubsystem sensors) {
 
     intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_MOTOR);
     intakeTalon.configFactoryDefault();
 
-    serializerSensor = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_2);
-    intakeSensor = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_1);
-    launcherSensor = new AnalogInput(SerializerConstants.SERIALIZER_SENSOR_3);
-
+    this.sensors = sensors;
+    
     //Change CTREPCM to REVPM
     intakeDeploy = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.INTAKE_SOLENOID_DEPLOY,IntakeConstants.INTAKE_SOLENOID_RETRACT);
 
@@ -50,10 +51,10 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
-    if (launcherSensor.getVoltage() < .85 && serializerSensor.getVoltage() < .85) {
+    if (sensors.getLauncherVal() && sensors.getSerializerVal()) {
       notAccepting = true;
     } else {
-      if (intakeSensor.getVoltage() < .85) {
+      if (sensors.getIntakeVal()) {
         runIntake(1);
       }
     }
