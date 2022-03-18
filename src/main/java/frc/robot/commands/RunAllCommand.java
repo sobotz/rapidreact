@@ -11,13 +11,13 @@ import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 
-public class RunAll extends CommandBase {
+public class RunAllCommand extends CommandBase {
   private ColorSensorSubsystem colorsensor;
   private LauncherSubsystem launcher;
   private SerializerSubsystem serializer;
   private Timer timer;
   /** Creates a new RunAll. */
-  public RunAll(ColorSensorSubsystem colors, LauncherSubsystem launcher, SerializerSubsystem serializer) {
+  public RunAllCommand(ColorSensorSubsystem colors, LauncherSubsystem launcher, SerializerSubsystem serializer) {
     this.colorsensor = colors;
     this.launcher = launcher;
     this.serializer = serializer;
