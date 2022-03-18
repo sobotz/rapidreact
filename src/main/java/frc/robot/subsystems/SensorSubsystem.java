@@ -4,22 +4,24 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.AnalogInput;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SensorSubsystem extends SubsystemBase {
-  private DigitalInput intakeSensor;
-  private DigitalInput serializerSensor;
-  private DigitalInput launcherSensor;
+  private AnalogInput intakeSensor;
+  private AnalogInput serializerSensor;
+  private AnalogInput launcherSensor;
   private boolean intakeVal;
   private boolean serializerVal;
   private boolean launcherVal;
 
   /** Creates a new SensorSubsystem. */
   public SensorSubsystem() {
-    intakeSensor = new DigitalInput(0);
-    serializerSensor = new DigitalInput(1);
-    launcherSensor = new DigitalInput(2);
+   /** intakeSensor = new AnalogInput(0);
+    serializerSensor = new AnalogInput(1);
+    launcherSensor = new AnalogInput(2);*/
     intakeVal = false;
     serializerVal = false;
     launcherVal = false;
@@ -28,10 +30,10 @@ public class SensorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    intakeVal = intakeSensor.get();
+    /**intakeVal = intakeSensor.get();
     serializerVal = serializerSensor.get();
     launcherVal = launcherSensor.get();
-    System.out.println("intake value: " + intakeVal);
+    System.out.println("intake value: " + intakeVal);*/
   }
   
   public boolean getIntakeVal(){
