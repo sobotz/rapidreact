@@ -17,9 +17,9 @@ public class SensorSubsystem extends SubsystemBase {
 
   /** Creates a new SensorSubsystem. */
   public SensorSubsystem() {
-    intakeSensor = new DigitalInput(1);
-    serializerSensor = new DigitalInput(2);
-    launcherSensor = new DigitalInput(3);
+    intakeSensor = new DigitalInput(0);
+    serializerSensor = new DigitalInput(1);
+    launcherSensor = new DigitalInput(2);
     intakeVal = false;
     serializerVal = false;
     launcherVal = false;

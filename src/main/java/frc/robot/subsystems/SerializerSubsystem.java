@@ -62,7 +62,7 @@ public class SerializerSubsystem extends SubsystemBase {
       }  
     }
     if (sensors.getLauncherVal() && sensors.getSerializerVal()){
-      
+
     }
 
   }
