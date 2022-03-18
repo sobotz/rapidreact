@@ -44,7 +44,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
   //SensorSubsystem sensorSubsystem = new SensorSubsystem();
   private SensorSubsystem sensors;
 
-  public ColorSensorSubsystem(/*SensorSubsystem sensors*/){
+  public ColorSensorSubsystem(SensorSubsystem sensors){
     this.teamColor = DriverStation.getAlliance();
     //launcherSensor = new AnalogInput(3);
     lastLSVal = false;
