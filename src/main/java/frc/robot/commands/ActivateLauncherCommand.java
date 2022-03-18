@@ -41,7 +41,7 @@ public class ActivateLauncherCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.targetVelocity = (colorSensor.allyBall()) ? LauncherConstants.TEAM_VELOCITY : LauncherConstants.ENEMY_VELOCITY;
+    this.targetVelocity = (colorSensor.allyBall()) ? (LauncherConstants.TEAM_VELOCITY) : LauncherConstants.ENEMY_VELOCITY;
     if (launcher.getVelocity() > LauncherConstants.TEAM_VELOCITY - 200 && launcher.getVelocity() < LauncherConstants.TEAM_VELOCITY + 200) {
       this.serializer.runBelt();
     } else {
