@@ -32,9 +32,11 @@ public final class Constants {
         public static final int MAX_ROTATION_VALUE = 50000;
         public static final double MAX_SPEED = .25;
 
+        public static final double LIMLIGHT_TO_HUB_HEIGHT = 77;
+        public static final double LIMELIGHT_ANGLE = 26;
 
         public static final double LOGISTIC_GROWTH_RATE = .45;
-        public static final double MIN_ADJUST_SPEED = .2;
+        public static final double MIN_ADJUST_SPEED = .3;
         public static final double DEADBAND_RANGE = 0.05;
     }
 }

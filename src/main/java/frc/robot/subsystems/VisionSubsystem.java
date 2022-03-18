@@ -30,6 +30,7 @@ public class VisionSubsystem extends SubsystemBase {
   double xOffset;
   double yOffset;
   double area;
+  double defaultSpeed;
 
   TalonSRX actuationMotor;
 
@@ -43,6 +44,8 @@ public class VisionSubsystem extends SubsystemBase {
     this.tArea = table.getEntry("ta");
 
     this.actuationMotor = new TalonSRX(VisionConstants.ACTUATION_MOTOR);
+
+    defaultSpeed = -1;
   }
 
   public void correctX () {
@@ -56,8 +59,13 @@ public class VisionSubsystem extends SubsystemBase {
         speedPercent = 0;
       }
       if (Math.abs(this.actuationMotor.getSelectedSensorPosition()) > VisionConstants.MAX_ROTATION_VALUE) {
-        speedPercent = (Math.signum(this.actuationMotor.getSelectedSensorPosition()) == -1) ? VisionConstants.MIN_ADJUST_SPEED : -VisionConstants.MIN_ADJUST_SPEED;
+        speedPercent = VisionConstants.MIN_ADJUST_SPEED * ((Math.signum(this.actuationMotor.getSelectedSensorPosition()) == -1) ? 1 : -1);
       }
+    } else {
+      if (Math.abs(this.actuationMotor.getSelectedSensorPosition()) > VisionConstants.MAX_ROTATION_VALUE) {
+        defaultSpeed *= -1;
+      }
+      speedPercent = defaultSpeed;
     }
     SmartDashboard.putNumber("SpeedPercent: ",speedPercent);
     this.actuationMotor.set(ControlMode.PercentOutput, VisionConstants.MAX_SPEED * -speedPercent);
@@ -65,6 +73,10 @@ public class VisionSubsystem extends SubsystemBase {
 
   public void stopMotor () {
     this.actuationMotor.set(ControlMode.PercentOutput, 0.0);
+  }
+
+  public double targetDistance () {
+    return (this.hasTarget) ? VisionConstants.LIMLIGHT_TO_HUB_HEIGHT / Math.tan(Math.toRadians(VisionConstants.LIMELIGHT_ANGLE + this.yOffset)) : -1;
   }
 
   @Override
@@ -79,6 +91,8 @@ public class VisionSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("LimelightX", this.xOffset);
     SmartDashboard.putNumber("LimelightY", this.yOffset);
     SmartDashboard.putNumber("LimelightArea", area);
+
+    SmartDashboard.putNumber("TargetDistance", this.targetDistance());
     // This method will be called once per scheduler run
   }
 
