@@ -18,7 +18,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
-
+import frc.robot.subsystems.SensorSubsystem;
 import frc.robot.subsystems.ColorSensorSubsystem;
 //
 
@@ -69,6 +69,7 @@ public class RobotContainer {
   private LauncherSubsystem m_launcher;
 
   private ColorSensorSubsystem m_colorSensor;
+  private SensorSubsystem m_sensorSubsystem;
   //
 
   //Commands
@@ -105,13 +106,13 @@ public class RobotContainer {
 
     this.m_driverJoystick = new Joystick(0);
     m_operatorJoystick = new Joystick(1);
-    
+    m_sensorSubsystem = new SensorSubsystem();
 
     //Subsystems
     this.m_drivetrain = new DriveSubsystem();
 
     // this.m_intake = new IntakeSubsystem();
-    this.m_serializer = new SerializerSubsystem();
+    this.m_serializer = new SerializerSubsystem(m_sensorSubsystem);
     this.m_launcher = new LauncherSubsystem();
 
     this.m_colorSensor = new ColorSensorSubsystem();
