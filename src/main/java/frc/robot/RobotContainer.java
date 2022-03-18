@@ -106,7 +106,7 @@ public class RobotContainer {
 
     this.m_driverJoystick = new Joystick(0);
     m_operatorJoystick = new Joystick(1);
-    //m_sensorSubsystem = new SensorSubsystem();
+    m_sensorSubsystem = new SensorSubsystem();
 
     //Subsystems
     this.m_drivetrain = new DriveSubsystem();
