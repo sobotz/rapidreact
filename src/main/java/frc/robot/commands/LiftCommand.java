@@ -59,5 +59,7 @@ public class LiftCommand extends CommandBase {
   }
   public void dodo(){
     int i = 0;
+    if(i == 100)
+      i++;
   }
 }
