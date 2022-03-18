@@ -41,12 +41,14 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
   private boolean lastLSVal;
 
-  SensorSubsystem sensorSubsystem = new SensorSubsystem();
+  //SensorSubsystem sensorSubsystem = new SensorSubsystem();
+  private SensorSubsystem sensors;
 
-  public ColorSensorSubsystem(){
+  public ColorSensorSubsystem(SensorSubsystem sensors){
     this.teamColor = DriverStation.getAlliance();
     //launcherSensor = new AnalogInput(3);
     lastLSVal = false;
+    this.sensors = sensors;
   }
 
   //@Override
@@ -66,7 +68,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
     lastRed = detectedColor.red;
     lastBlue = detectedColor.blue;
 
-    if(!sensorSubsystem.getLauncherVal() && lastLSVal){
+    if(!sensors.getLauncherVal() && lastLSVal){
       removeFirstBall();
     }
     /**if (launcherSensor.getVoltage() > .85 && lastLSVal) {
@@ -74,7 +76,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
     }
     
     lastLSVal = launcherSensor.getVoltage() < .85;*/
-    lastLSVal = sensorSubsystem.getLauncherVal();
+    lastLSVal = sensors.getLauncherVal();
   }
 
   public Boolean allyBall () {

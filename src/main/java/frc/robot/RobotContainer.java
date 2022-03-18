@@ -64,7 +64,7 @@ public class RobotContainer {
   //Subsystem
   private final DriveSubsystem m_drivetrain;
 
-  // private final IntakeSubsystem m_intake;
+  private final IntakeSubsystem m_intake;
   private SerializerSubsystem m_serializer;
   private LauncherSubsystem m_launcher;
 
@@ -78,7 +78,7 @@ public class RobotContainer {
 
   public static DeployIntakeCommand deployIntakeCommand;
   private final LaunchSerializerCommand m_launchSerializer;
-  // private final ReverseSerializerCommand reverseSerializerCommand;
+  private final ReverseSerializerCommand reverseSerializerCommand;
   private final ActivateLauncherCommand launchCommand;
   //
 
@@ -106,16 +106,16 @@ public class RobotContainer {
 
     this.m_driverJoystick = new Joystick(0);
     m_operatorJoystick = new Joystick(1);
-    m_sensorSubsystem = new SensorSubsystem();
+    //m_sensorSubsystem = new SensorSubsystem();
 
     //Subsystems
     this.m_drivetrain = new DriveSubsystem();
 
-    // this.m_intake = new IntakeSubsystem();
-    this.m_serializer = new SerializerSubsystem(m_sensorSubsystem);
+    this.m_intake = new IntakeSubsystem(m_sensorSubsystem);
+    this.m_serializer = new SerializerSubsystem(/*m_sensorSubsystem*/);
     this.m_launcher = new LauncherSubsystem();
 
-    this.m_colorSensor = new ColorSensorSubsystem();
+    this.m_colorSensor = new ColorSensorSubsystem(m_sensorSubsystem);
     //
 
 
@@ -124,9 +124,9 @@ public class RobotContainer {
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
     this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
 
-    //deployIntakeCommand = new DeployIntakeCommand(this.m_intake, this.m_serializer);  
-    m_launchSerializer = new LaunchSerializerCommand(this.m_serializer);
-    //reverseSerializerCommand = new ReverseSerializerCommand(this.m_intake, this.m_serializer);
+    deployIntakeCommand = new DeployIntakeCommand(this.m_intake, this.m_serializer);  
+    m_launchSerializer = new LaunchSerializerCommand(this.m_serializer, m_sensorSubsystem);
+    reverseSerializerCommand = new ReverseSerializerCommand(this.m_intake, this.m_serializer);
     launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher);
     //
 
@@ -171,7 +171,7 @@ public class RobotContainer {
 
     
     serializerButton.whenHeld(this.m_launchSerializer);
-   // reverseSerializerButton.whenHeld(reverseSerializerCommand);
+    reverseSerializerButton.whenHeld(reverseSerializerCommand);
     launchButton.whenHeld(launchCommand);
   }
 

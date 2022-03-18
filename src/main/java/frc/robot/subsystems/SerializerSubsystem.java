@@ -13,8 +13,8 @@ public class SerializerSubsystem extends SubsystemBase {
   /**
    * Creates a new Serializer.
    */
-  private DigitalInput intakeSensor;
-  private DigitalInput launcherSensor;
+  //private DigitalInput intakeSensor;
+  //private DigitalInput launcherSensor;
   WPI_TalonSRX serializerMotor;
 
   // Initializes the sensors in the serializer and launcher
@@ -22,10 +22,10 @@ public class SerializerSubsystem extends SubsystemBase {
 
   // Initializes variables that wiil be used in the program
   public boolean runSerializer;
-  public boolean lastSerializerVal = false; // previous launcher sensor value
+  //public boolean lastSerializerVal = false; // previous launcher sensor value
   public boolean interrupted;
 
-  public SerializerSubsystem(SensorSubsystem sensors) {
+  public SerializerSubsystem(/*SensorSubsystem sensors*/) {
     
     // instantiates sensor values with respect to the contants method
 
@@ -35,6 +35,7 @@ public class SerializerSubsystem extends SubsystemBase {
     runSerializer = false;
 
     interrupted = false;
+    
   }
 
   

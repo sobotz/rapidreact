@@ -10,26 +10,27 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.ColorSensorSubsystem;
-
+import frc.robot.subsystems.SensorSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 
 public class LaunchSerializerCommand extends CommandBase {
   private SerializerSubsystem serializer;
-  private int nFramesRun;
+  
 
   private ColorSensorSubsystem colorSensor;
-
+  private SensorSubsystem sensors;
 
   /**
    * Creates a new LaunchAllCommand.
    */
-  public LaunchSerializerCommand(SerializerSubsystem serializer1) {
+  public LaunchSerializerCommand(SerializerSubsystem serializer1, SensorSubsystem sensors1) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.serializer = serializer1;
-    this.nFramesRun = 0;
-    addRequirements(serializer);
+    
+    this.sensors = sensors1;
+    addRequirements(serializer,sensors);
 
-    colorSensor = new ColorSensorSubsystem();
+    colorSensor = new ColorSensorSubsystem(sensors);
 
   }
 
@@ -54,7 +55,7 @@ public class LaunchSerializerCommand extends CommandBase {
       //else{
         //this.serializer.stopBelt();
       //}
-      this.nFramesRun++;
+      
 
 
     // while (this.serializer.ballCount != 0) {

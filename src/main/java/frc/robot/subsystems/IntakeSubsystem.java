@@ -33,12 +33,12 @@ public class IntakeSubsystem extends SubsystemBase {
   public boolean hasDeployed;
   private boolean notAccepting;
   /** Creates a new IntakeSubsystem. */
-  public IntakeSubsystem(SensorSubsystem sensors) {
+  public IntakeSubsystem(SensorSubsystem sensors1) {
 
     intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_MOTOR);
     intakeTalon.configFactoryDefault();
 
-    this.sensors = sensors;
+    this.sensors = sensors1;
     
     //Change CTREPCM to REVPM
     intakeDeploy = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.INTAKE_SOLENOID_DEPLOY,IntakeConstants.INTAKE_SOLENOID_RETRACT);
@@ -58,10 +58,10 @@ public class IntakeSubsystem extends SubsystemBase {
       //  runIntake(1);
       //}
     //}
-    /*if (sensors.getLauncherVal() && sensors.getSerializerVal()){
+    if (sensors.getLauncherVal() && sensors.getSerializerVal()){
       intakeTalon.set(ControlMode.PercentOutput, 0);
       retractIntake();
-    }*/
+    }
   }
   
   public void deployIntake() {
