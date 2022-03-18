@@ -30,7 +30,7 @@ public class LaunchSerializerCommand extends CommandBase {
     this.sensors = sensors1;
     addRequirements(serializer,sensors);
 
-    colorSensor = new ColorSensorSubsystem(sensors);
+    //colorSensor = new ColorSensorSubsystem(sensors);
 
   }
 

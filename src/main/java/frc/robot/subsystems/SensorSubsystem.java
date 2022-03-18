@@ -31,6 +31,7 @@ public class SensorSubsystem extends SubsystemBase {
     intakeVal = intakeSensor.get();
     serializerVal = serializerSensor.get();
     launcherVal = launcherSensor.get();
+    System.out.println("intake value: " + intakeVal);
   }
   
   public boolean getIntakeVal(){

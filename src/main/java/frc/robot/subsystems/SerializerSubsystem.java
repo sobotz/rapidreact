@@ -37,7 +37,7 @@ public class SerializerSubsystem extends SubsystemBase {
     interrupted = false;
     
   }
-
+  
   
   // Called every time the Command Scheduler runs (every 20 miliseconds)
   public void periodic() {
@@ -52,6 +52,7 @@ public class SerializerSubsystem extends SubsystemBase {
       serializerMotor.set(ControlMode.PercentOutput, (runSerializer )? -SerializerConstants.SERIALIZER_SPEED : 0);
       lastSerializerVal = sensors.getIntakeVal();
     }*/
+    //CHANGE
     if (sensors.getLauncherVal()){
       if (sensors.getIntakeVal() && !sensors.getSerializerVal() ){
         runBelt();
@@ -61,9 +62,6 @@ public class SerializerSubsystem extends SubsystemBase {
       if (sensors.getIntakeVal() && !sensors.getLauncherVal()){
         runBelt();
       }  
-    }
-    if (sensors.getLauncherVal() && sensors.getSerializerVal()){
-
     }
 
   }
