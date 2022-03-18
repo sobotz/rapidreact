@@ -46,6 +46,16 @@ public class SensorSubsystem extends SubsystemBase {
     if(launcherVal >= 3){
       launcherTripped = true;
     }
+
+    if(intakeVal <= 1.5){
+      intakeTripped = false;
+    }
+    if(serializerVal <= 1.5){
+      serializerTripped = false;
+    }
+    if(launcherVal <= 1.5){
+      launcherTripped = false;
+    }
   }
   
   public boolean getIntakeVal(){
