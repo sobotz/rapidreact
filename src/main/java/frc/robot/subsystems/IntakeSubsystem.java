@@ -51,12 +51,18 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
-    if (sensors.getLauncherVal() && sensors.getSerializerVal()) {
-      notAccepting = true;
-    } else {
-      if (sensors.getIntakeVal()) {
-        runIntake(1);
-      }
+    //if () {
+      //notAccepting = true;
+    //} //else {
+      //if (sensors.getIntakeVal()) {
+      //  runIntake(1);
+      //}
+    //}
+    if (sensors.getLauncherVal() && sensors.getSerializerVal()){
+      intakeTalon.set(ControlMode.PercentOutput, 0);
+      retractIntake();
+      
+      
     }
   }
   
@@ -86,7 +92,7 @@ public class IntakeSubsystem extends SubsystemBase {
     
     return hasDeployed;
   }
-
+  public 
 
   
 

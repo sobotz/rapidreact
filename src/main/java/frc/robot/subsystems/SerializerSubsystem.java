@@ -40,7 +40,7 @@ public class SerializerSubsystem extends SubsystemBase {
   
   // Called every time the Command Scheduler runs (every 20 miliseconds)
   public void periodic() {
-    if(!interrupted){
+    /*if(!interrupted){
       if (lastSerializerVal && sensors.getSerializerVal()) {
         runSerializer = true;
       } 
@@ -50,7 +50,21 @@ public class SerializerSubsystem extends SubsystemBase {
       // ? basic if statement, Before ? is boolean condition, after ? before : run if true, after : run if false
       serializerMotor.set(ControlMode.PercentOutput, (runSerializer )? -SerializerConstants.SERIALIZER_SPEED : 0);
       lastSerializerVal = sensors.getIntakeVal();
+    }*/
+    if (sensors.getLauncherVal()){
+      if (sensors.getIntakeVal() && !sensors.getSerializerVal() ){
+        runBelt();
+      }
     }
+    if (!sensors.getLauncherVal()){
+      if (sensors.getIntakeVal() && !sensors.getLauncherVal()){
+        runBelt();
+      }  
+    }
+    if (sensors.getLauncherVal() && sensors.getSerializerVal()){
+      
+    }
+
   }
   
   public boolean ToggleInterrupt(){

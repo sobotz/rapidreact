@@ -32,7 +32,7 @@ public class SensorSubsystem extends SubsystemBase {
     serializerVal = serializerSensor.get();
     launcherVal = launcherSensor.get();
   }
-
+  
   public boolean getIntakeVal(){
     return intakeVal;
   }
