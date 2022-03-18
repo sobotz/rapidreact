@@ -25,7 +25,7 @@ public class SerializerSubsystem extends SubsystemBase {
   //public boolean lastSerializerVal = false; // previous launcher sensor value
   public boolean interrupted;
 
-  public SerializerSubsystem(/*SensorSubsystem sensors*/) {
+  public SerializerSubsystem(SensorSubsystem sensors) {
     
     // instantiates sensor values with respect to the contants method
 

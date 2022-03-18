@@ -112,7 +112,7 @@ public class RobotContainer {
     this.m_drivetrain = new DriveSubsystem();
 
     this.m_intake = new IntakeSubsystem(m_sensorSubsystem);
-    this.m_serializer = new SerializerSubsystem(/*m_sensorSubsystem*/);
+    this.m_serializer = new SerializerSubsystem(m_sensorSubsystem);
     this.m_launcher = new LauncherSubsystem();
 
     this.m_colorSensor = new ColorSensorSubsystem(m_sensorSubsystem);
