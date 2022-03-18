@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -13,38 +13,50 @@ public class SensorSubsystem extends SubsystemBase {
   private AnalogInput intakeSensor;
   private AnalogInput serializerSensor;
   private AnalogInput launcherSensor;
-  private boolean intakeVal;
-  private boolean serializerVal;
-  private boolean launcherVal;
+  private double intakeVal;
+  private double serializerVal;
+  private double launcherVal;
+  private boolean intakeTripped;
+  private boolean serializerTripped;
+  private boolean launcherTripped;
 
   /** Creates a new SensorSubsystem. */
   public SensorSubsystem() {
-   /** intakeSensor = new AnalogInput(0);
+    intakeSensor = new AnalogInput(0);
     serializerSensor = new AnalogInput(1);
-    launcherSensor = new AnalogInput(2);*/
-    intakeVal = false;
-    serializerVal = false;
-    launcherVal = false;
+    launcherSensor = new AnalogInput(2);
+    
+    intakeTripped = false;
+    serializerTripped = false;
+    launcherTripped = false;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    /**intakeVal = intakeSensor.get();
-    serializerVal = serializerSensor.get();
-    launcherVal = launcherSensor.get();
-    System.out.println("intake value: " + intakeVal);*/
+    intakeVal = intakeSensor.getVoltage();
+    serializerVal = serializerSensor.getVoltage();
+    launcherVal = launcherSensor.getVoltage();
+    if(intakeVal >= 3){
+      intakeTripped = true;
+    }
+    if(serializerVal >= 3){
+      serializerTripped = true;
+    }
+    if(launcherVal >= 3){
+      launcherTripped = true;
+    }
   }
   
   public boolean getIntakeVal(){
-    return intakeVal;
+    return launcherTripped;
   }
 
   public boolean getSerializerVal(){
-    return serializerVal;
+    return serializerTripped;
   }
   
   public boolean getLauncherVal(){
-    return launcherVal;
+    return launcherTripped;
   }
 }
