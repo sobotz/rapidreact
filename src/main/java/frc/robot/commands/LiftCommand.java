@@ -4,22 +4,10 @@
 
 package frc.robot.commands;
 
-import frc.robot.RobotContainer;
-import frc.robot.Constants.ClimbConstants;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.subsystems.ClimbSubsystem;
-import frc.robot.subsystems.DriveSubsystem;
-
-import java.security.acl.Group;
-
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.ClimbSubsystem;
 
 /** An example command that uses an example subsystem. */
 public class LiftCommand extends CommandBase {
@@ -69,5 +57,7 @@ public class LiftCommand extends CommandBase {
   public boolean isFinished() {
     return false;
   }
-
+  public void dodo(){
+    int i = 0;
+  }
 }

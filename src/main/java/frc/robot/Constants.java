@@ -29,11 +29,11 @@ public final class Constants {
     public static final class ClimbConstants
     {
         // Will be changed later
-        public static final int ROTATE_MOTOR = 0;
-        public static final int LIFT_MOTOR = 0;
+        public static final int ROTATE_MOTOR = 0; // Not using rotate anymore
+        public static final int LIFT_MOTOR = 9;
 
-        public static final int ROTATE_SPEED = 990;
-        public static final int LIFT_SPEED = 0;
+        public static final int ROTATE_SPEED = 0; // Not using rotate anymore
+        public static final int LIFT_SPEED = 1;
 
         public static final int ARM_LOCK_DEPLOY = 1;
         public static final int ARM_LOCK_RETRACT = 0;

@@ -49,12 +49,12 @@ public class ClimbSubsystem extends SubsystemBase {
 
 
   public void liftExtend (){
-    this.rotateMotor.set(ControlMode.PercentOutput, ClimbConstants.ROTATE_SPEED);
+    this.rotateMotor.set(ControlMode.PercentOutput, ClimbConstants.LIFT_SPEED);
   }
 
 
   public void liftRetract (){
-    this.rotateMotor.set(ControlMode.PercentOutput, (ClimbConstants.ROTATE_SPEED) * (-1));
+    this.rotateMotor.set(ControlMode.PercentOutput, (ClimbConstants.LIFT_SPEED) * (-1));
   }
 
 
