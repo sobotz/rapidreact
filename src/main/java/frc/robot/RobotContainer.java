@@ -44,6 +44,7 @@ import frc.robot.commands.LaunchSerializerCommand;
 import frc.robot.commands.ReverseSerializerCommand;
 import frc.robot.commands.RunAllCommand;
 import frc.robot.commands.ActivateLauncherCommand;
+import frc.robot.commands.AquireTargetCommand;
 //
 
 
@@ -74,7 +75,9 @@ public class RobotContainer {
 
   private final VisionSubsystem m_vision;
 
+
   
+
 
   private final IntakeSubsystem m_intake;
   private SerializerSubsystem m_serializer;
@@ -115,7 +118,10 @@ public class RobotContainer {
 
 
   public static Joystick m_driverJoystick;
-  public static Joystick m_operatorJoystick;
+
+  public Joystick m_operatorJoystick;
+
+
 
   
 
@@ -140,10 +146,15 @@ public class RobotContainer {
     //this.m_autocommand = new AutoCommand(this.m_drivetrain);
     
     //Subsystems
+
+
+ 
+
     this.m_drivetrain = new DriveSubsystem();
     m_sensor = new SensorSubsystem();
     this.m_intake = new IntakeSubsystem(m_sensor);
     this.m_serializer = new SerializerSubsystem(m_sensor, m_intake);
+
     
 
     
@@ -202,7 +213,7 @@ public class RobotContainer {
     JoystickButton reverseSerializerButton = new JoystickButton(this.m_operatorJoystick,2);
     JoystickButton launchButton = new JoystickButton(m_operatorJoystick,6);
     JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
-    JoystickButton switchTeamColor = new JoystickButton(m_operatorJoystick, 1);
+    // JoystickButton switchTeamColor = new JoystickButton(m_operatorJoystick, 1);
     JoystickButton runAllCommandButton = new JoystickButton(this.m_operatorJoystick, 5);
 
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
