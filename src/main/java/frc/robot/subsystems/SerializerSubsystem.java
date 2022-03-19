@@ -53,33 +53,71 @@ public class SerializerSubsystem extends SubsystemBase {
       serializerMotor.set(ControlMode.PercentOutput, (runSerializer )? -SerializerConstants.SERIALIZER_SPEED : 0);
       lastSerializerVal = sensors.getIntakeVal();
     }*/
-    //CHANGE
+    
     if (sensors.getIntakeVal()|| (!sensors.getIntakeVal() && lastIntakeVal )){
-      if (!sensors.getSerializerVal()){
+      //Statments for one ball going in when no balls in serializer
+      if (  (sensors.getIntakeVal())  && !sensors.getSerializerVal() && !sensors.getLauncherVal()){
         runBelt();
         lastIntakeVal = true;
-      
-        if (!sensors.getSerializerVal() && lastIntakeVal&& !sensors.getIntakeVal()){
-        runBelt();
-        }
       }
-      if (sensors.getSerializerVal()){
+      else if (  (!sensors.getIntakeVal() && lastIntakeVal)  && !sensors.getSerializerVal()){
+        runBelt();
+      }
+      if (  (!sensors.getIntakeVal() && lastIntakeVal)  && sensors.getSerializerVal() && !sensors.getLauncherVal()){
         stopBelt();
         lastIntakeVal = false;
       }
-      
-      if (sensors.getSerializerVal() && !sensors.getLauncherVal() && sensors.getIntakeVal()){
+      //
+
+
+      //Statments for 1 ball going in when 1 ball is in serializer currently resting at serializer sensor
+      if (  (sensors.getIntakeVal())  && sensors.getSerializerVal() && !sensors.getLauncherVal()){
         runBelt();
         lastIntakeVal = true;
-      
-        if (sensors.getSerializerVal() && !sensors.getLauncherVal() && lastIntakeVal && !sensors.getIntakeVal()){
+      }
+      else if (  (!sensors.getIntakeVal() && lastIntakeVal) && !sensors.getLauncherVal() ){
+        runBelt();
+      }
+      if (  (!sensors.getIntakeVal() && lastIntakeVal)  && sensors.getLauncherVal()){
+        stopBelt();
+        lastIntakeVal = false;
+      }
+      //
+
+
+      //statment run first ball all the way to launcher
+      /*if (sensors.getIntakeVal()|| (!sensors.getIntakeVal() && lastIntakeVal )){
+        //Statments for one ball going in when no balls in serializer
+        if (  (sensors.getIntakeVal())  && !sensors.getSerializerVal()  && !sensors.getLauncherVal()){
+          runBelt();
+          lastIntakeVal = true;
+        }
+        else if (  (!sensors.getIntakeVal() && lastIntakeVal)  && !sensors.getSerializerVal() && !sensors.getLauncherVal()){
           runBelt();
         }
-      }
-      if (sensors.getSerializerVal() & sensors.getLauncherVal()){
-        stopBelt();
-      }
+        else if (  (sensors.getIntakeVal() && lastIntakeVal)  && sensors.getSerializerVal() && !sensors.getLauncherVal()){
+          runBelt();
+        }
+        if (  (!sensors.getIntakeVal() && lastIntakeVal)  && !sensors.getSerializerVal() && sensors.getLauncherVal()){
+          stopBelt();
+          lastIntakeVal = false;
+        }
+        //
 
+        //Statments for 1 ball going in when 1 ball is in serializer currently resting at Launcher sensor 
+        if (  (sensors.getIntakeVal())  && !sensors.getSerializerVal() && sensors.getLauncherVal()){
+          runBelt();
+          lastIntakeVal = true;
+        }
+        else if (  (!sensors.getIntakeVal() && lastIntakeVal)  && !sensors.getSerializerVal() && sensors.getLauncherVal() ){
+          runBelt();
+        }
+        if (  (!sensors.getIntakeVal() && lastIntakeVal)  && sensors.getSerializerVal()){
+          stopBelt();
+          lastIntakeVal = false;
+        }
+      }*/
+      // I was maybe a little bored
       
     }
   }
