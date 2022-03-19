@@ -27,7 +27,7 @@ public class ActivateLauncherCommand extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     this.serializer = serializer1;
     this.launcher = launcher1;
-    this.targetVelocity = 0;
+    this.targetVelocity = 1/*LauncherConstants.TEAM_VELOCITY*/;
 
     addRequirements(serializer, launcher);
   }
@@ -35,18 +35,20 @@ public class ActivateLauncherCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.launcher.startLauncher(targetVelocity);
+    this.launcher.startLauncher(0.2/*targetVelocity*/);
+    serializer.getLaunchMode();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.targetVelocity = (colorSensor.allyBall()) ? (LauncherConstants.TEAM_VELOCITY) : LauncherConstants.ENEMY_VELOCITY;
+    //this.targetVelocity = (colorSensor.allyBall()) ? (LauncherConstants.TEAM_VELOCITY) : LauncherConstants.ENEMY_VELOCITY;
     if (launcher.getVelocity() > LauncherConstants.TEAM_VELOCITY - 200 && launcher.getVelocity() < LauncherConstants.TEAM_VELOCITY + 200) {
       this.serializer.runBelt();
     } else {
       this.serializer.stopBelt();
     }
+    
   }
   
   // Called once the command ends or is interrupted.
@@ -54,6 +56,7 @@ public class ActivateLauncherCommand extends CommandBase {
   public void end(boolean interrupted) {
     this.launcher.stopLauncher();
     this.serializer.stopBelt();
+    serializer.getSerializerMode();
   }
 
 }

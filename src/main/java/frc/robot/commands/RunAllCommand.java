@@ -45,7 +45,11 @@ public class RunAllCommand extends CommandBase {
     }
 
     this.launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
+<<<<<<< HEAD
+    /**this.timer.delay(2);
+=======
     this.timer.delay(2.0);
+>>>>>>> f4f99f9eb65ee4742ff533a0de7b25152c0d0520
     this.launcher.stopLauncher();*/
 
     serializer.interrupted = false;
@@ -54,11 +58,11 @@ public class RunAllCommand extends CommandBase {
   }
 
   // Called once the command ends or is interrupted.
-  /**@Override
+  @Override
   public void end(boolean interrupted) {
     launcher.stopLauncher();
     serializer.stopBelt();
-  }*/
+  }
 
   // Returns true when the command should end.
   //@Override
