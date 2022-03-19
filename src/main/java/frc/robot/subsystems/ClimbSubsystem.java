@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -18,7 +19,9 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class ClimbSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  WPI_TalonFX rotateMotor, liftMotor;
+  //WPI_TalonFX liftMotor;
+
+  WPI_TalonSRX liftMotor;
 
   DoubleSolenoid armLock, armRelease;
 
@@ -27,7 +30,7 @@ public class ClimbSubsystem extends SubsystemBase {
   Timer timer;
 
   public ClimbSubsystem() {
-    this.liftMotor = new WPI_TalonFX(Constants.ClimbConstants.LIFT_MOTOR);
+    this.liftMotor = new WPI_TalonSRX(Constants.ClimbConstants.LIFT_MOTOR);
 
     // Reset the configuration of each of the talons
     this.liftMotor.configFactoryDefault();
@@ -45,11 +48,14 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public void liftExtend (){
-    this.liftMotor.set(ControlMode.PercentOutput, ClimbConstants.LIFT_SPEED, DemandType.ArbitraryFeedForward, 0);
+    this.liftMotor.set(ControlMode.PercentOutput, 0.2);
+    // this.liftMotor.set(ControlMode.PercentOutput, ClimbConstants.LIFT_SPEED, DemandType.Neutral, 0);
+    System.out.println("AAAAAAAAAA");
   }
 
-  
+
   public void liftRetract (){
+    this.liftMotor.set(ControlMode.PercentOutput, -0.2);
     this.liftMotor.set(ControlMode.PercentOutput, -ClimbConstants.LIFT_SPEED, DemandType.ArbitraryFeedForward, 0);
   }
 

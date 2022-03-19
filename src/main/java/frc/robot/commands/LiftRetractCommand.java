@@ -44,7 +44,7 @@ public class LiftRetractCommand extends CommandBase {
   public void initialize() {
    // m_climbSubsystem.armLock();
    // new WaitCommand(0.2);
-    timer.start();
+  // timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

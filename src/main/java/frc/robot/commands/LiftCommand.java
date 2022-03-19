@@ -39,24 +39,23 @@ public class LiftCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_climbSubsystem.armLock();
+   /* m_climbSubsystem.armLock();
     new WaitCommand(0.2);
-    timer.start();
+    timer.start();*/
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     m_climbSubsystem.liftExtend();
-    System.out.println("AAAAAAAAAA");
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_climbSubsystem.liftStop();
-    new WaitCommand(0.2);
-    m_climbSubsystem.armLock();
+   /* new WaitCommand(0.2);
+    m_climbSubsystem.armLock();*/
   }
 
   // Returns true when the command should end.
