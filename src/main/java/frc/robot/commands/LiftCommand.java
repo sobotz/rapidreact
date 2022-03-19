@@ -54,9 +54,9 @@ public class LiftCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_joystick.getRawButton(8))
+    if(m_joystick.getRawButton(8)){
       m_climbSubsystem.liftExtend();
-    if(m_joystick.getRawButton(7)){
+    } if(m_joystick.getRawButton(7)){
       m_climbSubsystem.liftRetract();
       double current = this.liftMotor.getStatorCurrent();
       SmartDashboard.putString("Lift current:", String.valueOf(current));

@@ -77,7 +77,7 @@ public class RobotContainer {
     JoystickButton liftExtendMotorButton = new JoystickButton(this.m_operatorJoystick, 8);
     liftExtendMotorButton.whileHeld(this.m_liftCommand);
 
-    JoystickButton armReleaseButton = new JoystickButton(this.m_operatorJoystick, 9);
+    JoystickButton armReleaseButton = new JoystickButton(this.m_operatorJoystick, 1);
     armReleaseButton.whenPressed(this.m_armReleaseCommand);
 
   }

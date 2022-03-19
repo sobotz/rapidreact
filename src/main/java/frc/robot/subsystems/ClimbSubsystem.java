@@ -33,6 +33,10 @@ public class ClimbSubsystem extends SubsystemBase {
 
     this.armLock = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.ClimbConstants.ARM_LOCK_DEPLOY,
     Constants.ClimbConstants.ARM_LOCK_RETRACT);
+
+    this.armRelease = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.ClimbConstants.ARM_RELEASE_DEPLOY,
+  5);
+
     this.lowLock = true;
     this.lowRelease = true;
   }
