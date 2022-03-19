@@ -112,28 +112,34 @@ public class RobotContainer {
     m_operatorJoystick = new Joystick(1);
     m_sensorSubsystem = new SensorSubsystem();
 
+
+
+    //Commands
+    //this.m_autocommand = new AutoCommand(this.m_drivetrain);
+    
     //Subsystems
     this.m_drivetrain = new DriveSubsystem();
 
     this.m_intake = new IntakeSubsystem(m_sensorSubsystem);
-    this.m_serializer = new SerializerSubsystem(m_sensorSubsystem,m_intake);
+    
+    reverseSerializerCommand = new ReverseSerializerCommand(this.m_intake, this.m_serializer);
+
+    this.m_serializer = new SerializerSubsystem(m_sensorSubsystem, m_intake, reverseSerializerCommand);
     this.m_launcher = new LauncherSubsystem();
 
     this.m_colorSensor = new ColorSensorSubsystem(m_sensorSubsystem);
     //
 
-
-    //Commands
-    //this.m_autocommand = new AutoCommand(this.m_drivetrain);
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
     this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
 
     deployIntakeCommand = new DeployIntakeCommand(this.m_intake, this.m_serializer);  
     m_launchSerializer = new LaunchSerializerCommand(this.m_serializer, m_sensorSubsystem);
-    reverseSerializerCommand = new ReverseSerializerCommand(this.m_intake, this.m_serializer);
+    
     launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher);
     runAllCommand = new RunAllCommand(m_colorSensor,m_launcher,m_serializer);
     //
+    
 
 
     //Auto
