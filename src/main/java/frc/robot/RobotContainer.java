@@ -10,12 +10,21 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
-import frc.robot.commands.AquireTargetCommand;
+import frc.robot.commands.DriveCommand;
 
 import frc.robot.subsystems.VisionSubsystem;
 
 //
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ArmReleaseCommand;
+import frc.robot.commands.DriveCommand;
+
+import frc.robot.commands.LiftCommand;
+import frc.robot.commands.ShiftGearCommand;
+import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
 
 //Subsystem
 import frc.robot.subsystems.DriveSubsystem;
@@ -115,6 +124,7 @@ public class RobotContainer {
   SendableChooser<Command> m_chooser = new SendableChooser<>();
   //
 
+  public final ClimbSubsystem m_climbSubsystem;
 
   public static Joystick m_driverJoystick;
 
@@ -171,9 +181,16 @@ public class RobotContainer {
     reverseSerializerCommand = new ReverseSerializerCommand(m_intake,m_serializer,m_sensor);
     launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher);
     runAllCommand = new RunAllCommand(m_colorSensor,m_launcher,m_serializer);
+    this.m_climbSubsystem = new ClimbSubsystem();
+	this.m_liftCommand = new LiftCommand(this.m_climbSubsystem, this.m_operatorJoystick);
+
+    this.m_armReleaseCommand = new ArmReleaseCommand(this.m_climbSubsystem);
+    
     this.configureButtonBindings();
 
     
+	
+	
     //
     
 
@@ -229,6 +246,15 @@ public class RobotContainer {
     launchButton.whenHeld(launchCommand);
     runAllCommandButton.whenHeld(runAllCommand);
 
+	// random button
+    JoystickButton liftRetractMotorButton = new JoystickButton(this.m_operatorJoystick, 7);
+    liftRetractMotorButton.whileHeld(this.m_liftCommand);
+
+    JoystickButton liftExtendMotorButton = new JoystickButton(this.m_operatorJoystick, 8);
+    liftExtendMotorButton.whileHeld(this.m_liftCommand);
+
+    JoystickButton armReleaseButton = new JoystickButton(this.m_operatorJoystick, 1);
+    armReleaseButton.whenPressed(this.m_armReleaseCommand);
   }
 
   /**
