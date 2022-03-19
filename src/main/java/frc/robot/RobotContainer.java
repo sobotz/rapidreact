@@ -9,6 +9,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+
+import frc.robot.commands.AquireTargetCommand;
+
+import frc.robot.subsystems.VisionSubsystem;
+
 //
 
 
@@ -27,6 +32,7 @@ import frc.robot.subsystems.ColorSensorSubsystem;
 
 
 //Commands
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -65,6 +71,11 @@ public class RobotContainer {
   //Subsystem
   private final DriveSubsystem m_drivetrain;
 
+
+  private final VisionSubsystem m_vision;
+
+  private final DriveCommand m_driveCommand;
+
   private final IntakeSubsystem m_intake;
   private SerializerSubsystem m_serializer;
   private LauncherSubsystem m_launcher;
@@ -72,11 +83,15 @@ public class RobotContainer {
   private ColorSensorSubsystem m_colorSensor;
   private SensorSubsystem m_sensorSubsystem;
 
+
   //
 
   //Commands
   private final DriveCommand m_driveCommand;
   private final ShiftGearCommand m_shiftGearCommand;
+
+
+  private final AquireTargetCommand m_visionCommand;
 
   public static DeployIntakeCommand deployIntakeCommand;
   private final LaunchSerializerCommand m_launchSerializer;
@@ -98,8 +113,11 @@ public class RobotContainer {
   SendableChooser<Command> m_chooser = new SendableChooser<>();
   //
 
+
   public static Joystick m_driverJoystick;
   public Joystick m_operatorJoystick;
+
+  public static Joystick m_operatorJoystick;
 
 
   /** The container for the robot
@@ -109,7 +127,11 @@ public class RobotContainer {
 
 
     this.m_driverJoystick = new Joystick(0);
-    m_operatorJoystick = new Joystick(1);
+
+    this.m_operatorJoystick = new Joystick(1);
+    this.m_drivetrain = new DriveSubsystem();
+    this.m_vision = new VisionSubsystem();
+
     m_sensorSubsystem = new SensorSubsystem();
 
 
@@ -133,11 +155,15 @@ public class RobotContainer {
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
     this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
 
+    this.m_visionCommand = new AquireTargetCommand(this.m_vision);
     deployIntakeCommand = new DeployIntakeCommand(this.m_intake, this.m_serializer);  
     m_launchSerializer = new LaunchSerializerCommand(this.m_serializer, m_sensorSubsystem);
     
     launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher);
     runAllCommand = new RunAllCommand(m_colorSensor,m_launcher,m_serializer);
+    this.configureButtonBindings();
+
+    
     //
     
 
@@ -161,6 +187,7 @@ public class RobotContainer {
     
     // m_driveCommand = new DriveCommand(m_drivetrain, m_driverJoystick.getRawAxis(0), m_driverJoystick.getRawAxis(1));
     configureButtonBindings();
+
   }
 
   /**
@@ -179,6 +206,11 @@ public class RobotContainer {
     JoystickButton runAllCommandButton = new JoystickButton(this.m_operatorJoystick, 5);
 
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
+
+
+    JoystickButton visionButton = new JoystickButton(this.m_operatorJoystick, 1);
+    visionButton.whenHeld(this.m_visionCommand);
+
     DeployIntakeButton.whenHeld(deployIntakeCommand);
 
     
@@ -186,6 +218,7 @@ public class RobotContainer {
     reverseSerializerButton.whenHeld(reverseSerializerCommand);
     launchButton.whenHeld(launchCommand);
     runAllCommandButton.whenHeld(runAllCommand);
+
   }
 
   /**
