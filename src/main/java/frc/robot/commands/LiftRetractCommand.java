@@ -13,24 +13,29 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.ClimbSubsystem.RetractStateEnum;
 
 /** An example command that uses an example subsystem. */
-public class LiftCommand extends CommandBase {
+public class LiftRetractCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ClimbSubsystem m_climbSubsystem;
 
   private Joystick m_joystick;
 
- // private final RobotContainer m_operatorJoystick;
+  private Timer timer;
 
+  private double exceeds = 5.0;    //Represents the voltage that it can't exceed. 
+  private double count = 0;            //Represents the time that it has exceeded limit.
+  private double limitCount = 2.0;      //Represents the amount of time count should be to stop retract
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public LiftCommand(ClimbSubsystem climbTrain, Joystick joystick) {
+  public LiftRetractCommand(ClimbSubsystem climbTrain, Joystick joystick) {
     m_climbSubsystem = climbTrain;
     m_joystick = joystick;
+    timer = new Timer();
     addRequirements(m_climbSubsystem);
   }
 
@@ -39,13 +44,31 @@ public class LiftCommand extends CommandBase {
   public void initialize() {
     m_climbSubsystem.armLock();
     new WaitCommand(0.2);
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      m_climbSubsystem.liftExtend();
-      System.out.println("BBBBBBBBBBB");
+    double current = m_climbSubsystem.getCurrent();
+    SmartDashboard.putString("Lift current:", String.valueOf(current));
+    if(m_climbSubsystem.RetractState != RetractStateEnum.ATLIMIT){
+      m_climbSubsystem.liftRetract();
+      System.out.println("AAAAAAAAAAAAAA");
+     current = m_climbSubsystem.getCurrent();
+      SmartDashboard.putString("Lift current:", String.valueOf(current));
+      if(current >= exceeds){
+        count = timer.get();
+        if(count >= limitCount){
+          m_climbSubsystem.RetractState = RetractStateEnum.ATLIMIT;
+          m_climbSubsystem.liftStop();
+        }
+      } else {
+          timer.reset();
+      }
+    }
+    else
+      m_climbSubsystem.liftStop();
   }
 
   // Called once the command ends or is interrupted.
@@ -53,7 +76,8 @@ public class LiftCommand extends CommandBase {
   public void end(boolean interrupted) {
     m_climbSubsystem.liftStop();
     new WaitCommand(0.2);
-    m_climbSubsystem.armLock();
+   m_climbSubsystem.armLock();
+   m_climbSubsystem.RetractState = RetractStateEnum.IDLE;
   }
 
   // Returns true when the command should end.

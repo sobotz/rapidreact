@@ -22,6 +22,7 @@ import frc.robot.commands.ArmReleaseCommand;
 import frc.robot.commands.DriveCommand;
 
 import frc.robot.commands.LiftCommand;
+import frc.robot.commands.LiftRetractCommand;
 import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -73,8 +74,6 @@ public class RobotContainer {
   private final DriveSubsystem m_drivetrain;
 
   public final ClimbSubsystem m_climbSubsystem;
-  public final LiftCommand m_liftCommand;
-  public final ArmReleaseCommand m_armReleaseCommand;
 
   // private final VisionSubsystem m_vision;
 
@@ -95,7 +94,9 @@ public class RobotContainer {
   //Commands
   private final DriveCommand m_driveCommand;
   private final ShiftGearCommand m_shiftGearCommand;
-
+  public final LiftCommand m_liftCommand;
+  public final ArmReleaseCommand m_armReleaseCommand;
+  public final LiftRetractCommand m_liftRetractCommand;
 
   // private final AquireTargetCommand m_visionCommand;
 
@@ -178,7 +179,7 @@ public class RobotContainer {
     runAllCommand = new RunAllCommand(m_colorSensor,m_launcher,m_serializer);
     this.m_climbSubsystem = new ClimbSubsystem();
 	  this.m_liftCommand = new LiftCommand(this.m_climbSubsystem, this.m_operatorJoystick);
-
+    this.m_liftRetractCommand = new LiftRetractCommand(this.m_climbSubsystem, this.m_operatorJoystick);
     this.m_armReleaseCommand = new ArmReleaseCommand(this.m_climbSubsystem);
     
     this.configureButtonBindings();
@@ -243,7 +244,7 @@ public class RobotContainer {
 
 	// random button
     JoystickButton liftRetractMotorButton = new JoystickButton(this.m_operatorJoystick, 7);
-    liftRetractMotorButton.whileHeld(this.m_liftCommand);
+    liftRetractMotorButton.whileHeld(this.m_liftRetractCommand);
 
     JoystickButton liftExtendMotorButton = new JoystickButton(this.m_operatorJoystick, 8);
     liftExtendMotorButton.whileHeld(this.m_liftCommand);

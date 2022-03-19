@@ -25,8 +25,16 @@ public class ClimbSubsystem extends SubsystemBase {
   
   Timer timer;
 
+  public RetractStateEnum RetractState;
+
+  public enum RetractStateEnum{
+    IDLE,
+    ATLIMIT,
+  }
+
   public ClimbSubsystem() {
     this.liftMotor = new WPI_TalonFX(Constants.ClimbConstants.LIFT_MOTOR);
+    RetractState = RetractStateEnum.IDLE;
 
     // Reset the configuration of each of the talons
     this.liftMotor.configFactoryDefault();
@@ -39,7 +47,9 @@ public class ClimbSubsystem extends SubsystemBase {
     this.lowLock = true;
     this.lowRelease = true;
   }
-
+  public double getCurrent(){
+    return liftMotor.getStatorCurrent();
+  }
   public void liftExtend (){
     this.liftMotor.set(ControlMode.PercentOutput, ClimbConstants.LIFT_SPEED);
   }
@@ -69,17 +79,6 @@ public class ClimbSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Low Lock:", this.lowLock);
-    /*double exceeds = 10.0;    //Represents the voltage that it can't exceed. 
-    int count = 0;            //Represents the time that it has exceeded limit.
-    int limitCount = 10;      //Represents the amount of time count should be to stop retract
-    if(this.rotateMotor.getStatorCurrent() >= exceeds){
-      // count++;
-      timer.get();
-      if(count == limitCount)
-        liftStop();
-    } else {
-      count = 0;
-    }*/
     // This method will be called once per scheduler run
   }
 
