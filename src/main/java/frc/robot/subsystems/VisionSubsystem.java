@@ -9,7 +9,8 @@ import frc.robot.Constants.VisionConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+// import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -32,7 +33,8 @@ public class VisionSubsystem extends SubsystemBase {
   double area;
   double defaultSpeed;
 
-  TalonSRX actuationMotor;
+  // TalonSRX actuationMotor;
+  TalonFX actuationMotor;
 
   public VisionSubsystem() {
 
@@ -43,9 +45,10 @@ public class VisionSubsystem extends SubsystemBase {
     this.ty = table.getEntry("ty");
     this.tArea = table.getEntry("ta");
 
-    this.actuationMotor = new TalonSRX(VisionConstants.ACTUATION_MOTOR);
-    this.actuationMotor.configForwardSoftLimitThreshold(280000, 0);
-    this.actuationMotor.configReverseSoftLimitThreshold(-280000, 0);
+    // this.actuationMotor = new TalonSRX(VisionConstants.ACTUATION_MOTOR);
+    this.actuationMotor = new TalonFX(VisionConstants.ACTUATION_MOTOR);
+    this.actuationMotor.configForwardSoftLimitThreshold(150000, 0);
+    this.actuationMotor.configReverseSoftLimitThreshold(-150000, 0);
     this.actuationMotor.configForwardSoftLimitEnable(true, 0);
     this.actuationMotor.configReverseSoftLimitEnable(true,0);
 
@@ -75,7 +78,7 @@ public class VisionSubsystem extends SubsystemBase {
     }
 
     SmartDashboard.putNumber("SpeedPercent: ",speedPercent);
-    this.actuationMotor.set(ControlMode.PercentOutput, VisionConstants.MAX_SPEED * -speedPercent);
+    this.actuationMotor.set(ControlMode.PercentOutput, VisionConstants.MAX_SPEED * - speedPercent);
   }
 
   public void stopMotor () {
