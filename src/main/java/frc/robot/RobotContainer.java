@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ArmReleaseCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.LiftCommand;
+import frc.robot.commands.LiftRetractCommand;
 import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -38,6 +39,8 @@ public class RobotContainer {
 
   public final LiftCommand m_liftCommand;
 
+  public final LiftRetractCommand m_liftRetractCommand;
+
   public final ArmReleaseCommand m_armReleaseCommand;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -54,6 +57,7 @@ public class RobotContainer {
     this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
 
     this.m_liftCommand = new LiftCommand(this.m_climbSubsystem, this.m_operatorJoystick);
+    this.m_liftRetractCommand = new LiftRetractCommand(this.m_climbSubsystem, this.m_operatorJoystick);
 
     this.m_armReleaseCommand = new ArmReleaseCommand(this.m_climbSubsystem);
 
@@ -72,7 +76,7 @@ public class RobotContainer {
 
     // random button
     JoystickButton liftRetractMotorButton = new JoystickButton(this.m_operatorJoystick, 7);
-    liftRetractMotorButton.whileHeld(this.m_liftCommand);
+    liftRetractMotorButton.whileHeld(this.m_liftRetractCommand);
 
     JoystickButton liftExtendMotorButton = new JoystickButton(this.m_operatorJoystick, 8);
     liftExtendMotorButton.whileHeld(this.m_liftCommand);

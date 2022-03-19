@@ -29,7 +29,7 @@ public class ArmReleaseCommand extends InstantCommand {
   @Override
   public void initialize() {
     m_ClimbSubsystem.armRelease();
-    System.out.println("SSSSSSSSSSS");
+    System.out.println("SSSSSSSSSSSS");
   }
 
   /*public void end(){

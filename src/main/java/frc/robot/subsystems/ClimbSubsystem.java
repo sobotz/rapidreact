@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -39,19 +40,22 @@ public class ClimbSubsystem extends SubsystemBase {
     this.lowLock = true;
     this.lowRelease = true;
   }
-
-  public void liftExtend (){
-    this.liftMotor.set(ControlMode.PercentOutput, ClimbConstants.LIFT_SPEED);
+  public double getCurrent(){
+    return liftMotor.getStatorCurrent();
   }
 
+  public void liftExtend (){
+    this.liftMotor.set(ControlMode.PercentOutput, ClimbConstants.LIFT_SPEED, DemandType.ArbitraryFeedForward, 0);
+  }
 
+  
   public void liftRetract (){
-    this.liftMotor.set(ControlMode.PercentOutput, (ClimbConstants.LIFT_SPEED) * (-1));
+    this.liftMotor.set(ControlMode.PercentOutput, -ClimbConstants.LIFT_SPEED, DemandType.ArbitraryFeedForward, 0);
   }
 
 
   public void liftStop (){
-    this.liftMotor.set(ControlMode.PercentOutput, 0);
+    this.liftMotor.set(ControlMode.PercentOutput, 0, DemandType.ArbitraryFeedForward, 0);
   }
 
   public boolean armLock() {
@@ -69,17 +73,6 @@ public class ClimbSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Low Lock:", this.lowLock);
-    /*double exceeds = 10.0;    //Represents the voltage that it can't exceed. 
-    int count = 0;            //Represents the time that it has exceeded limit.
-    int limitCount = 10;      //Represents the amount of time count should be to stop retract
-    if(this.rotateMotor.getStatorCurrent() >= exceeds){
-      // count++;
-      timer.get();
-      if(count == limitCount)
-        liftStop();
-    } else {
-      count = 0;
-    }*/
     // This method will be called once per scheduler run
   }
 

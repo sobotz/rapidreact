@@ -31,7 +31,7 @@ public final class Constants {
         // Will be changed later
         public static final int LIFT_MOTOR = 9;
 
-        public static final int LIFT_SPEED = 1;
+        public static final double LIFT_SPEED = 0.5;
 
         public static final int ARM_LOCK_DEPLOY = 2;
         public static final int ARM_LOCK_RETRACT = 3;

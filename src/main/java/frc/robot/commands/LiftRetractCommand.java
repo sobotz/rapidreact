@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 
 /** An example command that uses an example subsystem. */
-public class LiftCommand extends CommandBase {
+public class LiftRetractCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ClimbSubsystem m_climbSubsystem;
 
@@ -22,6 +22,9 @@ public class LiftCommand extends CommandBase {
 
   private Timer timer;
 
+  private double exceeds = 10.0;    //Represents the voltage that it can't exceed. 
+  private double count = 0;            //Represents the time that it has exceeded limit.
+  private double limitCount = 5.0;      //Represents the amount of time count should be to stop retract
  // private final RobotContainer m_operatorJoystick;
 
   /**
@@ -29,7 +32,7 @@ public class LiftCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public LiftCommand(ClimbSubsystem climbTrain, Joystick joystick) {
+  public LiftRetractCommand(ClimbSubsystem climbTrain, Joystick joystick) {
     m_climbSubsystem = climbTrain;
     m_joystick = joystick;
     timer = new Timer();
@@ -39,24 +42,34 @@ public class LiftCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_climbSubsystem.armLock();
-    new WaitCommand(0.2);
+   // m_climbSubsystem.armLock();
+   // new WaitCommand(0.2);
     timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_climbSubsystem.liftExtend();
-    System.out.println("AAAAAAAAAA");
+    m_climbSubsystem.liftRetract();
+    System.out.println("BBBBBBBBBBBBB");
+      /*double current = m_climbSubsystem.getCurrent();
+      SmartDashboard.putString("Lift current: ", String.valueOf(current));
+      if(current >= exceeds){
+        count = timer.get();
+        if(count >= limitCount)
+          m_climbSubsystem.liftStop();
+      } 
+      else {
+        timer.reset();
+      }*/
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_climbSubsystem.liftStop();
-    new WaitCommand(0.2);
-    m_climbSubsystem.armLock();
+   // new WaitCommand(0.2);
+   // m_climbSubsystem.armLock();
   }
 
   // Returns true when the command should end.
