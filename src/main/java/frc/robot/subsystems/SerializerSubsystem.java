@@ -21,7 +21,7 @@ public class SerializerSubsystem extends SubsystemBase {
   // Initializes the sensors in the serializer and launcher
   private SensorSubsystem sensors;
   private IntakeSubsystem m_intake;
-  private ReverseSerializerCommand reverseSerializer;
+  //private ReverseSerializerCommand reverseSerializer;
   // Initializes variables that wiil be used in the program
   public boolean runSerializer;
   //public boolean lastSerializerVal = false; // previous launcher sensor value
@@ -31,7 +31,7 @@ public class SerializerSubsystem extends SubsystemBase {
 
   public boolean trippedLauncherSensor;
 
-  public SerializerSubsystem(SensorSubsystem sensors, IntakeSubsystem intake, ReverseSerializerCommand reverseSerializer1) {
+  public SerializerSubsystem(SensorSubsystem sensors, IntakeSubsystem intake) {
 
     
     // instantiates sensor values with respect to the contants method
@@ -43,7 +43,7 @@ public class SerializerSubsystem extends SubsystemBase {
     m_intake = intake;
     interrupted = false;
 
-    this.reverseSerializer = reverseSerializer1;
+    //this.reverseSerializer = reverseSerializer1;
 
     trippedLauncherSensor = false;
 
@@ -63,7 +63,7 @@ public class SerializerSubsystem extends SubsystemBase {
       serializerMotor.set(ControlMode.PercentOutput, (runSerializer )? -SerializerConstants.SERIALIZER_SPEED : 0);
       lastSerializerVal = sensors.getIntakeVal();
     }*/
-    if (reverseSerializer.isFinished()){
+    /*if (reverseSerializer.isFinished()){
       if (sensors.getIntakeVal()|| (!sensors.getIntakeVal() && lastIntakeVal )){
         //Statments for one ball going in when no balls in serializer
         if (  (sensors.getIntakeVal())  && !sensors.getSerializerVal() && !sensors.getLauncherVal()){
@@ -98,8 +98,8 @@ public class SerializerSubsystem extends SubsystemBase {
           lastIntakeVal = false;
         }
       }
-    }
-    else if (sensors.getIntakeVal()|| (!sensors.getIntakeVal() && lastIntakeVal )){
+    }*/
+    if (sensors.getIntakeVal()|| (!sensors.getIntakeVal() && lastIntakeVal )){
       //Statments for one ball going in when no balls in serializer
       if (  (sensors.getIntakeVal())  && !sensors.getSerializerVal() && !sensors.getLauncherVal()){
         runBelt();
