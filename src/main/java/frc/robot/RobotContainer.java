@@ -22,7 +22,6 @@ import frc.robot.commands.ArmReleaseCommand;
 import frc.robot.commands.DriveCommand;
 
 import frc.robot.commands.LiftCommand;
-import frc.robot.commands.LiftReleaseCommand;
 import frc.robot.commands.LiftRetractCommand;
 import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -98,7 +97,6 @@ public class RobotContainer {
   public final LiftCommand m_liftCommand;
   public final ArmReleaseCommand m_armReleaseCommand;
   public final LiftRetractCommand m_liftRetractCommand;
-  public final LiftReleaseCommand m_liftReleasedCommand;
 
   // private final AquireTargetCommand m_visionCommand;
 
