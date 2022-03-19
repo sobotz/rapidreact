@@ -25,6 +25,8 @@ import frc.robot.subsystems.DriveSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_drivetrain;
+
+  public final ClimbSubsystem m_climbSubsystem;
  
   private final DriveCommand m_driveCommand; 
  
@@ -34,9 +36,7 @@ public class RobotContainer {
 
   public static Joystick m_operatorJoystick;
 
-  public static LiftCommand m_liftCommand;
-
-  public static ClimbSubsystem m_climbSubsystem;
+  public final LiftCommand m_liftCommand;
 
   public static ArmReleaseCommand m_armReleaseCommand;
 
@@ -47,16 +47,17 @@ public class RobotContainer {
     this.m_driverJoystick = new Joystick(0);
     this.m_operatorJoystick = new Joystick(1);
     this.m_drivetrain = new DriveSubsystem();
+    this.m_climbSubsystem = new ClimbSubsystem();
     
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
 
     this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
 
-    this.configureButtonBindings();
-
     this.m_liftCommand = new LiftCommand(this.m_climbSubsystem, this.m_operatorJoystick);
 
     this.m_armReleaseCommand = new ArmReleaseCommand(this.m_climbSubsystem);
+
+    this.configureButtonBindings();
   }
 
   /**

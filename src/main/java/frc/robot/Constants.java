@@ -35,8 +35,8 @@ public final class Constants {
         public static final int ROTATE_SPEED = 0; // Not using rotate anymore
         public static final int LIFT_SPEED = 1;
 
-        public static final int ARM_LOCK_DEPLOY = 1;
-        public static final int ARM_LOCK_RETRACT = 0;
+        public static final int ARM_LOCK_DEPLOY = 0;
+        public static final int ARM_LOCK_RETRACT = 1;
 
         public static final int ARM_RELEASE_DEPLOY = 1;
     }

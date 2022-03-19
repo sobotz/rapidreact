@@ -4,25 +4,27 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import frc.robot.RobotContainer;
+import frc.robot.Constants.ClimbConstants;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
+
+import java.security.acl.Group;
+
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Constants;
-import frc.robot.subsystems.ClimbSubsystem;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /** An example command that uses an example subsystem. */
-public class LiftCommand extends CommandBase {
+public class ClimbCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ClimbSubsystem m_climbSubsystem;
 
   private Joystick m_joystick;
-
-  private Timer timer;
-
-  private WPI_TalonFX rotateMotor;
  // private final RobotContainer m_operatorJoystick;
 
   /**
@@ -30,18 +32,19 @@ public class LiftCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public LiftCommand(ClimbSubsystem climbTrain, Joystick joystick) {
+  public ClimbCommand(ClimbSubsystem climbTrain, Joystick joystick) {
     m_climbSubsystem = climbTrain;
     m_joystick = joystick;
-    this.rotateMotor = new WPI_TalonFX(Constants.ClimbConstants.ROTATE_MOTOR);
     addRequirements(m_climbSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_climbSubsystem.armLock();
-    new WaitCommand(0.2);
+    if(m_joystick.getRawButton(8))
+      m_climbSubsystem.liftExtend();
+    if(m_joystick.getRawButton(7))
+      m_climbSubsystem.liftRetract();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,28 +52,17 @@ public class LiftCommand extends CommandBase {
   public void execute() {
     if(m_joystick.getRawButton(8))
       m_climbSubsystem.liftExtend();
-    if(m_joystick.getRawButton(7)){
+    if(m_joystick.getRawButton(7))
       m_climbSubsystem.liftRetract();
-      double exceeds = 10.0;    //Represents the voltage that it can't exceed. 
-      int count = 0;            //Represents the time that it has exceeded limit.
-      int limitCount = 10;      //Represents the amount of time count should be to stop retract
-      if(this.rotateMotor.getStatorCurrent() >= exceeds){
-        // count++;
-        timer.get();
-        if(count == limitCount)
-          m_climbSubsystem.liftStop();
-      } else {
-        count = 0;
-      }
-    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+  if(!(m_joystick.getRawButton(9)) || !(m_joystick.getRawButton(10)))
+    m_climbSubsystem.rotateStop();
+  if(!(m_joystick.getRawButton(8))|| !(m_joystick.getRawButton(7)))
     m_climbSubsystem.liftStop();
-    new WaitCommand(0.2);
-    m_climbSubsystem.armLock();
   }
 
   // Returns true when the command should end.
@@ -80,8 +72,6 @@ public class LiftCommand extends CommandBase {
   }
   public void dodo(){
     int i = 0;
-    if(i == 100)
-      i++;
   }
-  //oublic void dodo method written by the oz (very essential to code will break if delte (do not deltet))
+
 }

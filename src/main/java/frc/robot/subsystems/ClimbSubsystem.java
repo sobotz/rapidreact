@@ -13,15 +13,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.ClimbConstants;
+import edu.wpi.first.wpilibj.Timer;
 
 public class ClimbSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  WPI_TalonFX frontLeftController, frontRightController, backLeftController, backRightController;
   WPI_TalonFX rotateMotor, liftMotor;
 
   DoubleSolenoid armLock, armRelease;
 
   boolean lowLock, lowRelease;
+  
+  Timer timer;
 
   public ClimbSubsystem() {
     this.rotateMotor = new WPI_TalonFX(Constants.ClimbConstants.ROTATE_MOTOR);
@@ -54,6 +56,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
   public void liftRetract (){
     this.rotateMotor.set(ControlMode.PercentOutput, (ClimbConstants.LIFT_SPEED) * (-1));
+    periodic();
   }
 
 
@@ -81,6 +84,17 @@ public class ClimbSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Low Lock:", this.lowLock);
+    double exceeds = 10.0;    //Represents the voltage that it can't exceed. 
+    int count = 0;            //Represents the time that it has exceeded limit.
+    int limitCount = 10;      //Represents the amount of time count should be to stop retract
+    if(this.rotateMotor.getStatorCurrent() >= exceeds){
+      // count++;
+      timer.get();
+      if(count == limitCount)
+        liftStop();
+    } else {
+      count = 0;
+    }
     // This method will be called once per scheduler run
   }
 
