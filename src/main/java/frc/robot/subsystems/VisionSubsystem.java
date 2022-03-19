@@ -66,7 +66,9 @@ public class VisionSubsystem extends SubsystemBase {
         defaultSpeed *= -1;
       }
       speedPercent = defaultSpeed;
+
     }
+
     SmartDashboard.putNumber("SpeedPercent: ",speedPercent);
     this.actuationMotor.set(ControlMode.PercentOutput, VisionConstants.MAX_SPEED * -speedPercent);
   }
