@@ -23,6 +23,10 @@ public class LiftCommand extends CommandBase {
   private Timer timer;
 
   private WPI_TalonFX rotateMotor;
+
+  private double exceeds = 10.0;    //Represents the voltage that it can't exceed. 
+  private double count = 0;            //Represents the time that it has exceeded limit.
+  private double limitCount = 5.0;      //Represents the amount of time count should be to stop retract
  // private final RobotContainer m_operatorJoystick;
 
   /**
@@ -42,6 +46,7 @@ public class LiftCommand extends CommandBase {
   public void initialize() {
     m_climbSubsystem.armLock();
     new WaitCommand(0.2);
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -51,16 +56,12 @@ public class LiftCommand extends CommandBase {
       m_climbSubsystem.liftExtend();
     if(m_joystick.getRawButton(7)){
       m_climbSubsystem.liftRetract();
-      double exceeds = 10.0;    //Represents the voltage that it can't exceed. 
-      int count = 0;            //Represents the time that it has exceeded limit.
-      int limitCount = 10;      //Represents the amount of time count should be to stop retract
       if(this.rotateMotor.getStatorCurrent() >= exceeds){
-        // count++;
-        timer.get();
-        if(count == limitCount)
+        count = timer.get();
+        if(count >= limitCount)
           m_climbSubsystem.liftStop();
       } else {
-        count = 0;
+        timer.reset();
       }
     }
   }

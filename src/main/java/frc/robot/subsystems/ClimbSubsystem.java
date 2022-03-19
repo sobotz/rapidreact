@@ -84,7 +84,7 @@ public class ClimbSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Low Lock:", this.lowLock);
-    double exceeds = 10.0;    //Represents the voltage that it can't exceed. 
+    /*double exceeds = 10.0;    //Represents the voltage that it can't exceed. 
     int count = 0;            //Represents the time that it has exceeded limit.
     int limitCount = 10;      //Represents the amount of time count should be to stop retract
     if(this.rotateMotor.getStatorCurrent() >= exceeds){
@@ -94,7 +94,7 @@ public class ClimbSubsystem extends SubsystemBase {
         liftStop();
     } else {
       count = 0;
-    }
+    }*/
     // This method will be called once per scheduler run
   }
 
