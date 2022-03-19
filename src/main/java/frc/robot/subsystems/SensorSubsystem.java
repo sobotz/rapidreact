@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.AnalogInput;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.LauncherConstants;
+import frc.robot.Constants.SensorsConstants;
 
 public class SensorSubsystem extends SubsystemBase {
   private AnalogInput intakeSensor;
@@ -19,6 +21,7 @@ public class SensorSubsystem extends SubsystemBase {
   private boolean intakeTripped;
   private boolean serializerTripped;
   private boolean launcherTripped;
+
 
   /** Creates a new SensorSubsystem. */
   public SensorSubsystem() {
@@ -37,23 +40,23 @@ public class SensorSubsystem extends SubsystemBase {
     intakeVal = intakeSensor.getVoltage();
     serializerVal = serializerSensor.getVoltage();
     launcherVal = launcherSensor.getVoltage();
-    if(intakeVal <= 1){
+    if(intakeVal <= SensorsConstants.SENSORS_THRESHOLD){
       intakeTripped = true;
     }
-    if(serializerVal <= 1){
+    if(serializerVal <= SensorsConstants.SENSORS_THRESHOLD){
       serializerTripped = true;
     }
-    if(launcherVal <= 1){
+    if(launcherVal <= SensorsConstants.SENSORS_THRESHOLD){
       launcherTripped = true;
     }
 
-    if(intakeVal > 1){
+    if(intakeVal > SensorsConstants.SENSORS_THRESHOLD){
       intakeTripped = false;
     }
-    if(serializerVal > 1){
+    if(serializerVal > SensorsConstants.SENSORS_THRESHOLD){
       serializerTripped = false;
     }
-    if(launcherVal > 1){
+    if(launcherVal > SensorsConstants.SENSORS_THRESHOLD){
       launcherTripped = false;
     }
     //test sensors

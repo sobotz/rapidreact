@@ -28,7 +28,11 @@ public class SerializerSubsystem extends SubsystemBase {
   public boolean interrupted;
   public boolean lastIntakeVal = false;
 
+
+  public boolean trippedLauncherSensor;
+
   public SerializerSubsystem(SensorSubsystem sensors, IntakeSubsystem intake, ReverseSerializerCommand reverseSerializer1) {
+
     
     // instantiates sensor values with respect to the contants method
 
@@ -38,8 +42,11 @@ public class SerializerSubsystem extends SubsystemBase {
     runSerializer = false;
     m_intake = intake;
     interrupted = false;
-    reverseSerializer = reverseSerializer1;
-    
+
+    this.reverseSerializer = reverseSerializer1;
+
+    trippedLauncherSensor = false;
+
   }
   
   
@@ -66,7 +73,7 @@ public class SerializerSubsystem extends SubsystemBase {
           lastIntakeVal = false;
         }
         if (  (!sensors.getIntakeVal() && lastIntakeVal)  && sensors.getSerializerVal() && !sensors.getLauncherVal()){
-          stopBelt();
+          
           lastIntakeVal = false;
         }
         //
@@ -107,7 +114,12 @@ public class SerializerSubsystem extends SubsystemBase {
       }
       //
 
-
+      if(sensors.getLauncherVal()){
+          trippedLauncherSensor = true;
+      }
+      if(!sensors.getLauncherVal()){
+        trippedLauncherSensor = false;
+    }
       //Statments for 1 ball going in when 1 ball is in serializer currently resting at serializer sensor
       if (  (sensors.getIntakeVal())  && sensors.getSerializerVal() && !sensors.getLauncherVal()){
         runBelt();
@@ -118,6 +130,7 @@ public class SerializerSubsystem extends SubsystemBase {
       }
       else if (  (!sensors.getIntakeVal() && lastIntakeVal) && !sensors.getLauncherVal() ){
         runBelt();
+       
       }
       if (  (!sensors.getIntakeVal() && lastIntakeVal)  && sensors.getSerializerVal()){
         stopBelt();
@@ -131,7 +144,18 @@ public class SerializerSubsystem extends SubsystemBase {
       }
       //
 
+
     }
+
+    if(sensors.getLauncherVal()){
+      trippedLauncherSensor = true;
+    }
+    if(!sensors.getLauncherVal()){
+      trippedLauncherSensor = false;
+    }
+
+
+
       //statment run first ball all the way to launcher
     /*if (sensors.getIntakeVal()|| (!sensors.getIntakeVal() && lastIntakeVal )){
     //Statments for one ball going in when no balls in serializer
@@ -189,5 +213,10 @@ public class SerializerSubsystem extends SubsystemBase {
   public void runSerializer(double speed){
     serializerMotor.set(ControlMode.PercentOutput, -speed * SerializerConstants.SERIALIZER_SPEED);
   }
+
+  public boolean getLauncherSensorVal(){
+    return trippedLauncherSensor;
+  }
+
 
 }
