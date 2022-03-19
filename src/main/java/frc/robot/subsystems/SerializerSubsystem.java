@@ -26,6 +26,8 @@ public class SerializerSubsystem extends SubsystemBase {
   public boolean interrupted;
   public boolean lastIntakeVal = false;
 
+  public boolean trippedLauncherSensor;
+
   public SerializerSubsystem(SensorSubsystem sensors) {
     
     // instantiates sensor values with respect to the contants method
@@ -36,6 +38,7 @@ public class SerializerSubsystem extends SubsystemBase {
     runSerializer = false;
 
     interrupted = false;
+    trippedLauncherSensor = false;
     
   }
   
@@ -59,9 +62,11 @@ public class SerializerSubsystem extends SubsystemBase {
       if (  (sensors.getIntakeVal())  && !sensors.getSerializerVal() && !sensors.getLauncherVal()){
         runBelt();
         lastIntakeVal = true;
+        trippedLauncherSensor = true;
       }
       else if (  (!sensors.getIntakeVal() && lastIntakeVal)  && !sensors.getSerializerVal()){
         runBelt();
+        trippedLauncherSensor = true;
       }
       if (  (!sensors.getIntakeVal() && lastIntakeVal)  && sensors.getSerializerVal() && !sensors.getLauncherVal()){
         stopBelt();
@@ -77,12 +82,20 @@ public class SerializerSubsystem extends SubsystemBase {
       }
       else if (  (!sensors.getIntakeVal() && lastIntakeVal) && !sensors.getLauncherVal() ){
         runBelt();
+       
       }
       if (  (!sensors.getIntakeVal() && lastIntakeVal)  && sensors.getLauncherVal()){
         stopBelt();
         lastIntakeVal = false;
       }
       //
+
+      if(sensors.getLauncherVal()){
+        trippedLauncherSensor = true;
+      }
+      if(!sensors.getLauncherVal()){
+        trippedLauncherSensor = false;
+      }
 
 
       //statment run first ball all the way to launcher
@@ -143,5 +156,10 @@ public class SerializerSubsystem extends SubsystemBase {
   public void runSerializer(double speed){
     serializerMotor.set(ControlMode.PercentOutput, -speed * SerializerConstants.SERIALIZER_SPEED);
   }
+
+  public boolean getLauncherSensorVal(){
+    return trippedLauncherSensor;
+  }
+
 
 }

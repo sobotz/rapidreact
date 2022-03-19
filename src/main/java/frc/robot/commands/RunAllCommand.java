@@ -39,8 +39,11 @@ public class RunAllCommand extends CommandBase {
     this.timer.delay(2);
     this.launcher.stopLauncher();
     this.serializer.runBelt();
-    this.timer.delay(2);
-    this.serializer.stopBelt();
+
+    if(serializer.getLauncherSensorVal()){
+      this.serializer.stopBelt();
+    }
+    
     this.launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
     this.timer.delay(2);
     this.launcher.stopLauncher();
