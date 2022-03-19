@@ -74,12 +74,16 @@ public class RobotContainer {
 
   private final VisionSubsystem m_vision;
 
+
+  
+
+
   private final IntakeSubsystem m_intake;
   private SerializerSubsystem m_serializer;
   private LauncherSubsystem m_launcher;
 
   private ColorSensorSubsystem m_colorSensor;
-  private SensorSubsystem m_sensorSubsystem;
+  private SensorSubsystem m_sensor;
 
 
   //
@@ -113,8 +117,12 @@ public class RobotContainer {
 
 
   public static Joystick m_driverJoystick;
+
   public Joystick m_operatorJoystick;
 
+
+
+  
 
 
   /** The container for the robot
@@ -126,10 +134,10 @@ public class RobotContainer {
     this.m_driverJoystick = new Joystick(0);
 
     this.m_operatorJoystick = new Joystick(1);
-    this.m_drivetrain = new DriveSubsystem();
+    
     this.m_vision = new VisionSubsystem();
 
-    m_sensorSubsystem = new SensorSubsystem();
+    
 
 
 
@@ -138,14 +146,20 @@ public class RobotContainer {
     
     //Subsystems
 
-    this.m_intake = new IntakeSubsystem(m_sensorSubsystem);
-    
-    reverseSerializerCommand = new ReverseSerializerCommand(this.m_intake, this.m_serializer);
 
-    this.m_serializer = new SerializerSubsystem(m_sensorSubsystem, m_intake, reverseSerializerCommand);
+ 
+
+    this.m_drivetrain = new DriveSubsystem();
+    m_sensor = new SensorSubsystem();
+    this.m_intake = new IntakeSubsystem(m_sensor);
+    this.m_serializer = new SerializerSubsystem(m_sensor, m_intake);
+
+    
+
+    
     this.m_launcher = new LauncherSubsystem();
 
-    this.m_colorSensor = new ColorSensorSubsystem(m_sensorSubsystem);
+    this.m_colorSensor = new ColorSensorSubsystem(m_sensor);
     //
 
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
@@ -153,8 +167,8 @@ public class RobotContainer {
 
     this.m_visionCommand = new AquireTargetCommand(this.m_vision);
     deployIntakeCommand = new DeployIntakeCommand(this.m_intake, this.m_serializer);  
-    m_launchSerializer = new LaunchSerializerCommand(this.m_serializer, m_sensorSubsystem);
-    
+    m_launchSerializer = new LaunchSerializerCommand(this.m_serializer, m_sensor);
+    reverseSerializerCommand = new ReverseSerializerCommand(m_intake,m_serializer,m_sensor);
     launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher);
     runAllCommand = new RunAllCommand(m_colorSensor,m_launcher,m_serializer);
     this.configureButtonBindings();

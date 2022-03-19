@@ -105,6 +105,7 @@ public final class Constants {
 
         public static final double autoDrive = 8050;
 
+
     public static final class VisionConstants{
         public static final int ACTUATION_MOTOR = 7;
         public static final int MAX_ROTATION_VALUE = 50000;// at 90 degrees, unit is 150,000; at 
@@ -116,6 +117,7 @@ public final class Constants {
         public static final double LIMLIGHT_TO_HUB_HEIGHT = 0;
         public static final double LIMELIGHT_ANGLE = 0;
     }
+
     
 	
 
