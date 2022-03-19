@@ -24,6 +24,7 @@ public class SerializerSubsystem extends SubsystemBase {
   public boolean runSerializer;
   //public boolean lastSerializerVal = false; // previous launcher sensor value
   public boolean interrupted;
+  public boolean lastIntakeVal = false;
 
   public SerializerSubsystem(SensorSubsystem sensors) {
     
@@ -53,17 +54,34 @@ public class SerializerSubsystem extends SubsystemBase {
       lastSerializerVal = sensors.getIntakeVal();
     }*/
     //CHANGE
-    if (sensors.getLauncherVal()){
-      if (sensors.getIntakeVal() && !sensors.getSerializerVal() ){
+    if (sensors.getIntakeVal()|| (!sensors.getIntakeVal() && lastIntakeVal )){
+      if (!sensors.getSerializerVal()){
         runBelt();
+        lastIntakeVal = true;
+      
+        if (!sensors.getSerializerVal() && lastIntakeVal&& !sensors.getIntakeVal()){
+        runBelt();
+        }
       }
-    }
-    if (!sensors.getLauncherVal()){
-      if (sensors.getIntakeVal() && !sensors.getLauncherVal()){
+      if (sensors.getSerializerVal()){
+        stopBelt();
+        lastIntakeVal = false;
+      }
+      
+      if (sensors.getSerializerVal() && !sensors.getLauncherVal() && sensors.getIntakeVal()){
         runBelt();
-      }  
-    }
+        lastIntakeVal = true;
+      
+        if (sensors.getSerializerVal() && !sensors.getLauncherVal() && lastIntakeVal && !sensors.getIntakeVal()){
+          runBelt();
+        }
+      }
+      if (sensors.getSerializerVal() & sensors.getLauncherVal()){
+        stopBelt();
+      }
 
+      
+    }
   }
   
   public boolean ToggleInterrupt(){
@@ -73,7 +91,7 @@ public class SerializerSubsystem extends SubsystemBase {
 
   public void runBelt() {
     // turns serializer motor on
-    serializerMotor.set(ControlMode.PercentOutput, -SerializerConstants.SERIALIZER_SPEED);
+    serializerMotor.set(ControlMode.PercentOutput, SerializerConstants.SERIALIZER_SPEED);
   }
 
   public void stopBelt(){
@@ -81,7 +99,7 @@ public class SerializerSubsystem extends SubsystemBase {
   }
 
   public void reverseBelt() {
-    serializerMotor.set(ControlMode.PercentOutput, SerializerConstants.SERIALIZER_SPEED);
+    serializerMotor.set(ControlMode.PercentOutput, -SerializerConstants.SERIALIZER_SPEED);
   }
   
   public void runSerializer(double speed){

@@ -37,29 +37,32 @@ public class SensorSubsystem extends SubsystemBase {
     intakeVal = intakeSensor.getVoltage();
     serializerVal = serializerSensor.getVoltage();
     launcherVal = launcherSensor.getVoltage();
-    if(intakeVal >= 3){
+    if(intakeVal <= 1){
       intakeTripped = true;
     }
-    if(serializerVal >= 3){
+    if(serializerVal <= 1){
       serializerTripped = true;
     }
-    if(launcherVal >= 3){
+    if(launcherVal <= 1){
       launcherTripped = true;
     }
 
-    if(intakeVal <= 1.5){
+    if(intakeVal > 1){
       intakeTripped = false;
     }
-    if(serializerVal <= 1.5){
+    if(serializerVal > 1){
       serializerTripped = false;
     }
-    if(launcherVal <= 1.5){
+    if(launcherVal > 1){
       launcherTripped = false;
     }
+    System.out.println(launcherVal);
+    //System.out.println(getIntakeVal());
+    //System.out.println(intakeSensor.getVoltage());
   }
   
   public boolean getIntakeVal(){
-    return launcherTripped;
+    return intakeTripped;
   }
 
   public boolean getSerializerVal(){

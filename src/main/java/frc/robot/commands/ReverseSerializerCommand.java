@@ -25,8 +25,8 @@ public class ReverseSerializerCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (intake.hasDeployed)
-      this.intake.toggleIntake();
+    //if (intake.hasDeployed)
+      //this.intake.toggleIntake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

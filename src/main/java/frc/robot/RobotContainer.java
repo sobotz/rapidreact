@@ -166,7 +166,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     JoystickButton DeployIntakeButton = new JoystickButton(m_operatorJoystick, 4);
     JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 3);
-    JoystickButton reverseSerializerButton = new JoystickButton(m_operatorJoystick,2);
+    JoystickButton reverseSerializerButton = new JoystickButton(this.m_operatorJoystick,2);
     JoystickButton launchButton = new JoystickButton(m_operatorJoystick,6);
     JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
     JoystickButton switchTeamColor = new JoystickButton(m_operatorJoystick, 1);

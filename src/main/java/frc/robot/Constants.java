@@ -55,7 +55,7 @@ public final class Constants {
         public static final int SERIALIZER_SENSOR_1 = 0;
         public static final int SERIALIZER_SENSOR_2 = 1;
         public static final int SERIALIZER_SENSOR_3 = 2;
-        public static final int SERIALIZER_MOTOR = 7;
+        public static final int SERIALIZER_MOTOR = 8;
         public static final int FEED_MOTOR = 10;
 	    public static final double SERIALIZER_SPEED = 0.3;
     }
@@ -73,6 +73,10 @@ public final class Constants {
     
     public final class ColorSensorConstants{
         public static final double COLOR_THRESHOLD = .35;
+    }
+
+    public final class SensorsConstants{
+        public static final int SENSORS_THRESHOLD = 1;
     }
 
     // Configuration Constants
