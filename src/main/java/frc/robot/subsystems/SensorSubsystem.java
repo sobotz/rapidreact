@@ -56,9 +56,12 @@ public class SensorSubsystem extends SubsystemBase {
     if(launcherVal > 1){
       launcherTripped = false;
     }
-    System.out.println(launcherVal);
+    //test sensors
     //System.out.println(getIntakeVal());
-    //System.out.println(intakeSensor.getVoltage());
+    //System.out.println(getSerializerVal())
+    //System.out.println(getlauncherVal());
+    
+    
   }
   
   public boolean getIntakeVal(){

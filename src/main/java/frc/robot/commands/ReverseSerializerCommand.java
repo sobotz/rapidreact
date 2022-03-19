@@ -13,6 +13,7 @@ public class ReverseSerializerCommand extends CommandBase {
   /** Creates a new ReverseSerializer. */
   private SerializerSubsystem serializer;
   private IntakeSubsystem intake;
+  public boolean isFinished;
 
 
   public ReverseSerializerCommand(IntakeSubsystem r_intake, SerializerSubsystem r_serializer) {
@@ -33,6 +34,7 @@ public class ReverseSerializerCommand extends CommandBase {
   @Override
   public void execute() {
     this.serializer.reverseBelt();
+    isFinished = true;
 
   }
 
@@ -40,12 +42,15 @@ public class ReverseSerializerCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     serializer.stopBelt();
+    serializer.lastIntakeVal = false;
+    isFinished = false;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
+    
   }
 
 }

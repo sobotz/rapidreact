@@ -78,6 +78,7 @@ public class LaunchSerializerCommand extends CommandBase {
     //this.nFramesRun = 0;
     //serializer.toggleSerializer();
     serializer.runSerializer(0);
+    serializer.lastIntakeVal = false;
   }
 
   // Returns true when the command should end.
