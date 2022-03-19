@@ -38,7 +38,7 @@ public class RobotContainer {
 
   public final LiftCommand m_liftCommand;
 
-  public static ArmReleaseCommand m_armReleaseCommand;
+  public final ArmReleaseCommand m_armReleaseCommand;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

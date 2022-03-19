@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
@@ -22,7 +23,7 @@ public class LiftCommand extends CommandBase {
 
   private Timer timer;
 
-  private WPI_TalonFX rotateMotor;
+  private WPI_TalonFX liftMotor;
 
   private double exceeds = 10.0;    //Represents the voltage that it can't exceed. 
   private double count = 0;            //Represents the time that it has exceeded limit.
@@ -37,7 +38,8 @@ public class LiftCommand extends CommandBase {
   public LiftCommand(ClimbSubsystem climbTrain, Joystick joystick) {
     m_climbSubsystem = climbTrain;
     m_joystick = joystick;
-    this.rotateMotor = new WPI_TalonFX(Constants.ClimbConstants.ROTATE_MOTOR);
+    this.liftMotor = new WPI_TalonFX(Constants.ClimbConstants.LIFT_MOTOR);
+    timer = new Timer();
     addRequirements(m_climbSubsystem);
   }
 
@@ -56,7 +58,9 @@ public class LiftCommand extends CommandBase {
       m_climbSubsystem.liftExtend();
     if(m_joystick.getRawButton(7)){
       m_climbSubsystem.liftRetract();
-      if(this.rotateMotor.getStatorCurrent() >= exceeds){
+      double current = this.liftMotor.getStatorCurrent();
+      SmartDashboard.putString("Lift current:", String.valueOf(current));
+      if(current >= exceeds){
         count = timer.get();
         if(count >= limitCount)
           m_climbSubsystem.liftStop();

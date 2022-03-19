@@ -26,11 +26,9 @@ public class ClimbSubsystem extends SubsystemBase {
   Timer timer;
 
   public ClimbSubsystem() {
-    this.rotateMotor = new WPI_TalonFX(Constants.ClimbConstants.ROTATE_MOTOR);
     this.liftMotor = new WPI_TalonFX(Constants.ClimbConstants.LIFT_MOTOR);
 
     // Reset the configuration of each of the talons
-    this.rotateMotor.configFactoryDefault();
     this.liftMotor.configFactoryDefault();
 
     this.armLock = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.ClimbConstants.ARM_LOCK_DEPLOY,
@@ -39,34 +37,18 @@ public class ClimbSubsystem extends SubsystemBase {
     this.lowRelease = true;
   }
 
-  public void rotateClockwise (){
-    this.rotateMotor.set(ControlMode.PercentOutput, ClimbConstants.ROTATE_SPEED);
-  }
-
-// unfinished methods
-  public void rotateCounterclockwise (){
-    this.rotateMotor.set(ControlMode.PercentOutput, (ClimbConstants.ROTATE_SPEED) * (-1));
-  }
-
-
   public void liftExtend (){
-    this.rotateMotor.set(ControlMode.PercentOutput, ClimbConstants.LIFT_SPEED);
+    this.liftMotor.set(ControlMode.PercentOutput, ClimbConstants.LIFT_SPEED);
   }
 
 
   public void liftRetract (){
-    this.rotateMotor.set(ControlMode.PercentOutput, (ClimbConstants.LIFT_SPEED) * (-1));
-    periodic();
-  }
-
-
-  public void rotateStop (){
-    this.rotateMotor.set(ControlMode.PercentOutput, 0);
+    this.liftMotor.set(ControlMode.PercentOutput, (ClimbConstants.LIFT_SPEED) * (-1));
   }
 
 
   public void liftStop (){
-    this.rotateMotor.set(ControlMode.PercentOutput, 0);
+    this.liftMotor.set(ControlMode.PercentOutput, 0);
   }
 
   public boolean armLock() {

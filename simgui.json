@@ -1,7 +1,23 @@
 {
   "NTProvider": {
     "types": {
-      "/FMSInfo": "FMSInfo"
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/ClimbSubsystem": "Subsystem",
+      "/LiveWindow/DriveSubsystem": "Subsystem",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Talon FX [1]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [2]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [3]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [4]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [9]": "Motor Controller"
+    }
+  },
+  "NetworkTables": {
+    "FMSInfo": {
+      "open": true
+    },
+    "LiveWindow": {
+      "open": true
     }
   }
 }
