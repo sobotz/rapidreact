@@ -36,17 +36,17 @@ public class RunAllCommand extends CommandBase {
     
     //launcher.resetLauncher();
     this.launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
-    this.timer.delay(2);
+    /**this.timer.delay(2.0);
     this.launcher.stopLauncher();
     this.serializer.runBelt();
 
     if(serializer.getLauncherSensorVal()){
       this.serializer.stopBelt();
     }
-    
+
     this.launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
-    this.timer.delay(2);
-    this.launcher.stopLauncher();
+    this.timer.delay(2.0);
+    this.launcher.stopLauncher();*/
 
     serializer.interrupted = false;
     colorsensor.clearBallValues();

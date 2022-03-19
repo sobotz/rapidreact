@@ -69,21 +69,6 @@ public final class Constants {
         public static final int ENEMY_VELOCITY = 10000;
         
     }
-
-
-    public static final class VisionConstants {
-        public static final int ACTUATION_MOTOR = 6;
-        public static final int MAX_ROTATION_VALUE = 50000;
-        public static final double MAX_SPEED = .25;
-
-        public static final double LIMLIGHT_TO_HUB_HEIGHT = 77;
-        public static final double LIMELIGHT_ANGLE = 26;
-
-        public static final double LOGISTIC_GROWTH_RATE = .45;
-        public static final double MIN_ADJUST_SPEED = .3;
-        public static final double DEADBAND_RANGE = 0.05;
-    }
-
     
     public final class ColorSensorConstants{
         public static final double COLOR_THRESHOLD = .35;
@@ -121,8 +106,8 @@ public final class Constants {
         public static final double autoDrive = 8050;
 
     public static final class VisionConstants{
-        public static final int ACTUATION_MOTOR = 6;
-        public static final int MAX_ROTATION_VALUE = 50000;
+        public static final int ACTUATION_MOTOR = 7;
+        public static final int MAX_ROTATION_VALUE = 50000;// at 90 degrees, unit is 150,000; at 
         public static final double MAX_SPEED = .25;
         public static final double LOGISTIC_GROWTH_RATE = .45;
         public static final double MIN_ADJUST_SPEED = .2;

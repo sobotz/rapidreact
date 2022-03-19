@@ -44,6 +44,11 @@ public class VisionSubsystem extends SubsystemBase {
     this.tArea = table.getEntry("ta");
 
     this.actuationMotor = new TalonSRX(VisionConstants.ACTUATION_MOTOR);
+    this.actuationMotor.configForwardSoftLimitThreshold(280000, 0);
+    this.actuationMotor.configReverseSoftLimitThreshold(-280000, 0);
+    this.actuationMotor.configForwardSoftLimitEnable(true, 0);
+    this.actuationMotor.configReverseSoftLimitEnable(true,0);
+
 
     defaultSpeed = -1;
   }

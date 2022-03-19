@@ -74,8 +74,6 @@ public class RobotContainer {
 
   private final VisionSubsystem m_vision;
 
-  private final DriveCommand m_driveCommand;
-
   private final IntakeSubsystem m_intake;
   private SerializerSubsystem m_serializer;
   private LauncherSubsystem m_launcher;
@@ -117,7 +115,6 @@ public class RobotContainer {
   public static Joystick m_driverJoystick;
   public Joystick m_operatorJoystick;
 
-  public static Joystick m_operatorJoystick;
 
 
   /** The container for the robot
@@ -140,7 +137,6 @@ public class RobotContainer {
     //this.m_autocommand = new AutoCommand(this.m_drivetrain);
     
     //Subsystems
-    this.m_drivetrain = new DriveSubsystem();
 
     this.m_intake = new IntakeSubsystem(m_sensorSubsystem);
     

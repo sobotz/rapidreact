@@ -48,7 +48,7 @@ public class ActivateLauncherCommand extends CommandBase {
       this.serializer.stopBelt();
     }
   }
-
+  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
