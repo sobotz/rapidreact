@@ -170,7 +170,7 @@ public class RobotContainer {
     deployIntakeCommand = new DeployIntakeCommand(this.m_intake, this.m_serializer);  
     m_launchSerializer = new LaunchSerializerCommand(this.m_serializer, m_sensor);
     reverseSerializerCommand = new ReverseSerializerCommand(m_intake,m_serializer,m_sensor);
-    launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher);
+    launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher, m_sensor);
     runAllCommand = new RunAllCommand(m_colorSensor,m_launcher,m_serializer);
     this.configureButtonBindings();
 

@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SerializerConstants;
 import frc.robot.commands.ReverseSerializerCommand;
+import edu.wpi.first.wpilibj.Timer;
 
 
 public class SerializerSubsystem extends SubsystemBase {
@@ -21,16 +22,25 @@ public class SerializerSubsystem extends SubsystemBase {
   // Initializes the sensors in the serializer and launcher
   private SensorSubsystem sensors;
   private IntakeSubsystem m_intake;
+
+  private Timer timer;
   //private ReverseSerializerCommand reverseSerializer;
   // Initializes variables that wiil be used in the program
   public boolean runSerializer;
   //public boolean lastSerializerVal = false; // previous launcher sensor value
   public boolean interrupted;
   public boolean lastIntakeVal = false;
-
+  public boolean lastSerializerVal = false;
 
   public boolean trippedLauncherSensor;
   public Boolean launchMode;
+
+  public int s0 = 0;
+  public int s1 = 0;
+  public int s2 = 0;
+
+  public int serializerState = 0;
+
 
   public SerializerSubsystem(SensorSubsystem sensors, IntakeSubsystem intake) {
 
@@ -43,6 +53,7 @@ public class SerializerSubsystem extends SubsystemBase {
     runSerializer = false;
     m_intake = intake;
     interrupted = false;
+    launchMode = false;
 
     //this.reverseSerializer = reverseSerializer1;
 
@@ -53,153 +64,128 @@ public class SerializerSubsystem extends SubsystemBase {
   
   // Called every time the Command Scheduler runs (every 20 miliseconds)
   public void periodic() {
-    /*if(!interrupted){
-      if (lastSerializerVal && sensors.getSerializerVal()) {
-        runSerializer = true;
-      } 
-      if (sensors.getLauncherVal()) {
-        runSerializer = false;
-      }
-      // ? basic if statement, Before ? is boolean condition, after ? before : run if true, after : run if false
-      serializerMotor.set(ControlMode.PercentOutput, (runSerializer )? -SerializerConstants.SERIALIZER_SPEED : 0);
-      lastSerializerVal = sensors.getIntakeVal();
+    /*if(sensors.getIntakeVal()){
+      s0 = 1;
+    }
+    if(sensors.getSerializerVal()){
+      s1 = 1;
+    }
+    if(sensors.getLauncherVal()){
+      s2 = 1;
+    }
+
+    serializerState = s0 << 2 | s1 << 1 | s0;
+
+    /*
+    s0  s1  s2 |  index | Belts | Intake
+    0   0   0  |  0     | 0     | X
+    0   0   1  |  1     | 0     | X
+    0   1   0  |  2     | 1     | X
+    0   1   1  |  3     | 0     | 0
+    1   0   0  |  4     | 0     | 1
+    1   0   1  |  5     | 0     | 1
+    1   1   0  |  6     | 1     | 1
+    1   1   1  |  7     | 0     | -1
+
+    Operator Interference needs to be checked
+
+    s0 = intake sensor ( 0 is not triggered, 1 is triggered )
+    s1 = serializer sensor ( 0 is not triggered, 1 is triggered )
+    s2 = launcher sensor ( 0 is not triggered, 1 is triggered )
+    */
+    /*if(serializerState == 2 || serializerState == 6){
+      runBelt();
+    }
+    else{
+      stopBelt();
+    }
+
+    if(serializerState == 4 || serializerState == 5 || serializerState == 6){
+      m_intake.runIntake(1);
+    }
+    else if(serializerState == 3){
+      m_intake.runIntake(0);
+      //m_intake.retractIntake();
+    }
+    else if(serializerState == 7){
+     // m_intake.runIntake(-1);
     }*/
-    /*if (reverseSerializer.isFinished()){
-      if (sensors.getIntakeVal()|| (!sensors.getIntakeVal() && lastIntakeVal )){
-        //Statments for one ball going in when no balls in serializer
-        if (  (sensors.getIntakeVal())  && !sensors.getSerializerVal() && !sensors.getLauncherVal()){
-          lastIntakeVal = false;
-        }
-        else if (  (!sensors.getIntakeVal() && lastIntakeVal)  && !sensors.getSerializerVal()){
-          lastIntakeVal = false;
-        }
-        if (  (!sensors.getIntakeVal() && lastIntakeVal)  && sensors.getSerializerVal() && !sensors.getLauncherVal()){
-          
-          lastIntakeVal = false;
-        }
-        //
-  
-  
-        //Statments for 1 ball going in when 1 ball is in serializer currently resting at serializer sensor
-        if (  (sensors.getIntakeVal())  && sensors.getSerializerVal() && !sensors.getLauncherVal()){
-          
-          lastIntakeVal = false;
-        }
-        else if (  (sensors.getIntakeVal())  && sensors.getLauncherVal()){
-          lastIntakeVal = false;
-        }
-        else if (  (!sensors.getIntakeVal() && lastIntakeVal) && !sensors.getLauncherVal() ){
-          lastIntakeVal = false;
-        }
-        if (  (!sensors.getIntakeVal() && lastIntakeVal)  && sensors.getSerializerVal()){
-          lastIntakeVal = false;
-          
-        }
-        if (  (sensors.getIntakeVal())  && sensors.getSerializerVal() && sensors.getLauncherVal()){
-          lastIntakeVal = false;
-        }
-      }
-    }*/
+
+
     if (launchMode){
       lastIntakeVal = false;
+      lastSerializerVal = false;
     }
-    else{ 
-      if (!sensors.getIntakeVal() && !sensors.getSerializerVal() && !sensors.getLauncherVal()){
-        stopBelt();
-      }
-      if (sensors.getIntakeVal()|| (!sensors.getIntakeVal() && lastIntakeVal )){
-        //Statments for one ball going in when no balls in serializer
-      
-        if (  (sensors.getIntakeVal())  && !sensors.getSerializerVal() && !sensors.getLauncherVal()){
-          runBelt();
-          lastIntakeVal = true;
-        }
-        else if (  (!sensors.getIntakeVal() && lastIntakeVal)  && !sensors.getSerializerVal()){
-          runBelt();
-        }
-        if (  (!sensors.getIntakeVal() && lastIntakeVal)  && sensors.getSerializerVal() && !sensors.getLauncherVal()){
-          stopBelt();
-          lastIntakeVal = false;
-        }
-      //
-
-
-      /*if(sensors.getLauncherVal()){
-          trippedLauncherSensor = true;
-      }
-      if(!sensors.getLauncherVal()){
-        trippedLauncherSensor = false;
-      }*/
-
-      //Statments for 1 ball going in when 1 ball is in serializer currently resting at serializer sensor
-      if ((sensors.getIntakeVal())  && sensors.getSerializerVal() && !sensors.getLauncherVal()){
-        runBelt();
+    else{
+      if (sensors.getIntakeVal() && !sensors.getSerializerVal() && !sensors.getLauncherVal()){
+        m_intake.runIntake(1);
         lastIntakeVal = true;
       }
-      else if ((sensors.getIntakeVal())  && sensors.getLauncherVal()){
-        stopBelt();
-        //change
-        lastIntakeVal = false;
+      else if (!sensors.getIntakeVal() && !sensors.getSerializerVal() && !sensors.getLauncherVal() && lastIntakeVal){
+        m_intake.runIntake(1);
       }
-      else if ((!sensors.getIntakeVal() && lastIntakeVal) && !sensors.getLauncherVal() ){
+      if (!sensors.getIntakeVal() && sensors.getSerializerVal() && !sensors.getLauncherVal() && lastIntakeVal){
+        lastIntakeVal = false;
+        m_intake.runIntake(0);
         runBelt();
+        lastSerializerVal = true;
       }
-
-      if ((!sensors.getIntakeVal() && lastIntakeVal)  && sensors.getLauncherVal()){
+      else if (!sensors.getSerializerVal() && !sensors.getLauncherVal() && lastSerializerVal){
+        runBelt();
+        
+      }
+      if (!sensors.getSerializerVal() && sensors.getLauncherVal() && lastSerializerVal){
         stopBelt();
+        lastSerializerVal = false;
+      }
+
+      if (sensors.getIntakeVal() && !sensors.getSerializerVal() && sensors.getLauncherVal()){
+        m_intake.runIntake(1);
+        lastIntakeVal = true;
+      }
+      else if (!sensors.getIntakeVal() && !sensors.getSerializerVal() && sensors.getLauncherVal() && lastIntakeVal){
+        m_intake.runIntake(1);
+      }
+      if (sensors.getSerializerVal() && sensors.getLauncherVal()){
+        m_intake.runIntake(0); 
+        //m_intake.retractIntake();
         lastIntakeVal = false;
-        m_intake.retractIntake();
       }
-      
-      if ((sensors.getIntakeVal())  && sensors.getSerializerVal() && sensors.getLauncherVal()){
-        stopBelt();
-        lastIntakeVal = false;
-        m_intake.retractIntake();
-      }
-      //
-
-
-
-      }
+      //if (sensors.getIntakeVal() && sensors.getSerializerVal() && sensors.getLauncherVal()){
+      //  reverseBelt();
+      //  m_intake.runIntake(-1);
+      //  m_intake.retractIntake();
+  
+      //}
+    }
+  }
     
-
-
-
       //statment run first ball all the way to launcher
     /*if (sensors.getIntakeVal()|| (!sensors.getIntakeVal() && lastIntakeVal )){
     //Statments for one ball going in when no balls in serializer
       if (  (sensors.getIntakeVal())  && !sensors.getSerializerVal()  && !sensors.getLauncherVal()){
         runBelt();
+
         lastIntakeVal = true;
       }
-      else if (  (!sensors.getIntakeVal() && lastIntakeVal)  && !sensors.getSerializerVal() && !sensors.getLauncherVal()){
-        runBelt();
+      else if (!sensors.getIntakeVal() && !sensors.getSerializerVal() && sensors.getLauncherVal() && lastIntakeVal){
+        m_intake.runIntake(1);
       }
-      else if (  (sensors.getIntakeVal() && lastIntakeVal)  && sensors.getSerializerVal() && !sensors.getLauncherVal()){
-        runBelt();
-      }
-      if (  (!sensors.getIntakeVal() && lastIntakeVal)  && !sensors.getSerializerVal() && sensors.getLauncherVal()){
-        stopBelt();
+      if (sensors.getSerializerVal() && sensors.getLauncherVal()){
+        m_intake.runIntake(0);
+        m_intake.retractIntake();
         lastIntakeVal = false;
       }
-        //
+      if (sensors.getIntakeVal() && sensors.getSerializerVal() && sensors.getLauncherVal()){
+        reverseBelt();
+        m_intake.runIntake(-1);
+        m_intake.retractIntake();
 
-        //Statments for 1 ball going in when 1 ball is in serializer currently resting at Launcher sensor 
-      if (  (sensors.getIntakeVal())  && !sensors.getSerializerVal() && sensors.getLauncherVal()){
-        runBelt();
-        lastIntakeVal = true;
       }
-      else if (  (!sensors.getIntakeVal() && lastIntakeVal)  && !sensors.getSerializerVal() && sensors.getLauncherVal() ){
-        runBelt();
-      }
-      if (  (!sensors.getIntakeVal() && lastIntakeVal)  && sensors.getSerializerVal()){
-        stopBelt();
-        lastIntakeVal = false;        }
-      }*/
-      // I was maybe a little bored
+
+    }*/
       
-    
-  }
+  
   
   public boolean ToggleInterrupt(){
     interrupted = !interrupted;
@@ -226,7 +212,7 @@ public class SerializerSubsystem extends SubsystemBase {
   public boolean getLauncherSensorVal(){
     return trippedLauncherSensor;
   }
-  public boolean getLaunchMode(){
+  public boolean getCommandMode(){
     return launchMode = true;
   }
   public boolean getSerializerMode(){

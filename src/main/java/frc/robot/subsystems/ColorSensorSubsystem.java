@@ -23,6 +23,8 @@ import com.revrobotics.ColorSensorV3;
 
 import java.util.ArrayList;
 
+import javax.swing.text.StyleContext.SmallAttributeSet;
+
 //import com.revrobotics.ColorMatch;
 //import com.revrobotics.ColorSensorV3.RawColor;
 
@@ -49,7 +51,6 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
   public ColorSensorSubsystem(SensorSubsystem sensors){
     this.teamColor = DriverStation.getAlliance();
-    //launcherSensor = new AnalogInput(4);
     lastLSVal = false;
     this.sensors = sensors;
   }
@@ -58,8 +59,10 @@ public class ColorSensorSubsystem extends SubsystemBase{
   public void periodic() {
     Color detectedColor = colorSensor.getColor();
     
+    //Testing
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
+    //
     
     if(detectedColor.red > ColorSensorConstants.COLOR_THRESHOLD && lastRed < ColorSensorConstants.COLOR_THRESHOLD){
       ballColors.add(Alliance.Red);
@@ -71,15 +74,19 @@ public class ColorSensorSubsystem extends SubsystemBase{
     lastRed = detectedColor.red;
     lastBlue = detectedColor.blue;
 
+    
 
-    String[] _ballColors = new String[ballColors.size()];
-    SmartDashboard.putStringArray("Ball Array", ballColors.toArray(_ballColors));
-
-    if(!sensors.getLauncherVal() && lastLSVal){
-      removeFirstBall();
+    if(!sensors.getLauncherVal() && lastLSVal && ballColors.size() != 0){
+         removeFirstBall();
     }
     
     lastLSVal = sensors.getLauncherVal();
+
+    //Testing
+    if(ballColors.size() != 0){
+      SmartDashboard.putBoolean("Would shoot correctly", shootCorrectly());
+    }
+    //
   }
 
   public Boolean allyBall () {
@@ -87,7 +94,18 @@ public class ColorSensorSubsystem extends SubsystemBase{
   }
 
   public void removeFirstBall(){  //USED
-    ballColors.remove(0);
+    if(ballColors.size() != 0){
+          ballColors.remove(0);
+    }
+  }
+
+  public boolean shootCorrectly(){
+    if(ballColors.size() != 0){
+      if(ballColors.get(0).equals(teamColor)){
+        return true;
+      }
+    }
+    return false;
   }
 
   public boolean ballDetected(){

@@ -15,7 +15,7 @@ public class ReverseSerializerCommand extends CommandBase {
   private SerializerSubsystem serializer;
   private IntakeSubsystem intake;
   private SensorSubsystem sensors;
-  public boolean isFinished;
+  
 
 
 
@@ -31,18 +31,16 @@ public class ReverseSerializerCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    serializer.getCommandMode();
     //if (intake.hasDeployed)
       //this.intake.toggleIntake();
-      serializer.lastIntakeVal = false;
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     this.serializer.reverseBelt();
-    isFinished = true;
-    
-    
 
   }
 
@@ -50,16 +48,15 @@ public class ReverseSerializerCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     serializer.stopBelt();
-    serializer.lastIntakeVal = false;
-    isFinished = false;
+    serializer.getSerializerMode();
   }
 
   // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return isFinished;
+  //@Override
+  //public boolean isFinished() {
+    //return isFinished;
     
-  }
+  //}
 
 }
 

@@ -29,14 +29,14 @@ public class LauncherSubsystem extends SubsystemBase {
 
   public void startLauncher(double velocity) {
     //launcherMotor.set(ControlMode.Velocity, velocity);
-    launcherMotor.set(ControlMode.PercentOutput,velocity);
-    launcherMotor.setInverted(true);
+    launcherMotor.set(ControlMode.PercentOutput,-velocity);
+    //launcherMotor.setInverted(true);
     launcherMotor2.follow(launcherMotor);
 
   }
 
   public void stopLauncher() {
-    launcherMotor.set(ControlMode.Velocity, 0);
+    launcherMotor.set(ControlMode.PercentOutput, 0);
     launcherMotor2.follow(launcherMotor);
   }
   
