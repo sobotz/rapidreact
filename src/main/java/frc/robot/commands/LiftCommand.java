@@ -40,7 +40,6 @@ public class LiftCommand extends CommandBase {
   @Override
   public void execute() {
       m_climbSubsystem.liftExtend();
-      System.out.println("BBBBBBBBBBB");
   }
 
   // Called once the command ends or is interrupted.

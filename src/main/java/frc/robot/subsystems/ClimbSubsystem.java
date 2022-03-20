@@ -47,9 +47,14 @@ public class ClimbSubsystem extends SubsystemBase {
     this.lowLock = true;
     this.lowRelease = true;
   }
+  public double getPosition(){
+    return liftMotor.getSelectedSensorPosition();
+  }
+
   public double getCurrent(){
     return liftMotor.getStatorCurrent();
   }
+
   public void liftExtend (){
     this.liftMotor.set(ControlMode.PercentOutput, -ClimbConstants.LIFT_SPEED);
   }

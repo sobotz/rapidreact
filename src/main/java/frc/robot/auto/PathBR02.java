@@ -48,7 +48,7 @@ public class PathBR02 extends CommandBase {
     this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
     this.m_serializer.runBelt();
     
-    timer.delay(1);
+    timer.delay(2);
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
     this.isFinished = true;
