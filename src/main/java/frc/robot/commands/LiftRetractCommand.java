@@ -24,6 +24,8 @@ public class LiftRetractCommand extends CommandBase {
   private double exceeds = 80.0;    //Represents the current that it can't exceed. 
   private double count = 0;            //Represents the time that it has exceeded limit.
   private double limitCount = 0.5;      //Represents the amount of time count should be to stop retract
+
+  private double pos;
   /**
    * Creates a new ExampleCommand.
    *
@@ -51,9 +53,17 @@ public class LiftRetractCommand extends CommandBase {
     SmartDashboard.putString("Lift current:", String.valueOf(current));
     if(m_climbSubsystem.RetractState != RetractStateEnum.ATLIMIT){
       m_climbSubsystem.liftRetract();
-      System.out.println("AAAAAAAAAAAAAA");
-     current = m_climbSubsystem.getCurrent();
+      current = m_climbSubsystem.getCurrent();
       SmartDashboard.putString("Lift current:", String.valueOf(current));
+
+      // automatically stop at max height
+      pos = m_climbSubsystem.getPosition();
+      if(pos > 180000){
+        m_climbSubsystem.RetractState = RetractStateEnum.ATLIMIT;
+        m_climbSubsystem.liftStop();
+      }
+
+      // automatically stop if current too high
       if(current >= exceeds){
         count = timer.get();
         if(count >= limitCount){

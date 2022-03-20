@@ -41,11 +41,11 @@ public class PathBR41 extends CommandBase {
   }
   @Override
   public void initialize() {
-    m_intake.toggleIntake(); // drops intake
     timer.start();
     // m_intake.deployIntake();
     // m_intake.toggleIntake();
     m_drive.testDrive(-1.0, 4.0); // move 4 ft ~ takes approximately 2 seconds
+    m_intake.toggleIntake();
     timer.delay(2);
     m_intake.toggleIntake();
     
@@ -54,7 +54,7 @@ public class PathBR41 extends CommandBase {
     m_drive.testDrive(-1.0, 2.0);
 
     timer.delay(1.5);
-    this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
+    this.m_launcher.startLauncher(5);
     this.m_serializer.runBelt();
     
  
