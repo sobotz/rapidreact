@@ -27,7 +27,7 @@ public class RunAllCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    serializer.getCommandMode();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,7 +35,9 @@ public class RunAllCommand extends CommandBase {
   public void execute() {
     
     //launcher.resetLauncher();
-    this.launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
+    //CHANGE
+    this.launcher.startLauncher(1);
+    serializer.runBelt();
     /**this.timer.delay(2.0);
     this.launcher.stopLauncher();
     this.serializer.runBelt();
@@ -45,11 +47,9 @@ public class RunAllCommand extends CommandBase {
     }
 
     this.launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
-<<<<<<< HEAD
+
     /**this.timer.delay(2);
-=======
-    this.timer.delay(2.0);
->>>>>>> f4f99f9eb65ee4742ff533a0de7b25152c0d0520
+
     this.launcher.stopLauncher();*/
 
     serializer.interrupted = false;
@@ -62,6 +62,7 @@ public class RunAllCommand extends CommandBase {
   public void end(boolean interrupted) {
     launcher.stopLauncher();
     serializer.stopBelt();
+    serializer.getSerializerMode();
   }
 
   // Returns true when the command should end.
