@@ -16,6 +16,7 @@ public class ActivateLauncherCommand extends CommandBase {
   private SerializerSubsystem serializer;
   private LauncherSubsystem launcher;
   private ColorSensorSubsystem colorSensor;
+  private boolean shootInTarget;
 
 
   private int targetVelocity;
@@ -28,6 +29,7 @@ public class ActivateLauncherCommand extends CommandBase {
     this.serializer = serializer1;
     this.launcher = launcher1;
     this.targetVelocity = 1/*LauncherConstants.TEAM_VELOCITY*/;
+    shootInTarget = colorSensor.shootCorrectly();
 
     addRequirements(serializer, launcher);
   }
@@ -35,7 +37,12 @@ public class ActivateLauncherCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.launcher.startLauncher(3);/*targetVelocity*/
+    if(shootInTarget){
+      this.launcher.startLauncher(3);/*targetVelocity*/
+    }
+    else{
+      this.launcher.startLauncher(1);
+    }
     serializer.getLaunchMode();
   }
 

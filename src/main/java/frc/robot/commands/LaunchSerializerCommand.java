@@ -39,6 +39,7 @@ public class LaunchSerializerCommand extends CommandBase {
   public void initialize() {
     //this.nFramesRun = 0;
     //serializer.toggleSerializer();
+    serializer.getLaunchMode();
 
   }
 
@@ -79,6 +80,7 @@ public class LaunchSerializerCommand extends CommandBase {
     //serializer.toggleSerializer();
     serializer.runSerializer(0);
     serializer.lastIntakeVal = false;
+    serializer.getSerializerMode();
   }
 
   // Returns true when the command should end.

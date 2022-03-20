@@ -51,17 +51,18 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
   public ColorSensorSubsystem(SensorSubsystem sensors){
     this.teamColor = DriverStation.getAlliance();
-    //launcherSensor = new AnalogInput(4);
     lastLSVal = false;
     this.sensors = sensors;
   }
 
   //@Override
   public void periodic() {
-    /*Color detectedColor = colorSensor.getColor();
+    Color detectedColor = colorSensor.getColor();
     
+    //Testing
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
+    //
     
     if(detectedColor.red > ColorSensorConstants.COLOR_THRESHOLD && lastRed < ColorSensorConstants.COLOR_THRESHOLD){
       ballColors.add(Alliance.Red);
@@ -73,16 +74,19 @@ public class ColorSensorSubsystem extends SubsystemBase{
     lastRed = detectedColor.red;
     lastBlue = detectedColor.blue;
 
+    
 
-    String[] _ballColors = new String[ballColors.size()];
-    SmartDashboard.putStringArray("Ball Array", ballColors.toArray(_ballColors));
-    SmartDashboard.putBoolean("Would shoot correctly", shootCorrectly());
-
-    if(!sensors.getLauncherVal() && lastLSVal){
-      removeFirstBall();
+    if(!sensors.getLauncherVal() && lastLSVal && ballColors.size() != 0){
+         removeFirstBall();
     }
     
-    lastLSVal = sensors.getLauncherVal();*/
+    lastLSVal = sensors.getLauncherVal();
+
+    //Testing
+    if(ballColors.size() != 0){
+      SmartDashboard.putBoolean("Would shoot correctly", shootCorrectly());
+    }
+    //
   }
 
   public Boolean allyBall () {
@@ -91,7 +95,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
   public void removeFirstBall(){  //USED
     if(ballColors.size() != 0){
-      ballColors.remove(0);
+          ballColors.remove(0);
     }
   }
 
@@ -127,12 +131,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
   }
 
   public Alliance getBallOne(){
-    if(ballColors.size() != 0){
-      return ballColors.get(0);
-    }
-    else{
-      return null;
-    }
+    return ballColors.get(0);
   }
 
   public void removeLastBall(){
