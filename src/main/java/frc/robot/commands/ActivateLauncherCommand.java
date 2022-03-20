@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.LauncherConstants;
@@ -17,6 +18,7 @@ public class ActivateLauncherCommand extends CommandBase {
   private LauncherSubsystem launcher;
   private ColorSensorSubsystem colorSensor;
   private boolean shootInTarget;
+  private Timer timer;
 
 
   private int targetVelocity;
@@ -37,11 +39,18 @@ public class ActivateLauncherCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(shootInTarget){
-      this.launcher.startLauncher(3);/*targetVelocity*/
+    /**if(shootInTarget){
+      this.launcher.startLauncher(3);/*targetVelocity*
     }
     else{
       this.launcher.startLauncher(1);
+    }*/
+
+    if(shootInTarget){
+      this.launcher.startLauncher(.6);/*targetVelocity*/
+    }
+    else{
+      this.launcher.startLauncher(.2);
     }
     serializer.getLaunchMode();
   }
@@ -50,11 +59,12 @@ public class ActivateLauncherCommand extends CommandBase {
   @Override
   public void execute() {
     //this.targetVelocity = (colorSensor.allyBall()) ? (LauncherConstants.TEAM_VELOCITY) : LauncherConstants.ENEMY_VELOCITY;
-    if (launcher.getVelocity() > targetVelocity - 200 && launcher.getVelocity() < targetVelocity + 200) {
+    /*if (launcher.getVelocity() > targetVelocity - 200 && launcher.getVelocity() < targetVelocity + 200) {
       this.serializer.runBelt();
     } else {
       this.serializer.stopBelt();
-    }
+    }*/
+    timer.delay(2);
     serializer.runBelt();
   }
   
