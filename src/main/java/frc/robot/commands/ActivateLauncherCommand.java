@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
+import frc.robot.subsystems.SensorSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 
 public class ActivateLauncherCommand extends CommandBase {
@@ -19,6 +20,7 @@ public class ActivateLauncherCommand extends CommandBase {
   private ColorSensorSubsystem colorSensor;
   private boolean shootInTarget;
   private Timer timer;
+  private SensorSubsystem sensors;
 
 
   private int targetVelocity;
@@ -26,11 +28,13 @@ public class ActivateLauncherCommand extends CommandBase {
   /**
    * Creates a new LaunchAllCommand.
    */
-  public ActivateLauncherCommand(SerializerSubsystem serializer1, LauncherSubsystem launcher1) {
+  public ActivateLauncherCommand(SerializerSubsystem serializer1, LauncherSubsystem launcher1, SensorSubsystem sensors) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.serializer = serializer1;
     this.launcher = launcher1;
     this.targetVelocity = 1/*LauncherConstants.TEAM_VELOCITY*/;
+    //sensors = new SensorSubsystem();
+    colorSensor = new ColorSensorSubsystem(sensors);
     shootInTarget = colorSensor.shootCorrectly();
 
     addRequirements(serializer, launcher);
@@ -45,14 +49,14 @@ public class ActivateLauncherCommand extends CommandBase {
     else{
       this.launcher.startLauncher(1);
     }*/
-
-    if(shootInTarget){
-      this.launcher.startLauncher(.6);/*targetVelocity*/
+    
+   /*if(shootInTarget){
+      this.launcher.startLauncher(2);/*targetVelocity*
     }
     else{
-      this.launcher.startLauncher(.2);
-    }
-    serializer.getLaunchMode();
+      this.launcher.startLauncher(1);
+    }*/
+    serializer.getCommandMode();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -64,8 +68,16 @@ public class ActivateLauncherCommand extends CommandBase {
     } else {
       this.serializer.stopBelt();
     }*/
+    if(shootInTarget){
+      this.launcher.startLauncher(2);/*targetVelocity*/
+    }
+    else{
+      this.launcher.startLauncher(.5);
+    }
+    launcher.stopLauncher();
     timer.delay(2);
     serializer.runBelt();
+    
   }
   
   // Called once the command ends or is interrupted.

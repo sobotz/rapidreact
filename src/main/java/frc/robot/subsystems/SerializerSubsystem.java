@@ -212,7 +212,7 @@ public class SerializerSubsystem extends SubsystemBase {
   public boolean getLauncherSensorVal(){
     return trippedLauncherSensor;
   }
-  public boolean getLaunchMode(){
+  public boolean getCommandMode(){
     return launchMode = true;
   }
   public boolean getSerializerMode(){

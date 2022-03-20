@@ -39,7 +39,7 @@ public class LaunchSerializerCommand extends CommandBase {
   public void initialize() {
     //this.nFramesRun = 0;
     //serializer.toggleSerializer();
-    serializer.getLaunchMode();
+    //serializer.getLaunchMode();
 
   }
 
