@@ -4,44 +4,81 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.LauncherConstants;
+import frc.robot.Constants.SensorsConstants;
 
 public class SensorSubsystem extends SubsystemBase {
-  private DigitalInput intakeSensor;
-  private DigitalInput serializerSensor;
-  private DigitalInput launcherSensor;
-  private boolean intakeVal;
-  private boolean serializerVal;
-  private boolean launcherVal;
+  private AnalogInput intakeSensor;
+  private AnalogInput serializerSensor;
+  private AnalogInput launcherSensor;
+  private double intakeVal;
+  private double serializerVal;
+  private double launcherVal;
+  private boolean intakeTripped;
+  private boolean serializerTripped;
+  private boolean launcherTripped;
+
 
   /** Creates a new SensorSubsystem. */
   public SensorSubsystem() {
-    intakeSensor = new DigitalInput(0);
-    serializerSensor = new DigitalInput(1);
-    launcherSensor = new DigitalInput(2);
-    intakeVal = false;
-    serializerVal = false;
-    launcherVal = false;
+    intakeSensor = new AnalogInput(0);
+    serializerSensor = new AnalogInput(1);
+    launcherSensor = new AnalogInput(2);
+    
+    intakeTripped = false;
+    serializerTripped = false;
+    launcherTripped = false;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    intakeVal = intakeSensor.get();
-    serializerVal = serializerSensor.get();
-    launcherVal = launcherSensor.get();
+    intakeVal = intakeSensor.getVoltage();
+    serializerVal = serializerSensor.getVoltage();
+    launcherVal = launcherSensor.getVoltage();
+    if(intakeVal <= SensorsConstants.SENSORS_THRESHOLD){
+      intakeTripped = true;
+    }
+    if(serializerVal <= SensorsConstants.SENSORS_THRESHOLD){
+      serializerTripped = true;
+    }
+    if(launcherVal <= SensorsConstants.SENSORS_THRESHOLD){
+      launcherTripped = true;
+    }
+
+    if(intakeVal > SensorsConstants.SENSORS_THRESHOLD){
+      intakeTripped = false;
+    }
+    if(serializerVal > SensorsConstants.SENSORS_THRESHOLD){
+      serializerTripped = false;
+    }
+    if(launcherVal > SensorsConstants.SENSORS_THRESHOLD){
+      launcherTripped = false;
+    }
+    //test sensors
+
+    System.out.println("intake " + getIntakeVal() + " " + intakeVal);
+    System.out.println("serializer " + getSerializerVal()+ " " + serializerVal);
+    System.out.println("launcher " + getLauncherVal()+ " " + launcherVal); 
+
+    
+    
   }
   
   public boolean getIntakeVal(){
-    return intakeVal;
+    return intakeTripped;
   }
 
   public boolean getSerializerVal(){
-    return serializerVal;
+    return serializerTripped;
   }
   
   public boolean getLauncherVal(){
-    return launcherVal;
+    return launcherTripped;
   }
+  
 }

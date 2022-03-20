@@ -58,10 +58,10 @@ public class IntakeSubsystem extends SubsystemBase {
       //  runIntake(1);
       //}
     //}
-    /*if (sensors.getLauncherVal() && sensors.getSerializerVal()){
+    if (sensors.getLauncherVal() && sensors.getSerializerVal()){
       intakeTalon.set(ControlMode.PercentOutput, 0);
       retractIntake();
-    }*/
+    }
   }
   
   public void deployIntake() {

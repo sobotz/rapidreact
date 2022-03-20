@@ -34,8 +34,8 @@ public final class Constants {
 
 
     public static final class IntakeConstants{
-        public static final int INTAKE_MOTOR = 8;
-        public static final double MAXIMUM_INTAKE_SPEED = 0.7;
+        public static final int INTAKE_MOTOR = 10;
+        public static final double MAXIMUM_INTAKE_SPEED = 0.2;
         public static final int INTAKE_SOLENOID_DEPLOY = 2;
         public static final int INTAKE_SOLENOID_RETRACT = 3;
     }
@@ -55,8 +55,8 @@ public final class Constants {
         public static final int SERIALIZER_SENSOR_1 = 0;
         public static final int SERIALIZER_SENSOR_2 = 1;
         public static final int SERIALIZER_SENSOR_3 = 2;
-        public static final int SERIALIZER_MOTOR = 7;
-        public static final int FEED_MOTOR = 10;
+        public static final int SERIALIZER_MOTOR = 8;
+        // public static final int FEED_MOTOR = 10;
 	    public static final double SERIALIZER_SPEED = 0.3;
     }
     public static final class LauncherConstants {
@@ -69,10 +69,13 @@ public final class Constants {
         public static final int ENEMY_VELOCITY = 10000;
         
     }
-
     
     public final class ColorSensorConstants{
         public static final double COLOR_THRESHOLD = .35;
+    }
+
+    public final class SensorsConstants{
+        public static final int SENSORS_THRESHOLD = 1;
     }
 
     // Configuration Constants
@@ -102,9 +105,10 @@ public final class Constants {
 
         public static final double autoDrive = 8050;
 
+
     public static final class VisionConstants{
-        public static final int ACTUATION_MOTOR = 6;
-        public static final int MAX_ROTATION_VALUE = 50000;
+        public static final int ACTUATION_MOTOR = 7;
+        public static final int MAX_ROTATION_VALUE = 150000;// at 90 degrees, unit is 150,000; at 
         public static final double MAX_SPEED = .25;
         public static final double LOGISTIC_GROWTH_RATE = .45;
         public static final double MIN_ADJUST_SPEED = .2;
@@ -113,8 +117,21 @@ public final class Constants {
         public static final double LIMLIGHT_TO_HUB_HEIGHT = 0;
         public static final double LIMELIGHT_ANGLE = 0;
     }
+    public static final class ClimbConstants
+    {
+        public static final int LIFT_MOTOR = 9;
+
+        public static final Double LIFT_SPEED = 0.2;
+        // Don't know the correct numbers yet
+        public static final int ARM_LOCK_DEPLOY = 4;
+        public static final int ARM_LOCK_RETRACT = 5;
+
+        public static final int ARM_RELEASE_DEPLOY = 6;
+    }
+
     
 	
+
 
 }
 

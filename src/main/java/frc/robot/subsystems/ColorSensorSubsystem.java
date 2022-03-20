@@ -7,8 +7,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.ColorSensorConstants;
-import frc.robot.Constants.SerializerConstants;
+import frc.robot.Constants.SensorsConstants;
 import edu.wpi.first.wpilibj.AnalogInput;
+/*import frc.robot.Constants.SerializerConstants;
+import edu.wpi.first.wpilibj.AnalogInput;*/
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.I2C;
@@ -21,6 +23,8 @@ import com.revrobotics.ColorSensorV3;
 
 import java.util.ArrayList;
 
+import javax.swing.text.StyleContext.SmallAttributeSet;
+
 //import com.revrobotics.ColorMatch;
 //import com.revrobotics.ColorSensorV3.RawColor;
 
@@ -32,29 +36,33 @@ public class ColorSensorSubsystem extends SubsystemBase{
   private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
   //ArrayList that holds the ball's values
   public ArrayList <Alliance> ballColors  = new ArrayList <Alliance>();
+  //public ArrayList <String> ballColors  = new ArrayList <String>();
   //blue and red rgb values
   private double lastRed = 0.0;
   private double lastBlue = 0.0;
   //our color
   private Alliance teamColor;
-  private AnalogInput launcherSensor;
+ // private AnalogInput launcherSensor;
 
   private boolean lastLSVal;
+  
+  //SensorSubsystem sensorSubsystem = new SensorSubsystem();
+  private SensorSubsystem sensors;
 
-  SensorSubsystem sensorSubsystem = new SensorSubsystem();
-
-  public ColorSensorSubsystem(){
+  public ColorSensorSubsystem(SensorSubsystem sensors){
     this.teamColor = DriverStation.getAlliance();
-    //launcherSensor = new AnalogInput(3);
     lastLSVal = false;
+    this.sensors = sensors;
   }
 
   //@Override
   public void periodic() {
     Color detectedColor = colorSensor.getColor();
     
+    //Testing
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
+    //
     
     if(detectedColor.red > ColorSensorConstants.COLOR_THRESHOLD && lastRed < ColorSensorConstants.COLOR_THRESHOLD){
       ballColors.add(Alliance.Red);
@@ -66,15 +74,19 @@ public class ColorSensorSubsystem extends SubsystemBase{
     lastRed = detectedColor.red;
     lastBlue = detectedColor.blue;
 
-    if(!sensorSubsystem.getLauncherVal() && lastLSVal){
-      removeFirstBall();
-    }
-    /**if (launcherSensor.getVoltage() > .85 && lastLSVal) {
-      ballColors.remove(0);
+    
+
+    if(!sensors.getLauncherVal() && lastLSVal && ballColors.size() != 0){
+         removeFirstBall();
     }
     
-    lastLSVal = launcherSensor.getVoltage() < .85;*/
-    lastLSVal = sensorSubsystem.getLauncherVal();
+    lastLSVal = sensors.getLauncherVal();
+
+    //Testing
+    if(ballColors.size() != 0){
+      SmartDashboard.putBoolean("Would shoot correctly", shootCorrectly());
+    }
+    //
   }
 
   public Boolean allyBall () {
@@ -82,7 +94,18 @@ public class ColorSensorSubsystem extends SubsystemBase{
   }
 
   public void removeFirstBall(){  //USED
-    ballColors.remove(0);
+    if(ballColors.size() != 0){
+          ballColors.remove(0);
+    }
+  }
+
+  public boolean shootCorrectly(){
+    if(ballColors.size() != 0){
+      if(ballColors.get(0).equals(teamColor)){
+        return true;
+      }
+    }
+    return false;
   }
 
   public boolean ballDetected(){

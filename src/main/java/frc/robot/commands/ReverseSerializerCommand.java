@@ -7,26 +7,34 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.SensorSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 
 public class ReverseSerializerCommand extends CommandBase {
   /** Creates a new ReverseSerializer. */
   private SerializerSubsystem serializer;
   private IntakeSubsystem intake;
+  private SensorSubsystem sensors;
+  
 
 
-  public ReverseSerializerCommand(IntakeSubsystem r_intake, SerializerSubsystem r_serializer) {
+
+  public ReverseSerializerCommand(IntakeSubsystem r_intake, SerializerSubsystem r_serializer, SensorSubsystem sensors1) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake =  r_intake;
     serializer = r_serializer;
-    addRequirements(serializer, intake);
+    this.sensors = sensors1;
+    addRequirements(intake,serializer,sensors);
+    
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (intake.hasDeployed)
-      this.intake.toggleIntake();
+    serializer.getCommandMode();
+    //if (intake.hasDeployed)
+      //this.intake.toggleIntake();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -40,13 +48,15 @@ public class ReverseSerializerCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     serializer.stopBelt();
+    serializer.getSerializerMode();
   }
 
   // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+  //@Override
+  //public boolean isFinished() {
+    //return isFinished;
+    
+  //}
 
 }
 
