@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.ColorSensorConstants;
+import frc.robot.Constants.SensorsConstants;
 import edu.wpi.first.wpilibj.AnalogInput;
 /*import frc.robot.Constants.SerializerConstants;
 import edu.wpi.first.wpilibj.AnalogInput;*/
@@ -33,6 +34,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
   private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
   //ArrayList that holds the ball's values
   public ArrayList <Alliance> ballColors  = new ArrayList <Alliance>();
+  //public ArrayList <String> ballColors  = new ArrayList <String>();
   //blue and red rgb values
   private double lastRed = 0.0;
   private double lastBlue = 0.0;
@@ -69,14 +71,14 @@ public class ColorSensorSubsystem extends SubsystemBase{
     lastRed = detectedColor.red;
     lastBlue = detectedColor.blue;
 
-    //if(!sensors.getLauncherVal() && lastLSVal){
-     // removeFirstBall();
-    //}
-    /**if (launcherSensor.getVoltage() > .85 && lastLSVal) {
-      ballColors.remove(0);
+
+    String[] _ballColors = new String[ballColors.size()];
+    SmartDashboard.putStringArray("Ball Array", ballColors.toArray(_ballColors));
+
+    if(!sensors.getLauncherVal() && lastLSVal){
+      removeFirstBall();
     }
     
-    lastLSVal = launcherSensor.getVoltage() < .85;*/
     lastLSVal = sensors.getLauncherVal();
   }
 
