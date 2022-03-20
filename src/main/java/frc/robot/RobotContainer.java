@@ -25,6 +25,7 @@ import frc.robot.subsystems.SerializerSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SensorSubsystem;
 import frc.robot.subsystems.ColorSensorSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 //
 
 
@@ -45,6 +46,11 @@ import frc.robot.commands.ReverseSerializerCommand;
 import frc.robot.commands.RunAllCommand;
 import frc.robot.commands.ActivateLauncherCommand;
 import frc.robot.commands.AquireTargetCommand;
+
+import frc.robot.commands.LiftCommand;
+import frc.robot.commands.LiftRetractCommand;
+import frc.robot.commands.ArmReleaseCommand;
+
 //
 
 
@@ -72,12 +78,9 @@ public class RobotContainer {
   //Subsystem
   private final DriveSubsystem m_drivetrain;
 
-
   private final VisionSubsystem m_vision;
 
-
-  
-
+  public final ClimbSubsystem m_climbSubsystem;
 
   private final IntakeSubsystem m_intake;
   private SerializerSubsystem m_serializer;
@@ -100,6 +103,10 @@ public class RobotContainer {
   private final LaunchSerializerCommand m_launchSerializer;
   private final ReverseSerializerCommand reverseSerializerCommand;
   private final ActivateLauncherCommand launchCommand;
+
+  public final LiftCommand m_liftCommand;
+  public final ArmReleaseCommand m_armReleaseCommand;
+  public final LiftRetractCommand m_liftRetractCommand;
   
   private final RunAllCommand runAllCommand;  
   //
@@ -172,6 +179,12 @@ public class RobotContainer {
     reverseSerializerCommand = new ReverseSerializerCommand(m_intake,m_serializer,m_sensor);
     launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher, m_sensor);
     runAllCommand = new RunAllCommand(m_colorSensor,m_launcher,m_serializer);
+
+    this.m_climbSubsystem = new ClimbSubsystem();
+	  this.m_liftCommand = new LiftCommand(this.m_climbSubsystem, this.m_operatorJoystick);
+    this.m_liftRetractCommand = new LiftRetractCommand(this.m_climbSubsystem, this.m_operatorJoystick);
+    this.m_armReleaseCommand = new ArmReleaseCommand(this.m_climbSubsystem);
+
     this.configureButtonBindings();
 
     
@@ -230,6 +243,14 @@ public class RobotContainer {
     launchButton.whenHeld(launchCommand);
     runAllCommandButton.whenHeld(runAllCommand);
 
+    JoystickButton liftRetractMotorButton = new JoystickButton(this.m_operatorJoystick, 7);
+    liftRetractMotorButton.whileHeld(this.m_liftRetractCommand);
+
+    JoystickButton liftExtendMotorButton = new JoystickButton(this.m_operatorJoystick, 8);
+    liftExtendMotorButton.whileHeld(this.m_liftCommand);
+
+    JoystickButton armReleaseButton = new JoystickButton(this.m_operatorJoystick, 9);
+    armReleaseButton.whenPressed(this.m_armReleaseCommand);
   }
 
   /**
