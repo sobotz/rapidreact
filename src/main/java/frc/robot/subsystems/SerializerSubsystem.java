@@ -149,7 +149,7 @@ public class SerializerSubsystem extends SubsystemBase {
       }
       if (sensors.getSerializerVal() && sensors.getLauncherVal()){
         m_intake.runIntake(0); 
-        //m_intake.retractIntake();
+        m_intake.retractIntake();
         lastIntakeVal = false;
       }
       //if (sensors.getIntakeVal() && sensors.getSerializerVal() && sensors.getLauncherVal()){
@@ -165,10 +165,10 @@ public class SerializerSubsystem extends SubsystemBase {
       
   
   
-  public boolean ToggleInterrupt(){
+  /*public boolean ToggleInterrupt(){
     interrupted = !interrupted;
     return interrupted;
-  }
+  }*/
 
   public void runBelt() {
     // turns serializer motor on

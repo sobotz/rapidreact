@@ -13,6 +13,7 @@ import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SensorSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 public class ActivateLauncherCommand extends CommandBase {
   private SerializerSubsystem serializer;
@@ -23,7 +24,11 @@ public class ActivateLauncherCommand extends CommandBase {
   private SensorSubsystem sensors;
 
 
+
+
   private int targetVelocity;
+
+  private VisionSubsystem vision;
 
   /**
    * Creates a new LaunchAllCommand.
@@ -33,6 +38,7 @@ public class ActivateLauncherCommand extends CommandBase {
     this.serializer = serializer1;
     this.launcher = launcher1;
     this.targetVelocity = 1/*LauncherConstants.TEAM_VELOCITY*/;
+    
     //sensors = new SensorSubsystem();
     colorSensor = new ColorSensorSubsystem(sensors);
     shootInTarget = colorSensor.shootCorrectly();
@@ -63,23 +69,35 @@ public class ActivateLauncherCommand extends CommandBase {
   @Override
   public void execute() {
     //this.targetVelocity = (colorSensor.allyBall()) ? (LauncherConstants.TEAM_VELOCITY) : LauncherConstants.ENEMY_VELOCITY;
-    /*if (launcher.getVelocity() > targetVelocity - 200 && launcher.getVelocity() < targetVelocity + 200) {
+    /**if ((launcher.getVelocity() > targetVelocity - 200 && launcher.getVelocity() < targetVelocity + 200) && vision.getXOffset() > -2 && vision.getXOffset() < 2) {
       this.serializer.runBelt();
-    } else {
+    } 
+    else {
       this.serializer.stopBelt();
-    }*/
-    if(colorSensor.getBallValues().size() != 0){
-      if(shootInTarget){
-        this.launcher.startLauncher(2);/*targetVelocity*/
+    }
+    
+    */
+    //if(sensors.getLauncherVal()){
+      /**if(shootInTarget){
+        this.launcher.startLauncher(3);/*targetVelocity*
       }
       else{
-        this.launcher.startLauncher(.5);
-      }
-      
+        this.launcher.startLauncher(1);
+      }*/
+    //}
+    
+    if(colorSensor.shootCorrectly()){
+      this.launcher.startLauncher(5);/*targetVelocity*/
     }
-    launcher.stopLauncher();
-    timer.delay(2);
+    else{
+      this.launcher.startLauncher(.5);
+    }
+    serializer.stopBelt();
+    timer.delay(1);
     serializer.runBelt();
+    //timer.delay(1);
+    
+    
   }
   
   

@@ -45,6 +45,8 @@ public class ColorSensorSubsystem extends SubsystemBase{
  // private AnalogInput launcherSensor;
 
   private boolean lastLSVal;
+
+  private boolean colorMatch;
   
   //SensorSubsystem sensorSubsystem = new SensorSubsystem();
   private SensorSubsystem sensors;
@@ -53,6 +55,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
     this.teamColor = DriverStation.getAlliance();
     lastLSVal = false;
     this.sensors = sensors;
+    colorMatch = false;
   }
 
   //@Override
@@ -76,12 +79,16 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
     
 
+    
+
     if(!sensors.getLauncherVal() && lastLSVal && ballColors.size() != 0){
          removeFirstBall();
     }
     
     lastLSVal = sensors.getLauncherVal();
 
+
+    SmartDashboard.putBoolean("Ball detected", ballDetected());
     //Testing
     if(ballColors.size() != 0){
       SmartDashboard.putBoolean("Would shoot correctly", shootCorrectly());
@@ -100,7 +107,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
   }
 
   public boolean shootCorrectly(){
-    if(ballColors.size() != 0){
+    if(ballDetected()){
       if(ballColors.get(0).equals(teamColor)){
         return true;
       }

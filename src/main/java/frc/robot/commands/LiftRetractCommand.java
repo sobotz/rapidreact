@@ -21,7 +21,7 @@ public class LiftRetractCommand extends CommandBase {
 
   private Timer timer;
 
-  private double exceeds = 20.0;    //Represents the current that it can't exceed. 
+  private double exceeds = 80.0;    //Represents the current that it can't exceed. 
   private double count = 0;            //Represents the time that it has exceeded limit.
   private double limitCount = 0.5;      //Represents the amount of time count should be to stop retract
   /**
