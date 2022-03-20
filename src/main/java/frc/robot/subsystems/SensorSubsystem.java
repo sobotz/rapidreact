@@ -61,9 +61,9 @@ public class SensorSubsystem extends SubsystemBase {
     }
     //test sensors
 
-    //System.out.println(getIntakeVal());
-    //System.out.println(getSerializerVal());
-    System.out.println(getLauncherVal());
+    System.out.println("intake " + getIntakeVal() + " " + intakeVal);
+    System.out.println("serializer " + getSerializerVal()+ " " + serializerVal);
+    System.out.println("launcher " + getLauncherVal()+ " " + launcherVal); 
 
     
     
