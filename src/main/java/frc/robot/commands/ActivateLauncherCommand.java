@@ -68,17 +68,20 @@ public class ActivateLauncherCommand extends CommandBase {
     } else {
       this.serializer.stopBelt();
     }*/
-    if(shootInTarget){
-      this.launcher.startLauncher(2);/*targetVelocity*/
-    }
-    else{
-      this.launcher.startLauncher(.5);
+    if(colorSensor.getBallValues().size() != 0){
+      if(shootInTarget){
+        this.launcher.startLauncher(2);/*targetVelocity*/
+      }
+      else{
+        this.launcher.startLauncher(.5);
+      }
+      
     }
     launcher.stopLauncher();
     timer.delay(2);
     serializer.runBelt();
-    
   }
+  
   
   // Called once the command ends or is interrupted.
   @Override
