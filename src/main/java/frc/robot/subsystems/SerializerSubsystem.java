@@ -138,8 +138,26 @@ public class SerializerSubsystem extends SubsystemBase {
         stopBelt();
         lastSerializerVal = false;
       }
+
       if (sensors.getIntakeVal() && !sensors.getSerializerVal() && sensors.getLauncherVal()){
         m_intake.runIntake(1);
+
+      //
+
+
+
+    }
+  }
+    
+
+
+
+      //statment run first ball all the way to launcher
+    /*if (sensors.getIntakeVal()|| (!sensors.getIntakeVal() && lastIntakeVal )){
+    //Statments for one ball going in when no balls in serializer
+      if (  (sensors.getIntakeVal())  && !sensors.getSerializerVal()  && !sensors.getLauncherVal()){
+        runBelt();
+
         lastIntakeVal = true;
       }
       else if (!sensors.getIntakeVal() && !sensors.getSerializerVal() && sensors.getLauncherVal() && lastIntakeVal){
