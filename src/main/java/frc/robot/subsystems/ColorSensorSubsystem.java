@@ -23,6 +23,8 @@ import com.revrobotics.ColorSensorV3;
 
 import java.util.ArrayList;
 
+import javax.swing.text.StyleContext.SmallAttributeSet;
+
 //import com.revrobotics.ColorMatch;
 //import com.revrobotics.ColorSensorV3.RawColor;
 
@@ -74,6 +76,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
     String[] _ballColors = new String[ballColors.size()];
     SmartDashboard.putStringArray("Ball Array", ballColors.toArray(_ballColors));
+    SmartDashboard.putBoolean("Would shoot correctly", shootCorrectly());
 
     if(!sensors.getLauncherVal() && lastLSVal){
       removeFirstBall();
@@ -88,6 +91,15 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
   public void removeFirstBall(){  //USED
     ballColors.remove(0);
+  }
+
+  public boolean shootCorrectly(){
+    if(ballColors.get(0).equals(teamColor)){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   public boolean ballDetected(){
