@@ -54,7 +54,7 @@ public class PathBR41 extends CommandBase {
     m_drive.testDrive(-1.0, 2.0);
 
     timer.delay(1.5);
-    this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
+    this.m_launcher.startLauncher(5);
     this.m_serializer.runBelt();
     
  
