@@ -7,51 +7,61 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import com.revrobotics.CANSparkMax;
-//import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.IntakeConstants;
 
+import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.SerializerConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
+  private DigitalInput intakeSensor;
+  private DigitalInput serializerSensor;
+  private DigitalInput launcherSensor;
 
   public WPI_TalonSRX intakeTalon;
-  CANSparkMax intakeController;
 
   private DoubleSolenoid intakeDeploy;
 
+  private SensorSubsystem sensors;
+  
+  
   public boolean hasDeployed;
+  private boolean notAccepting;
   /** Creates a new IntakeSubsystem. */
-  public IntakeSubsystem() {
-
-    //intakeController = new CANSparkMax(IntakeConstants.INTAKE_MOTOR, MotorType.kBrushless);
+  public IntakeSubsystem(SensorSubsystem sensors) {
 
     intakeTalon = new WPI_TalonSRX(IntakeConstants.INTAKE_MOTOR);
+    intakeTalon.configFactoryDefault();
+
+    this.sensors = sensors;
+    
     //Change CTREPCM to REVPM
     intakeDeploy = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.INTAKE_SOLENOID_DEPLOY,IntakeConstants.INTAKE_SOLENOID_RETRACT);
 
-
-    //intakeController.configFactoryDefault();
-
     hasDeployed = false;
-    intakeTalon.configFactoryDefault();
-    
-    
-
+    notAccepting = false;
   }
 
-  
-  
-  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    //if () {
+      //notAccepting = true;
+    //} //else {
+      //if (sensors.getIntakeVal()) {
+      //  runIntake(1);
+      //}
+    //}
+    /*if (sensors.getLauncherVal() && sensors.getSerializerVal()){
+      intakeTalon.set(ControlMode.PercentOutput, 0);
+      retractIntake();
+    }*/
   }
   
   public void deployIntake() {
@@ -60,17 +70,13 @@ public class IntakeSubsystem extends SubsystemBase {
   }
   
   public void runIntake(double speed) {
-
-    //intakeController.set(speed * IntakeConstants.MAXIMUM_INTAKE_SPEED);
-    intakeTalon.set(ControlMode.PercentOutput,speed * IntakeConstants.MAXIMUM_INTAKE_SPEED);
+    intakeTalon.set(ControlMode.PercentOutput, (notAccepting) ? 0.0 : speed * IntakeConstants.MAXIMUM_INTAKE_SPEED);
   }
   
   public void retractIntake() {
     intakeDeploy.set(Value.kReverse);
-
   }
 
-  
   public boolean toggleIntake() {
     if (hasDeployed) {
       intakeDeploy.set(DoubleSolenoid.Value.kForward);
@@ -82,9 +88,9 @@ public class IntakeSubsystem extends SubsystemBase {
       hasDeployed = true;
     }
     
-    return !hasDeployed;
+    return hasDeployed;
   }
-
+  
 
   
 

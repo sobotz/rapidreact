@@ -7,7 +7,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.ColorSensorConstants;
+import frc.robot.Constants.SerializerConstants;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -28,84 +31,62 @@ public class ColorSensorSubsystem extends SubsystemBase{
   //color sensor
   private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
   //ArrayList that holds the ball's values
-  public ArrayList <String> ballColors  = new ArrayList <String>();
-  public ArrayList <Boolean> willShoot  = new ArrayList <Boolean>();
+  public ArrayList <Alliance> ballColors  = new ArrayList <Alliance>();
   //blue and red rgb values
   private double lastRed = 0.0;
   private double lastBlue = 0.0;
   //our color
-  public boolean weAreBlue;
-  //private boolean shoot;
+  private Alliance teamColor;
+  private AnalogInput launcherSensor;
 
-  private String teamColor;
+  private boolean lastLSVal;
 
-  
+  SensorSubsystem sensorSubsystem = new SensorSubsystem();
+
   public ColorSensorSubsystem(){
-    
-    if(DriverStation.getAlliance() == DriverStation.Alliance.Blue){
-      weAreBlue = true;
-     }
-    else{
-      weAreBlue = false;
-    }
+    this.teamColor = DriverStation.getAlliance();
+    //launcherSensor = new AnalogInput(3);
+    lastLSVal = false;
   }
-
-  
 
   //@Override
   public void periodic() {
-    
     Color detectedColor = colorSensor.getColor();
-    SmartDashboard.putString("ballColors", ballColors.toString());
-
+    
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
-
-    String currBall;
-    String[] _ballColors = new String[2];
-    SmartDashboard.putStringArray("Ball Color Values", ballColors.toArray(_ballColors));
-  
     
     if(detectedColor.red > ColorSensorConstants.COLOR_THRESHOLD && lastRed < ColorSensorConstants.COLOR_THRESHOLD){
-        currBall = "red";
-        ballColors.add(currBall);
-        if( teamColor.equals("red")){
-          willShoot.add(true);
-        }
-        if( teamColor.equals("blue")){
-          willShoot.add(false);
-        }  
-        SmartDashboard.putStringArray("Ball Color Values", ballColors.toArray(_ballColors));
-      
+      ballColors.add(Alliance.Red);
     }
     else if(detectedColor.blue > ColorSensorConstants.COLOR_THRESHOLD && lastBlue < ColorSensorConstants.COLOR_THRESHOLD){
-        currBall = "blue";
-        ballColors.add(currBall);
-        if( teamColor.equals("blue")){
-          willShoot.add(true);
-        }
-        if( teamColor.equals("red")){
-          willShoot.add(false);
-        }
-        SmartDashboard.putStringArray("Ball Color Values", ballColors.toArray(_ballColors));
-        
+      ballColors.add(Alliance.Blue);
     }
+
     lastRed = detectedColor.red;
     lastBlue = detectedColor.blue;
-  }
-  
 
-  public Boolean getShootOne(){  //USED
-    return willShoot.get(0);
+    if(!sensorSubsystem.getLauncherVal() && lastLSVal){
+      removeFirstBall();
+    }
+    /**if (launcherSensor.getVoltage() > .85 && lastLSVal) {
+      ballColors.remove(0);
+    }
+    
+    lastLSVal = launcherSensor.getVoltage() < .85;*/
+    lastLSVal = sensorSubsystem.getLauncherVal();
+  }
+
+  public Boolean allyBall () {
+    return ballDetected() ? teamColor.equals(ballColors.get(0)) : false;
   }
 
   public void removeFirstBall(){  //USED
     ballColors.remove(0);
-    willShoot.remove(0);
   }
 
-  public boolean ballOneDetected(){
-    if(ballColors.get(0) != null){
+  public boolean ballDetected(){
+    if(ballColors.size() != 0){
       return true;
     }
     else{
@@ -126,36 +107,18 @@ public class ColorSensorSubsystem extends SubsystemBase{
     return ballColors;
   }
 
-  public ArrayList getShootValues(){
-    return willShoot;
-  }
-
-  public String getBallOne(){
+  public Alliance getBallOne(){
     return ballColors.get(0);
-  }
-  public String getBallTwo(){
-    return ballColors.get(1);
-  }
-
-  public Boolean getShootTwo(){
-    return willShoot.get(1);
   }
 
   public void removeLastBall(){
     ballColors.remove(ballColors.size() - 1);
-    willShoot.remove(ballColors.size() - 1);
   }
-  
 
   public void clearBallValues(){
     ballColors.remove(0);
     ballColors.remove(1);
-    willShoot.remove(0);
-    willShoot.remove(1);
   }
-  
-  
-  
 }
 
   
