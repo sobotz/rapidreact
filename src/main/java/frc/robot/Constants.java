@@ -56,7 +56,7 @@ public final class Constants {
         public static final int SERIALIZER_SENSOR_2 = 1;
         public static final int SERIALIZER_SENSOR_3 = 2;
         public static final int SERIALIZER_MOTOR = 8;
-        public static final int FEED_MOTOR = 10;
+        // public static final int FEED_MOTOR = 10;
 	    public static final double SERIALIZER_SPEED = 0.3;
     }
     public static final class LauncherConstants {

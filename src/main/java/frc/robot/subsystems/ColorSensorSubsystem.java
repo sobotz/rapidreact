@@ -58,7 +58,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
   //@Override
   public void periodic() {
-    Color detectedColor = colorSensor.getColor();
+    /*Color detectedColor = colorSensor.getColor();
     
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
@@ -82,7 +82,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
       removeFirstBall();
     }
     
-    lastLSVal = sensors.getLauncherVal();
+    lastLSVal = sensors.getLauncherVal();*/
   }
 
   public Boolean allyBall () {
@@ -90,16 +90,18 @@ public class ColorSensorSubsystem extends SubsystemBase{
   }
 
   public void removeFirstBall(){  //USED
-    ballColors.remove(0);
+    if(ballColors.size() != 0){
+      ballColors.remove(0);
+    }
   }
 
   public boolean shootCorrectly(){
-    if(ballColors.get(0).equals(teamColor)){
-      return true;
+    if(ballColors.size() != 0){
+      if(ballColors.get(0).equals(teamColor)){
+        return true;
+      }
     }
-    else{
-      return false;
-    }
+    return false;
   }
 
   public boolean ballDetected(){
@@ -125,7 +127,12 @@ public class ColorSensorSubsystem extends SubsystemBase{
   }
 
   public Alliance getBallOne(){
-    return ballColors.get(0);
+    if(ballColors.size() != 0){
+      return ballColors.get(0);
+    }
+    else{
+      return null;
+    }
   }
 
   public void removeLastBall(){

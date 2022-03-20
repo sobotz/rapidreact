@@ -80,4 +80,5 @@ public class SensorSubsystem extends SubsystemBase {
   public boolean getLauncherVal(){
     return launcherTripped;
   }
+  
 }

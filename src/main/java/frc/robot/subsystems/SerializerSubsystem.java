@@ -64,7 +64,7 @@ public class SerializerSubsystem extends SubsystemBase {
   
   // Called every time the Command Scheduler runs (every 20 miliseconds)
   public void periodic() {
-    if(sensors.getIntakeVal()){
+    /*if(sensors.getIntakeVal()){
       s0 = 1;
     }
     if(sensors.getSerializerVal()){
@@ -93,7 +93,7 @@ public class SerializerSubsystem extends SubsystemBase {
     s1 = serializer sensor ( 0 is not triggered, 1 is triggered )
     s2 = launcher sensor ( 0 is not triggered, 1 is triggered )
     */
-    if(serializerState == 2 || serializerState == 6){
+    /*if(serializerState == 2 || serializerState == 6){
       runBelt();
     }
     else{
@@ -105,14 +105,14 @@ public class SerializerSubsystem extends SubsystemBase {
     }
     else if(serializerState == 3){
       m_intake.runIntake(0);
-      m_intake.retractIntake();
+      //m_intake.retractIntake();
     }
     else if(serializerState == 7){
-      m_intake.runIntake(-1);
-    }
+     // m_intake.runIntake(-1);
+    }*/
 
 
-    /*if (launchMode){
+    if (launchMode){
       lastIntakeVal = false;
       lastSerializerVal = false;
     }
@@ -124,7 +124,7 @@ public class SerializerSubsystem extends SubsystemBase {
       else if (!sensors.getIntakeVal() && !sensors.getSerializerVal() && !sensors.getLauncherVal() && lastIntakeVal){
         m_intake.runIntake(1);
       }
-      if (!sensors.getIntakeVal() && sensors.getSerializerVal() && !sensors.getLauncherVal()){
+      if (!sensors.getIntakeVal() && sensors.getSerializerVal() && !sensors.getLauncherVal() && lastIntakeVal){
         lastIntakeVal = false;
         m_intake.runIntake(0);
         runBelt();
@@ -141,17 +141,25 @@ public class SerializerSubsystem extends SubsystemBase {
 
       if (sensors.getIntakeVal() && !sensors.getSerializerVal() && sensors.getLauncherVal()){
         m_intake.runIntake(1);
-
-      //
-
-
-
+        lastIntakeVal = true;
+      }
+      else if (!sensors.getIntakeVal() && !sensors.getSerializerVal() && sensors.getLauncherVal() && lastIntakeVal){
+        m_intake.runIntake(1);
+      }
+      if (sensors.getSerializerVal() && sensors.getLauncherVal()){
+        m_intake.runIntake(0); 
+        //m_intake.retractIntake();
+        lastIntakeVal = false;
+      }
+      //if (sensors.getIntakeVal() && sensors.getSerializerVal() && sensors.getLauncherVal()){
+      //  reverseBelt();
+      //  m_intake.runIntake(-1);
+      //  m_intake.retractIntake();
+  
+      //}
     }
   }
     
-
-
-
       //statment run first ball all the way to launcher
     /*if (sensors.getIntakeVal()|| (!sensors.getIntakeVal() && lastIntakeVal )){
     //Statments for one ball going in when no balls in serializer
@@ -177,7 +185,7 @@ public class SerializerSubsystem extends SubsystemBase {
 
     }*/
       
-  }
+  
   
   public boolean ToggleInterrupt(){
     interrupted = !interrupted;
