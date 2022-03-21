@@ -42,13 +42,14 @@ public class PathBR02 extends CommandBase {
   @Override
   public void initialize() {
     timer.start();
-    m_drive.testDrive(-1.0, 6.0); // move 6 ft 
+    // m_drive.testDrive(-1.0, 6.0); // move 6 ft 
+    m_drive.testDrive(1.0, 4.0); // drive backwards 4 feet
     timer.delay(2);
 
     this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
     this.m_serializer.runBelt();
     
-    timer.delay(1);
+    timer.delay(0.5);
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
     this.isFinished = true;

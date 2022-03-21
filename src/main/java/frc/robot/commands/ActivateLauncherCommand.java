@@ -32,7 +32,7 @@ public class ActivateLauncherCommand extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     this.serializer = serializer1;
     this.launcher = launcher1;
-    this.targetVelocity = 1/*LauncherConstants.TEAM_VELOCITY*/;
+    this.targetVelocity = LauncherConstants.TEAM_VELOCITY;
     //sensors = new SensorSubsystem();
     colorSensor = new ColorSensorSubsystem(sensors);
     shootInTarget = colorSensor.shootCorrectly();
@@ -43,8 +43,9 @@ public class ActivateLauncherCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    this.launcher.startLauncher(targetVelocity);
     /**if(shootInTarget){
-      this.launcher.startLauncher(3);/*targetVelocity*
+      /*targetVelocity*
     }
     else{
       this.launcher.startLauncher(1);
@@ -63,13 +64,14 @@ public class ActivateLauncherCommand extends CommandBase {
   @Override
   public void execute() {
     //this.targetVelocity = (colorSensor.allyBall()) ? (LauncherConstants.TEAM_VELOCITY) : LauncherConstants.ENEMY_VELOCITY;
-    /*if (launcher.getVelocity() > targetVelocity - 200 && launcher.getVelocity() < targetVelocity + 200) {
+    if (launcher.getVelocity() > targetVelocity - 200 && launcher.getVelocity() < targetVelocity + 200) {
       this.serializer.runBelt();
     } else {
       this.serializer.stopBelt();
-    }*/
+    }
+    /*
     if(shootInTarget){
-      this.launcher.startLauncher(2);/*targetVelocity*/
+      this.launcher.startLauncher(2);/*targetVelocity
     }
     else{
       this.launcher.startLauncher(.5);
@@ -77,7 +79,7 @@ public class ActivateLauncherCommand extends CommandBase {
     launcher.stopLauncher();
     timer.delay(2);
     serializer.runBelt();
-    
+    */
   }
   
   // Called once the command ends or is interrupted.
