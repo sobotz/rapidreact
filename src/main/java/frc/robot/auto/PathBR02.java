@@ -42,19 +42,23 @@ public class PathBR02 extends CommandBase {
   @Override
   public void initialize() {
     timer.start();
-    m_drive.testDrive(1.0, 4.0); // move 6 ft 
-    timer.delay(2);
+    m_drive.setLowGear();
 
     this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
-    timer.delay(0.5);
+    timer.delay(1);
     this.m_serializer.runBelt();
-    
-    timer.delay(2);
+ 
+    timer.delay(0.4);
+    this.m_serializer.stopBelt();
+    timer.delay(1);
+    this.m_serializer.runBelt();
+    timer.delay(0.5);
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
-    this.isFinished = true;
-
-    timer.reset();
+    timer.delay(1);
+    m_drive.drive(0.5,0);
+    timer.delay(1);
+    m_drive.drive(0,0);
   }
   @Override
   public void execute() {}
@@ -66,6 +70,6 @@ public class PathBR02 extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return this.isFinished;
   }
 }
