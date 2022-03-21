@@ -1,3 +1,4 @@
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -22,13 +23,16 @@ public class LauncherSubsystem extends SubsystemBase {
     launcherMotor.setInverted(true);
     //launcherMotor2.setInverted(InvertType.OpposeMaster);
 
-    launcherMotor.config_kP(0, .25);
+    launcherMotor.config_kP(0, .17);
     launcherMotor.config_kI(0, .0023);
+
+    launcherMotor2.config_kP(0, .17);
+    launcherMotor2.config_kI(0, .0023);
   }
 
   public void startLauncher(double velocity) {
     //launcherMotor.set(ControlMode.Velocity, velocity);
-    launcherMotor.set(ControlMode.PercentOutput,velocity);
+    launcherMotor.set(ControlMode.PercentOutput, velocity);
     //launcherMotor.setInverted(true);
     launcherMotor2.follow(launcherMotor);
 

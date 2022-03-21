@@ -114,14 +114,14 @@ public class RobotContainer {
 
 
   //Auto
-  /* private final PathBR01 m_pathbr01;
+  private final PathBR01 m_pathbr01;
   private final PathBR02 m_pathbr02;
+  private final PathBR03 m_pathbr03;
   private final PathBR11 m_pathbr11;
   private final PathBR41 m_pathbr41;
-  private final PathBR61 m_pathbr61; */
-
+  private final PathBR61 m_pathbr61; 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
-  //
+  
 
 
   public static Joystick m_driverJoystick;
@@ -177,7 +177,7 @@ public class RobotContainer {
     deployIntakeCommand = new DeployIntakeCommand(this.m_intake, this.m_serializer);  
     m_launchSerializer = new LaunchSerializerCommand(this.m_serializer, m_sensor);
     reverseSerializerCommand = new ReverseSerializerCommand(m_intake,m_serializer,m_sensor);
-    launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher, m_sensor);
+    launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher, this.m_vision);
     runAllCommand = new RunAllCommand(m_colorSensor,m_launcher,m_serializer);
 
     this.m_climbSubsystem = new ClimbSubsystem();
@@ -193,17 +193,19 @@ public class RobotContainer {
 
 
     //Auto
-    //this.m_pathbr01 = new PathBR01(this.m_drivetrain);
-   /*  this.m_pathbr02 = new PathBR02(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
+    this.m_pathbr01 = new PathBR01(this.m_drivetrain);
+    this.m_pathbr02 = new PathBR02(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
+    this.m_pathbr03 = new PathBR03(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
     this.m_pathbr11 = new PathBR11(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
     this.m_pathbr41 = new PathBR41(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
-    this.m_pathbr61 = new PathBR61(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);*/
+    this.m_pathbr61 = new PathBR61(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
 
-   /* m_chooser.setDefaultOption("Path BR01", m_pathbr01); // https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
+   m_chooser.setDefaultOption("Path BR01", m_pathbr01); // https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
     m_chooser.addOption("Path BR02", m_pathbr02);
+    m_chooser.addOption("Path BR03", m_pathbr03);
     m_chooser.addOption("Path BR11", m_pathbr11);
     m_chooser.addOption("Path BR41", m_pathbr41);
-    m_chooser.addOption("Path BR61", m_pathbr61); */
+    m_chooser.addOption("Path BR61", m_pathbr61); 
 
     SmartDashboard.putData("Auto Mode:" , m_chooser);
     //
@@ -259,6 +261,10 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getTeleopCommand() {
+    // Use differential drive
+    return this.m_driveCommand;
+  }
+  public Command getTeleopInitCommand() {
     // Use differential drive
     return this.m_driveCommand;
   }

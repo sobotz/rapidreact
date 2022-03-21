@@ -51,15 +51,16 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
 
     //if () {
-      //notAccepting = true;
     //} //else {
-      //if (sensors.getIntakeVal()) {
-      //  runIntake(1);
-      //}
+    if (sensors.getIntakeVal()) {
+      runIntake(1);
+    }
     //}
     if (sensors.getLauncherVal() && sensors.getSerializerVal()){
       intakeTalon.set(ControlMode.PercentOutput, 0);
       notAccepting = true;
+    } else { 
+      notAccepting = false;
     }
   }
   

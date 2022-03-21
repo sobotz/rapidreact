@@ -13,6 +13,7 @@ import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SensorSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 public class ActivateLauncherCommand extends CommandBase {
   private SerializerSubsystem serializer;
@@ -23,20 +24,23 @@ public class ActivateLauncherCommand extends CommandBase {
   private SensorSubsystem sensors;
 
 
+
+
   private int targetVelocity;
+
+  private VisionSubsystem vision;
 
   /**
    * Creates a new LaunchAllCommand.
    */
-  public ActivateLauncherCommand(SerializerSubsystem serializer1, LauncherSubsystem launcher1, SensorSubsystem sensors) {
+  public ActivateLauncherCommand(SerializerSubsystem serializer1, LauncherSubsystem launcher1, VisionSubsystem vision) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.serializer = serializer1;
     this.launcher = launcher1;
+    this.vision = vision;
     this.targetVelocity = LauncherConstants.TEAM_VELOCITY;
     //sensors = new SensorSubsystem();
-    colorSensor = new ColorSensorSubsystem(sensors);
-    shootInTarget = colorSensor.shootCorrectly();
-
+    //colorSensor = new ColorSensorSubsystem(sensors);
     addRequirements(serializer, launcher);
   }
 
@@ -63,14 +67,16 @@ public class ActivateLauncherCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    this.launcher.startLauncher(targetVelocity);
+    System.out.println(launcher.getVelocity());
     //this.targetVelocity = (colorSensor.allyBall()) ? (LauncherConstants.TEAM_VELOCITY) : LauncherConstants.ENEMY_VELOCITY;
     if (launcher.getVelocity() > targetVelocity - 200 && launcher.getVelocity() < targetVelocity + 200) {
       this.serializer.runBelt();
-    } else {
+    } 
+    else {
       this.serializer.stopBelt();
     }
-    /*
-    if(shootInTarget){
+    /*if(shootInTarget){
       this.launcher.startLauncher(2);/*targetVelocity
     }
     else{
@@ -78,9 +84,10 @@ public class ActivateLauncherCommand extends CommandBase {
     }
     launcher.stopLauncher();
     timer.delay(2);
-    serializer.runBelt();
-    */
+    serializer.runBelt(); */
+    
   }
+  
   
   // Called once the command ends or is interrupted.
   @Override

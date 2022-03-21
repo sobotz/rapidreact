@@ -38,8 +38,8 @@ public class LaunchSerializerCommand extends CommandBase {
   @Override
   public void initialize() {
     //this.nFramesRun = 0;
-    //serializer.toggleSerializer();
-    //serializer.getLaunchMode();
+    
+    serializer.getCommandMode();
 
   }
 
@@ -79,7 +79,6 @@ public class LaunchSerializerCommand extends CommandBase {
     //this.nFramesRun = 0;
     //serializer.toggleSerializer();
     serializer.runSerializer(0);
-    serializer.lastIntakeVal = false;
     serializer.getSerializerMode();
   }
 
