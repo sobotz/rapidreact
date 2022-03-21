@@ -18,14 +18,17 @@ import frc.robot.subsystems.VisionSubsystem;
 public class ActivateLauncherCommand extends CommandBase {
   private SerializerSubsystem serializer;
   private LauncherSubsystem launcher;
-  private VisionSubsystem vision;
   private ColorSensorSubsystem colorSensor;
   private boolean shootInTarget;
   private Timer timer;
   private SensorSubsystem sensors;
 
 
+
+
   private int targetVelocity;
+
+  private VisionSubsystem vision;
 
   /**
    * Creates a new LaunchAllCommand.
@@ -69,7 +72,8 @@ public class ActivateLauncherCommand extends CommandBase {
     //this.targetVelocity = (colorSensor.allyBall()) ? (LauncherConstants.TEAM_VELOCITY) : LauncherConstants.ENEMY_VELOCITY;
     if (launcher.getVelocity() > targetVelocity - 200 && launcher.getVelocity() < targetVelocity + 200) {
       this.serializer.runBelt();
-    } else {
+    } 
+    else {
       this.serializer.stopBelt();
     }
     /*if(shootInTarget){
@@ -83,6 +87,7 @@ public class ActivateLauncherCommand extends CommandBase {
     serializer.runBelt(); */
     
   }
+  
   
   // Called once the command ends or is interrupted.
   @Override

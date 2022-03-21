@@ -37,10 +37,8 @@ public class PathBR61 extends CommandBase {
   }
   @Override
   public void initialize() {
-    m_intake.toggleIntake(); // drops intake
     timer.start();
     m_drive.testDrive(-1.0, 3.25); // move 4 ft ~ takes approximately 2 seconds
-
     timer.delay(2);
     m_intake.toggleIntake(); // retracts intake
     

@@ -49,7 +49,7 @@ public class PathBR02 extends CommandBase {
     timer.delay(0.5);
     this.m_serializer.runBelt();
     
-    timer.delay(1);
+    timer.delay(2);
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
     this.isFinished = true;

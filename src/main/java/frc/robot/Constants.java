@@ -117,6 +117,17 @@ public final class Constants {
         public static final double LIMLIGHT_TO_HUB_HEIGHT = 77;
         public static final double LIMELIGHT_ANGLE = 26;
     }
+    public static final class ClimbConstants
+    {
+        public static final int LIFT_MOTOR = 9;
+
+        public static final Double LIFT_SPEED = 0.4;
+        // Don't know the correct numbers yet
+        public static final int ARM_LOCK_DEPLOY = 4;
+        public static final int ARM_LOCK_RETRACT = 5;
+
+        public static final int ARM_RELEASE_DEPLOY = 6;
+    }
 
     
 	

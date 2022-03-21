@@ -64,6 +64,7 @@ public class SerializerSubsystem extends SubsystemBase {
   
   // Called every time the Command Scheduler runs (every 20 miliseconds)
   public void periodic() {
+    //STATE MACHINE CODE
     /*if(sensors.getIntakeVal()){
       s0 = 1;
     }
@@ -110,7 +111,7 @@ public class SerializerSubsystem extends SubsystemBase {
     else if(serializerState == 7){
      // m_intake.runIntake(-1);
     }*/
-
+    ////////////////////////////
 
     if (launchMode){
       lastIntakeVal = false;
@@ -148,7 +149,7 @@ public class SerializerSubsystem extends SubsystemBase {
       }
       if (sensors.getSerializerVal() && sensors.getLauncherVal()){
         m_intake.runIntake(0); 
-        //m_intake.retractIntake();
+        m_intake.retractIntake();
         lastIntakeVal = false;
       }
       //if (sensors.getIntakeVal() && sensors.getSerializerVal() && sensors.getLauncherVal()){
@@ -160,37 +161,14 @@ public class SerializerSubsystem extends SubsystemBase {
     }
   }
     
-      //statment run first ball all the way to launcher
-    /*if (sensors.getIntakeVal()|| (!sensors.getIntakeVal() && lastIntakeVal )){
-    //Statments for one ball going in when no balls in serializer
-      if (  (sensors.getIntakeVal())  && !sensors.getSerializerVal()  && !sensors.getLauncherVal()){
-        runBelt();
-
-        lastIntakeVal = true;
-      }
-      else if (!sensors.getIntakeVal() && !sensors.getSerializerVal() && sensors.getLauncherVal() && lastIntakeVal){
-        m_intake.runIntake(1);
-      }
-      if (sensors.getSerializerVal() && sensors.getLauncherVal()){
-        m_intake.runIntake(0);
-        m_intake.retractIntake();
-        lastIntakeVal = false;
-      }
-      if (sensors.getIntakeVal() && sensors.getSerializerVal() && sensors.getLauncherVal()){
-        reverseBelt();
-        m_intake.runIntake(-1);
-        m_intake.retractIntake();
-
-      }
-
-    }*/
+     
       
   
   
-  public boolean ToggleInterrupt(){
+  /*public boolean ToggleInterrupt(){
     interrupted = !interrupted;
     return interrupted;
-  }
+  }*/
 
   public void runBelt() {
     // turns serializer motor on
