@@ -22,14 +22,16 @@ public class LauncherSubsystem extends SubsystemBase {
     launcherMotor.setInverted(true);
     //launcherMotor2.setInverted(InvertType.OpposeMaster);
 
-    launcherMotor.config_kP(0, .25);
-    launcherMotor.config_kI(0, .0025);
-    launcherMotor.config_kD(0, 100);
+    launcherMotor.config_kP(0, .17);
+    launcherMotor.config_kI(0, .0023);
+
+    launcherMotor2.config_kP(0, .17);
+    launcherMotor2.config_kI(0, .0023);
   }
 
   public void startLauncher(double velocity) {
     //launcherMotor.set(ControlMode.Velocity, velocity);
-    launcherMotor.set(ControlMode.PercentOutput,-velocity);
+    launcherMotor.set(ControlMode.PercentOutput, velocity);
     //launcherMotor.setInverted(true);
     launcherMotor2.follow(launcherMotor);
 

@@ -126,6 +126,9 @@ public class ColorSensorSubsystem extends SubsystemBase{
     }
   }
 
+  public int amountOfBalls(){
+    return ballColors.size();
+  }
   public ArrayList getBallValues(){
     return ballColors;
   }

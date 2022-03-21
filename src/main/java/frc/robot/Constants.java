@@ -35,7 +35,7 @@ public final class Constants {
 
     public static final class IntakeConstants{
         public static final int INTAKE_MOTOR = 10;
-        public static final double MAXIMUM_INTAKE_SPEED = 0.2;
+        public static final double MAXIMUM_INTAKE_SPEED = 0.6;
         public static final int INTAKE_SOLENOID_DEPLOY = 2;
         public static final int INTAKE_SOLENOID_RETRACT = 3;
     }
@@ -65,7 +65,7 @@ public final class Constants {
         // Change to 7 when on eletra bot
 		public static final int LAUNCHER_MOTOR_2 = 6;
         public static final int ROLLER_MOTOR = 10;
-        public static final int TEAM_VELOCITY = 21500;
+        public static final int TEAM_VELOCITY = -22500;
         public static final int ENEMY_VELOCITY = 10000;
         
     }
@@ -114,8 +114,8 @@ public final class Constants {
         public static final double MIN_ADJUST_SPEED = .2;
         public static final double DEADBAND_RANGE = 0.05;
         //CHANGE SEAN HELP
-        public static final double LIMLIGHT_TO_HUB_HEIGHT = 0;
-        public static final double LIMELIGHT_ANGLE = 0;
+        public static final double LIMLIGHT_TO_HUB_HEIGHT = 77;
+        public static final double LIMELIGHT_ANGLE = 26;
     }
 
     

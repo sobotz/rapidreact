@@ -53,9 +53,14 @@ public class PathBR11 extends CommandBase {
     timer.delay(1.5);
 
     this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
+    timer.delay(1);
     this.m_serializer.runBelt();
  
-    timer.delay(1);
+    timer.delay(0.25);
+    this.m_serializer.stopBelt();
+    timer.delay(0.5);
+    this.m_serializer.runBelt();
+    timer.delay(0.5);
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
     this.isFinished = true;

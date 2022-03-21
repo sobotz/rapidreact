@@ -13,10 +13,12 @@ import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SensorSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 public class ActivateLauncherCommand extends CommandBase {
   private SerializerSubsystem serializer;
   private LauncherSubsystem launcher;
+  private VisionSubsystem vision;
   private ColorSensorSubsystem colorSensor;
   private boolean shootInTarget;
   private Timer timer;
@@ -28,21 +30,21 @@ public class ActivateLauncherCommand extends CommandBase {
   /**
    * Creates a new LaunchAllCommand.
    */
-  public ActivateLauncherCommand(SerializerSubsystem serializer1, LauncherSubsystem launcher1, SensorSubsystem sensors) {
+  public ActivateLauncherCommand(SerializerSubsystem serializer1, LauncherSubsystem launcher1, VisionSubsystem vision) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.serializer = serializer1;
     this.launcher = launcher1;
-    this.targetVelocity = 1/*LauncherConstants.TEAM_VELOCITY*/;
+    this.vision = vision;
+    this.targetVelocity = LauncherConstants.TEAM_VELOCITY;
     //sensors = new SensorSubsystem();
-    colorSensor = new ColorSensorSubsystem(sensors);
-    shootInTarget = colorSensor.shootCorrectly();
-
+    //colorSensor = new ColorSensorSubsystem(sensors);
     addRequirements(serializer, launcher);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    this.launcher.startLauncher(targetVelocity);
     /**if(shootInTarget){
       this.launcher.startLauncher(3);/*targetVelocity*
     }
@@ -62,21 +64,23 @@ public class ActivateLauncherCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    this.launcher.startLauncher(targetVelocity);
+    System.out.println(launcher.getVelocity());
     //this.targetVelocity = (colorSensor.allyBall()) ? (LauncherConstants.TEAM_VELOCITY) : LauncherConstants.ENEMY_VELOCITY;
-    /*if (launcher.getVelocity() > targetVelocity - 200 && launcher.getVelocity() < targetVelocity + 200) {
+    if (launcher.getVelocity() > targetVelocity - 200 && launcher.getVelocity() < targetVelocity + 200) {
       this.serializer.runBelt();
     } else {
       this.serializer.stopBelt();
-    }*/
-    if(shootInTarget){
-      this.launcher.startLauncher(2);/*targetVelocity*/
+    }
+    /*if(shootInTarget){
+      this.launcher.startLauncher(2);/*targetVelocity
     }
     else{
       this.launcher.startLauncher(.5);
     }
     launcher.stopLauncher();
     timer.delay(2);
-    serializer.runBelt();
+    serializer.runBelt(); */
     
   }
   

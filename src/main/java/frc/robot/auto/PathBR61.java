@@ -39,26 +39,27 @@ public class PathBR61 extends CommandBase {
   public void initialize() {
     m_intake.toggleIntake(); // drops intake
     timer.start();
-    // m_intake.deployIntake();
-    // m_intake.toggleIntake();
     m_drive.testDrive(-1.0, 3.25); // move 4 ft ~ takes approximately 2 seconds
+
     timer.delay(2);
-    m_intake.toggleIntake();
+    m_intake.toggleIntake(); // retracts intake
     
     timer.delay(1.5);
-     // move 2 ft
-    m_drive.testDrive(-1.0, 1);
+    m_drive.testDrive(-1.0, 1.0);
 
     timer.delay(1.5);
+
     this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
+    timer.delay(1);
     this.m_serializer.runBelt();
  
-    timer.delay(1);
+    timer.delay(0.25);
+    this.m_serializer.stopBelt();
+    timer.delay(0.5);
+    this.m_serializer.runBelt();
+    timer.delay(0.5);
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
-    this.isFinished = true;
-
-    timer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

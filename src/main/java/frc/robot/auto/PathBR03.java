@@ -4,20 +4,16 @@
 
 package frc.robot.auto;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 
-import frc.robot.Constants.LauncherConstants;
-
-public class PathBR02 extends CommandBase {
+public class PathBR03 extends CommandBase {
   private final DriveSubsystem m_drive;
-
-  private Timer timer;
-
   private final IntakeSubsystem m_intake;
 
   private final LauncherSubsystem m_launcher;
@@ -26,46 +22,55 @@ public class PathBR02 extends CommandBase {
 
   private boolean isFinished = false;
 
-  public PathBR02(DriveSubsystem drive, IntakeSubsystem intake, LauncherSubsystem launcher,SerializerSubsystem serializer) {
-    this.m_drive = drive;
+  private Timer timer;
 
-    this.timer = new Timer();
-    // initialize launcher, serializer + intake variables when import
+  public PathBR03(DriveSubsystem drive, IntakeSubsystem intake, LauncherSubsystem launcher,SerializerSubsystem serializer) {
+    this.m_drive = drive;
     this.m_intake = intake;
     this.m_launcher = launcher;
     this.m_serializer = serializer;
-    
+    this.timer = new Timer();
+
     addRequirements(this.m_drive, this.m_intake, this.m_launcher, this.m_serializer);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // encoder.setDistancePerPulse(1. / 315.924339); // feet per PPR
     timer.start();
-    m_drive.testDrive(1.0, 4.0); // move 6 ft 
-    timer.delay(2);
+    m_drive.setLowGear();
 
     this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
-    timer.delay(0.5);
-    this.m_serializer.runBelt();
-    
     timer.delay(1);
+    this.m_serializer.runBelt();
+ 
+    timer.delay(0.4);
+    this.m_serializer.stopBelt();
+    timer.delay(1);
+    this.m_serializer.runBelt();
+    timer.delay(0.5);
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
-    this.isFinished = true;
-
-    timer.reset();
+    timer.delay(1);
+    m_drive.drive(0.5,0);
+    timer.delay(1);
+    m_drive.drive(0,0);
   }
+
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return this.isFinished;
   }
 }

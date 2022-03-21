@@ -41,7 +41,7 @@ public class IntakeSubsystem extends SubsystemBase {
     this.sensors = sensors;
     
     //Change CTREPCM to REVPM
-    intakeDeploy = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, IntakeConstants.INTAKE_SOLENOID_DEPLOY,IntakeConstants.INTAKE_SOLENOID_RETRACT);
+    intakeDeploy = new DoubleSolenoid(12,PneumaticsModuleType.REVPH, IntakeConstants.INTAKE_SOLENOID_RETRACT, IntakeConstants.INTAKE_SOLENOID_DEPLOY);
 
     hasDeployed = false;
     notAccepting = false;
@@ -52,15 +52,16 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
 
     //if () {
-      //notAccepting = true;
     //} //else {
-      //if (sensors.getIntakeVal()) {
-      //  runIntake(1);
-      //}
+    if (sensors.getIntakeVal()) {
+      runIntake(1);
+    }
     //}
     if (sensors.getLauncherVal() && sensors.getSerializerVal()){
       intakeTalon.set(ControlMode.PercentOutput, 0);
-      retractIntake();
+      notAccepting = true;
+    } else { 
+      notAccepting = false;
     }
   }
   
