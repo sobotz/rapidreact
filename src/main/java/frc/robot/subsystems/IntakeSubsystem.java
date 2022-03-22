@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.IntakeConstants;
@@ -19,9 +20,9 @@ import frc.robot.Constants.SerializerConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-  private DigitalInput intakeSensor;
-  private DigitalInput serializerSensor;
-  private DigitalInput launcherSensor;
+  private Boolean lastintakeSensor;
+  private boolean lastserializerSensor;
+  private boolean lastlauncherSensor;
 
   public WPI_TalonSRX intakeTalon;
 
@@ -44,26 +45,43 @@ public class IntakeSubsystem extends SubsystemBase {
 
     hasDeployed = false;
     notAccepting = false;
-  }
 
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
-    //if () {
-    //} //else {
-    if (sensors.getIntakeVal()) {
-      runIntake(1);
-    }
-    //}
-    if (sensors.getLauncherVal() && sensors.getSerializerVal()){
-      intakeTalon.set(ControlMode.PercentOutput, 0);
-      notAccepting = true;
+    /*if (sensors.getLauncherVal() && sensors.getSerializerVal()){
+      if(!lastserializerSensor || !lastlauncherSensor){
+        retractIntake();
+      } else {
+        runIntake(0);
+      }
     } else { 
       notAccepting = false;
+      if (sensors.getIntakeVal()) {
+        System.out.println("firstTripped");
+        runIntake(1);
+      } else if (!hasDeployed) {
+        runIntake(0);
+      }
+    }*/
+    if (sensors.getLauncherVal() && sensors.getSerializerVal()){
+      runIntake(0);
+    } else {
+      if (sensors.getIntakeVal()) {
+        System.out.println("firstTripped");
+        runIntake(1);
+      } else if (!hasDeployed) {
+        runIntake(0);
+      }
     }
+
+    lastintakeSensor = sensors.getIntakeVal();
+    lastserializerSensor = sensors.getSerializerVal();
+    lastlauncherSensor = sensors.getLauncherVal();
+    SmartDashboard.putBoolean("HasDeployed", this.hasDeployed);
+    SmartDashboard.putBoolean("NotAccepting", this.notAccepting);
   }
-  
   public void deployIntake() {
     runIntake(0.0);
     intakeDeploy.set(Value.kForward);
@@ -87,7 +105,6 @@ public class IntakeSubsystem extends SubsystemBase {
       runIntake(1);
       hasDeployed = true;
     }
-    
     return hasDeployed;
   }
   

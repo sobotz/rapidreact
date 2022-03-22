@@ -65,7 +65,7 @@ public final class Constants {
         // Change to 7 when on eletra bot
 		public static final int LAUNCHER_MOTOR_2 = 6;
         public static final int ROLLER_MOTOR = 10;
-        public static final int TEAM_VELOCITY = -22500;
+        public static final int TEAM_VELOCITY = -22750;
         public static final int ENEMY_VELOCITY = 10000;
         
     }

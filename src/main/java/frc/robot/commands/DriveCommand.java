@@ -50,8 +50,8 @@ public class DriveCommand extends CommandBase {
 
     this.acceleration_constant = SmartDashboard.getNumber("Acceleration Constant: ", DriveConstants.ACCELERATION_CONSTANT);
 
-    double speed = this.joystick.getY();
-    double rotation = this.joystick.getX();
+    double speed = this.joystick.getRawAxis(5);
+    double rotation = this.joystick.getRawAxis(4);
     double normalizedSpeed = Math.signum(speed) * Math.pow(speed, this.acceleration_constant);
     double normalizedRotation = Math.signum(rotation) * Math.pow(rotation, this.acceleration_constant);
     this.m_drivetrain.drive(normalizedSpeed, -normalizedRotation);

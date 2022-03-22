@@ -20,21 +20,22 @@ public class LauncherSubsystem extends SubsystemBase {
     launcherMotor = new WPI_TalonFX(LauncherConstants.LAUNCHER_MOTOR_1);
     launcherMotor2 = new WPI_TalonFX(LauncherConstants.LAUNCHER_MOTOR_2);
     
-    launcherMotor.setInverted(true);
-    //launcherMotor2.setInverted(InvertType.OpposeMaster);
+    launcherMotor.setInverted(false);
+    launcherMotor2.setInverted(InvertType.OpposeMaster);
 
-    launcherMotor.config_kP(0, .17);
-    launcherMotor.config_kI(0, .0023);
+    launcherMotor.config_kP(0, .05);
+    launcherMotor.config_kI(0, .0);
 
-    launcherMotor2.config_kP(0, .17);
-    launcherMotor2.config_kI(0, .0023);
+
+    launcherMotor2.config_kP(0, .05);
+    launcherMotor2.config_kI(0, .0);
   }
 
   public void startLauncher(double velocity) {
     //launcherMotor.set(ControlMode.Velocity, velocity);
-    launcherMotor.set(ControlMode.PercentOutput, velocity);
-    //launcherMotor.setInverted(true);
+    launcherMotor.set(ControlMode.PercentOutput, .7);
     launcherMotor2.follow(launcherMotor);
+    //launcherMotor.setInverted(true);
 
   }
 
@@ -48,7 +49,7 @@ public class LauncherSubsystem extends SubsystemBase {
   }
 
   public void resetLauncher(){
-    launcherMotor.set(ControlMode.PercentOutput, .3);
+    launcherMotor.set(ControlMode.PercentOutput, .7);
     launcherMotor2.follow(launcherMotor);
   
   }
