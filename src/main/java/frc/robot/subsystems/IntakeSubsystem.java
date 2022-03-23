@@ -65,7 +65,7 @@ public class IntakeSubsystem extends SubsystemBase {
         runIntake(0);
       }
     }*/
-    if (sensors.getLauncherVal() && sensors.getSerializerVal()){
+    /*if (sensors.getLauncherVal() && sensors.getSerializerVal()){
       runIntake(0);
     } else {
       if (sensors.getIntakeVal()) {
@@ -74,6 +74,10 @@ public class IntakeSubsystem extends SubsystemBase {
       } else if (!hasDeployed) {
         runIntake(0);
       }
+    } */
+
+    if (sensors.getSerializerVal()){
+      runIntake(0);
     }
 
     lastintakeSensor = sensors.getIntakeVal();
