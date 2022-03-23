@@ -28,8 +28,8 @@ public class DeployIntakeCommand extends InstantCommand {
   }
 
   public void execute () {
-    m_intake.runIntake(1);
-  }
+    
+    }
   
   public void end() {
     m_intake.toggleIntake();
