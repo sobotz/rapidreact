@@ -28,7 +28,9 @@ public class DeployIntakeCommand extends InstantCommand {
   }
 
   public void execute () {
-    m_intake.runIntake(1);
+    if (this.m_intake.notAccepting()){
+      end();
+    }
   }
   
   public void end() {

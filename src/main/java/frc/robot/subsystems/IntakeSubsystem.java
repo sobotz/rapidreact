@@ -65,7 +65,7 @@ public class IntakeSubsystem extends SubsystemBase {
         runIntake(0);
       }
     }*/
-    if (sensors.getLauncherVal() && sensors.getSerializerVal()){
+    /*if (sensors.getLauncherVal() && sensors.getSerializerVal()){
       runIntake(0);
     } else {
       if (sensors.getIntakeVal()) {
@@ -74,6 +74,15 @@ public class IntakeSubsystem extends SubsystemBase {
       } else if (!hasDeployed) {
         runIntake(0);
       }
+    }*/
+    if (sensors.getLauncherVal()){
+      if (sensors.getSerializerVal() && !lastserializerSensor) {
+        runIntake(0);
+        intakeDeploy.set(Value.kForward);
+        notAccepting = true;
+      }
+    } else if (!sensors.getLauncherVal() && lastlauncherSensor){
+      notAccepting = false;
     }
 
     lastintakeSensor = sensors.getIntakeVal();
@@ -96,16 +105,22 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public boolean toggleIntake() {
-    if (hasDeployed) {
-      intakeDeploy.set(DoubleSolenoid.Value.kForward);
-      runIntake(0);
-      hasDeployed = false;
-    } else {
-      intakeDeploy.set(DoubleSolenoid.Value.kReverse);
-      runIntake(1);
-      hasDeployed = true;
-    }
+    if (!notAccepting()){
+      if (hasDeployed) {
+        intakeDeploy.set(DoubleSolenoid.Value.kForward);
+        runIntake(0);
+        hasDeployed = false;
+      } else {
+        intakeDeploy.set(DoubleSolenoid.Value.kReverse);
+        runIntake(1);
+        hasDeployed = true;
+      }
+    } 
     return hasDeployed;
+  }
+
+  public boolean notAccepting() {
+    return notAccepting;
   }
   
 
