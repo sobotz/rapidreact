@@ -65,6 +65,7 @@ public class IntakeSubsystem extends SubsystemBase {
         runIntake(0);
       }
     }*/
+    /*
     if (sensors.getLauncherVal() && sensors.getSerializerVal()){
       runIntake(0);
     } else {
