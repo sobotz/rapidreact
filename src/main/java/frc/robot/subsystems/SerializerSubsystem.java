@@ -208,6 +208,9 @@ public class SerializerSubsystem extends SubsystemBase {
   public void runSerializer(double speed){
     serializerMotor.set(ControlMode.PercentOutput, -speed * SerializerConstants.SERIALIZER_SPEED);
   }
+  public void fastBelt(){
+    serializerMotor.set(ControlMode.PercentOutput, 1);
+  }
 
   public boolean getLauncherSensorVal(){
     return trippedLauncherSensor;

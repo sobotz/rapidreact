@@ -70,7 +70,7 @@ public class ActivateLauncherCommand extends CommandBase {
   public void execute() {
     System.out.println(launcher.getVelocity());
     //this.targetVelocity = (colorSensor.allyBall()) ? (LauncherConstants.TEAM_VELOCITY) : LauncherConstants.ENEMY_VELOCITY;
-      this.serializer.runBelt();
+      this.serializer.fastBelt();
     /*if(shootInTarget){
       this.launcher.startLauncher(2);/*targetVelocity
     }

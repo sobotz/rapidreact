@@ -79,6 +79,7 @@ public class IntakeSubsystem extends SubsystemBase {
       if (sensors.getSerializerVal() && !lastserializerSensor) {
         runIntake(0);
         intakeDeploy.set(Value.kForward);
+        hasDeployed = false;
         notAccepting = true;
       }
     } else if (!sensors.getLauncherVal() && lastlauncherSensor){
