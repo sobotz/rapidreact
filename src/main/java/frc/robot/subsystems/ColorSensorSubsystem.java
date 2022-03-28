@@ -108,7 +108,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
   public boolean shootCorrectly(){
     if(ballDetected()){
-      if(ballColors.get(0).equals(teamColor)){
+      if(ballColors.get(0).equals(teamColor) && ballColors.get(1).equals(teamColor)){
         return true;
       }
     }

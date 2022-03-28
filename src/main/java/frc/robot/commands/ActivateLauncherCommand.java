@@ -40,7 +40,7 @@ public class ActivateLauncherCommand extends CommandBase {
     this.vision = vision;
     this.targetVelocity = LauncherConstants.TEAM_VELOCITY;
     //sensors = new SensorSubsystem();
-    //colorSensor = new ColorSensorSubsystem(sensors);
+    colorSensor = new ColorSensorSubsystem(sensors);
     addRequirements(serializer, launcher);
   }
 
@@ -48,21 +48,14 @@ public class ActivateLauncherCommand extends CommandBase {
   @Override
   public void initialize() {
     serializer.getCommandMode();
-    this.launcher.startLauncher(targetVelocity);
+    if(colorSensor.shootCorrectly()){
+      this.launcher.startLauncher(targetVelocity);
+    }
+    else{
+      this.launcher.startLauncher(0.5);
+    }
     timer.delay(.75);
-    /**if(shootInTarget){
-      /*targetVelocity*
-    }
-    else{
-      this.launcher.startLauncher(1);
-    }*/
     
-   /*if(shootInTarget){
-      this.launcher.startLauncher(2);/*targetVelocity*
-    }
-    else{
-      this.launcher.startLauncher(1);
-    }*/
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -71,15 +64,7 @@ public class ActivateLauncherCommand extends CommandBase {
     System.out.println(launcher.getVelocity());
     //this.targetVelocity = (colorSensor.allyBall()) ? (LauncherConstants.TEAM_VELOCITY) : LauncherConstants.ENEMY_VELOCITY;
       this.serializer.runBelt();
-    /*if(shootInTarget){
-      this.launcher.startLauncher(2);/*targetVelocity
-    }
-    else{
-      this.launcher.startLauncher(.5);
-    }
-    launcher.stopLauncher();
-    timer.delay(2);
-    serializer.runBelt(); */
+   
     
   }
   
