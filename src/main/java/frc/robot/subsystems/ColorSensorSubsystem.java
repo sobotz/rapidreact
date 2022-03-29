@@ -74,11 +74,11 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
     
 
-    if(!sensors.getLauncherVal() && lastLSVal && ballColors.size() != 0){
+    /*if(!sensors.getLauncherVal() && lastLSVal && ballColors.size() != 0){
          removeFirstBall();
-    }
+    }*/
     
-    lastLSVal = sensors.getLauncherVal();
+    //lastLSVal = sensors.getLauncherVal();
 
 
     SmartDashboard.putBoolean("Ball detected", ballDetected());
