@@ -34,6 +34,7 @@ public class SerializerSubsystem extends SubsystemBase {
 
   public boolean trippedLauncherSensor;
   public Boolean launchMode;
+  public Boolean willRun;
 
   public int s0 = 0;
   public int s1 = 0;
@@ -54,6 +55,7 @@ public class SerializerSubsystem extends SubsystemBase {
     m_intake = intake;
     interrupted = false;
     launchMode = false;
+    willRun = false;
 
     //this.reverseSerializer = reverseSerializer1;
 
@@ -113,7 +115,7 @@ public class SerializerSubsystem extends SubsystemBase {
     }*/
     ////////////////////////////
 
-    if (launchMode){
+    /*if (launchMode){
       lastIntakeVal = false;
       lastSerializerVal = false;
     }
@@ -151,15 +153,35 @@ public class SerializerSubsystem extends SubsystemBase {
         m_intake.runIntake(0); 
         m_intake.retractIntake();
         lastIntakeVal = false;
-      }
+      } 
       //if (sensors.getIntakeVal() && sensors.getSerializerVal() && sensors.getLauncherVal()){
       //  reverseBelt();
       //  m_intake.runIntake(-1);
       //  m_intake.retractIntake();
   
       //}
+    }*/
+    if (!launchMode) {
+      if(!sensors.getLauncherVal()){
+        if(!sensors.getIntakeVal() && lastIntakeVal){
+          willRun = true;
+        }
+      } else {
+        if (willRun){
+          willRun = false;
+        }
+      }
+    } else {
+      willRun = false;
     }
+    if (willRun) {
+      runBelt();
+    } else {
+      stopBelt();
+    }
+    lastIntakeVal = sensors.getIntakeVal();
   }
+
     
      
       
@@ -185,6 +207,9 @@ public class SerializerSubsystem extends SubsystemBase {
   
   public void runSerializer(double speed){
     serializerMotor.set(ControlMode.PercentOutput, -speed * SerializerConstants.SERIALIZER_SPEED);
+  }
+  public void fastBelt(){
+    serializerMotor.set(ControlMode.PercentOutput, 1);
   }
 
   public boolean getLauncherSensorVal(){

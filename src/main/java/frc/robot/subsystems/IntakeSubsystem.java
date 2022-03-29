@@ -74,10 +74,16 @@ public class IntakeSubsystem extends SubsystemBase {
       } else if (!hasDeployed) {
         runIntake(0);
       }
-    } */
-
-    if (sensors.getSerializerVal()){
-      runIntake(0);
+    }*/
+    if (sensors.getLauncherVal()){
+      if (sensors.getSerializerVal() && !lastserializerSensor) {
+        runIntake(0);
+        intakeDeploy.set(Value.kForward);
+        hasDeployed = false;
+        notAccepting = true;
+      }
+    } else if (!sensors.getLauncherVal() && lastlauncherSensor){
+      notAccepting = false;
     }
 
     lastintakeSensor = sensors.getIntakeVal();
@@ -111,12 +117,5 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     return hasDeployed;
   }
-  
-
-  
-
-
-
-
 }
 
