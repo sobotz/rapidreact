@@ -32,6 +32,7 @@ public class DeployIntakeCommand extends InstantCommand {
   
   public void end() {
     m_intake.toggleIntake();
+    
   }
 }
 
