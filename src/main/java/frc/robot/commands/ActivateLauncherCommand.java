@@ -48,7 +48,7 @@ public class ActivateLauncherCommand extends CommandBase {
   public void initialize() {
     serializer.getCommandMode();
     this.launcher.startLauncher(targetVelocity);
-    timer.delay(.75);
+    timer.delay(1);
  
   }
 
