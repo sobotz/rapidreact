@@ -108,15 +108,6 @@ public class SerializerSubsystem extends SubsystemBase {
     lastIntakeVal = sensors.getIntakeVal();
   }
 
-    
-     
-      
-  
-  
-  /*public boolean ToggleInterrupt(){
-    interrupted = !interrupted;
-    return interrupted;
-  }*/
 
   public void runBelt() {
     // turns serializer motor on
