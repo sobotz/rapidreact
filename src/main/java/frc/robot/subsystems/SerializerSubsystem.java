@@ -57,8 +57,6 @@ public class SerializerSubsystem extends SubsystemBase {
     launchMode = false;
     willRun = false;
 
-    //this.reverseSerializer = reverseSerializer1;
-
     trippedLauncherSensor = false;
 
   }

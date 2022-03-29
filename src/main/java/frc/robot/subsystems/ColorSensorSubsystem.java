@@ -9,24 +9,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ColorSensorConstants;
 import frc.robot.Constants.SensorsConstants;
 import edu.wpi.first.wpilibj.AnalogInput;
-/*import frc.robot.Constants.SerializerConstants;
-import edu.wpi.first.wpilibj.AnalogInput;*/
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
-//Color sensor imports
 import com.revrobotics.ColorSensorV3;
-//import com.revrobotics.ColorMatchResult;
-
 import java.util.ArrayList;
 
 import javax.swing.text.StyleContext.SmallAttributeSet;
 
-//import com.revrobotics.ColorMatch;
-//import com.revrobotics.ColorSensorV3.RawColor;
 
 
 public class ColorSensorSubsystem extends SubsystemBase{

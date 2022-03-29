@@ -50,31 +50,7 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    /*if (sensors.getLauncherVal() && sensors.getSerializerVal()){
-      if(!lastserializerSensor || !lastlauncherSensor){
-        retractIntake();
-      } else {
-        runIntake(0);
-      }
-    } else { 
-      notAccepting = false;
-      if (sensors.getIntakeVal()) {
-        System.out.println("firstTripped");
-        runIntake(1);
-      } else if (!hasDeployed) {
-        runIntake(0);
-      }
-    }*/
-    /*if (sensors.getLauncherVal() && sensors.getSerializerVal()){
-      runIntake(0);
-    } else {
-      if (sensors.getIntakeVal()) {
-        System.out.println("firstTripped");
-        runIntake(1);
-      } else if (!hasDeployed) {
-        runIntake(0);
-      }
-    }*/
+    
     if (sensors.getLauncherVal()){
       if (sensors.getSerializerVal() && !lastserializerSensor) {
         runIntake(0);
