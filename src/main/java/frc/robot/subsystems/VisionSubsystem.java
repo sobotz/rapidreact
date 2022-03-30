@@ -47,11 +47,10 @@ public class VisionSubsystem extends SubsystemBase {
 
     // this.actuationMotor = new TalonSRX(VisionConstants.ACTUATION_MOTOR);
     this.actuationMotor = new TalonFX(VisionConstants.ACTUATION_MOTOR);
-    this.actuationMotor.configForwardSoftLimitThreshold(150000, 0);
-    this.actuationMotor.configReverseSoftLimitThreshold(-150000, 0);
+    this.actuationMotor.configForwardSoftLimitThreshold(VisionConstants.MAX_ROTATION_VALUE, 0);
+    this.actuationMotor.configReverseSoftLimitThreshold(-VisionConstants.MAX_ROTATION_VALUE, 0);
     this.actuationMotor.configForwardSoftLimitEnable(true, 0);
     this.actuationMotor.configReverseSoftLimitEnable(true,0);
-
 
     defaultSpeed = -1;
   }
@@ -85,7 +84,11 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public boolean inRange() {
-    return this.hasTarget && this.targetDistance() > 2.5 && this.targetDistance() < 5.5;
+    return this.hasTarget && this.targetDistance() > VisionConstants.MIN_DISTANCE && this.targetDistance() < VisionConstants.MAX_DISTANCE;
+  }
+
+  public boolean isAligned() {
+    return this.hasTarget && Math.abs(this.getXOffset()) < VisionConstants.ALIGNMENT_RANGE;
   }
 
   @Override
@@ -98,9 +101,9 @@ public class VisionSubsystem extends SubsystemBase {
 
     SmartDashboard.putBoolean("LimelightTarget", this.hasTarget);
     SmartDashboard.putBoolean("In Range", this.inRange());
+    SmartDashboard.putBoolean("Turret Aligned", this.isAligned());
     SmartDashboard.putNumber("LimelightX", this.xOffset);
     SmartDashboard.putNumber("LimelightY", this.yOffset);
-    SmartDashboard.putNumber("LimelightArea", area);
 
     SmartDashboard.putNumber("TargetDistance", this.targetDistance());
     // This method will be called once per scheduler run
