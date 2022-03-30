@@ -40,32 +40,38 @@ public class PathBR11 extends CommandBase {
   }
   @Override
   public void initialize() {
-    // m_intake.toggleIntake(); // drops intake
     timer.start();
-    m_drive.testDrive(-1.0, 4.0); // move 4 ft ~ takes approximately 2 seconds
+    m_drive.setLowGear();
+    // m_drive.testDrive(-1.0, 4.0); // move 4 ft ~ takes approximately 2 seconds
     m_intake.toggleIntake();
-    timer.delay(2);
+
+    timer.delay(0.5); // drive off of tarmac
+    m_drive.drive(-0.5,0);
+    timer.delay(1);
+    m_drive.drive(0,0);
+
+    timer.delay(0.5);
     m_intake.toggleIntake(); // retracts intake
     
-    timer.delay(1.5);
-    m_drive.testDrive(-1.0, 2.0);
+    timer.delay(0.5);
+    m_drive.drive(0.5,0);
+    timer.delay(1);
+    m_drive.drive(0,0);
 
-    timer.delay(1.5);
+    timer.delay(0.5);
 
-    this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
+    this.m_launcher.slowLauncher();;
     timer.delay(1);
     this.m_serializer.runBelt();
  
-    timer.delay(0.25);
+    timer.delay(0.4);
     this.m_serializer.stopBelt();
-    timer.delay(0.5);
+    timer.delay(1);
     this.m_serializer.runBelt();
     timer.delay(0.5);
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
     this.isFinished = true;
-
-    timer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

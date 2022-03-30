@@ -44,7 +44,7 @@ public class PathBR02 extends CommandBase {
     timer.start();
     m_drive.setLowGear();
 
-    this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
+    this.m_launcher.slowLauncher();
     timer.delay(1);
     this.m_serializer.runBelt();
  

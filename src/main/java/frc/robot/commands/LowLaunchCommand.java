@@ -45,7 +45,7 @@ public class LowLaunchCommand extends CommandBase {
   @Override
   public void initialize() {
     serializer.getCommandMode();
-    this.launcher.slowLauncher(targetVelocity);
+    this.launcher.slowLauncher();
     timer.delay(1);
  
   }
