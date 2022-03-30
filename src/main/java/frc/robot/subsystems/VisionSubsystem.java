@@ -63,9 +63,6 @@ public class VisionSubsystem extends SubsystemBase {
       if (Math.abs(speedPercent) < VisionConstants.MIN_ADJUST_SPEED){
         speedPercent = VisionConstants.MIN_ADJUST_SPEED;
       }
-      if (Math.abs(this.xOffset) < VisionConstants.DEADBAND_RANGE){
-        speedPercent = 0;
-      }
       if (Math.abs(this.actuationMotor.getSelectedSensorPosition()) > VisionConstants.MAX_ROTATION_VALUE) {
         speedPercent = VisionConstants.MIN_ADJUST_SPEED * ((Math.signum(this.actuationMotor.getSelectedSensorPosition()) == -1) ? 1 : -1);
       }
@@ -74,9 +71,7 @@ public class VisionSubsystem extends SubsystemBase {
         defaultSpeed *= -1;
       }
       speedPercent = defaultSpeed;
-
     }
-
     SmartDashboard.putNumber("SpeedPercent: ",speedPercent);
     this.actuationMotor.set(ControlMode.PercentOutput, VisionConstants.MAX_SPEED * - speedPercent);
   }
@@ -86,7 +81,11 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public double targetDistance () {
-    return (this.hasTarget) ? VisionConstants.LIMLIGHT_TO_HUB_HEIGHT / Math.tan(Math.toRadians(VisionConstants.LIMELIGHT_ANGLE + this.yOffset)) : -1;
+    return (this.hasTarget) ? VisionConstants.LIMLIGHT_TO_HUB_HEIGHT / Math.tan(Math.toRadians(VisionConstants.LIMELIGHT_ANGLE + this.yOffset)) / 12 : -1;
+  }
+
+  public boolean inRange() {
+    return this.hasTarget && this.targetDistance() > 2.5 && this.targetDistance() < 5.5;
   }
 
   @Override
@@ -98,6 +97,7 @@ public class VisionSubsystem extends SubsystemBase {
     this.area = tArea.getDouble(0.0);
 
     SmartDashboard.putBoolean("LimelightTarget", this.hasTarget);
+    SmartDashboard.putBoolean("In Range", this.inRange());
     SmartDashboard.putNumber("LimelightX", this.xOffset);
     SmartDashboard.putNumber("LimelightY", this.yOffset);
     SmartDashboard.putNumber("LimelightArea", area);
