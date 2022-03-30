@@ -65,29 +65,29 @@ public class DriveSubsystem extends SubsystemBase {
     this.frontLeftController.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 10, 15, 0.5));
 
      /* Set Motion Magic gains in slot0 - see documentation */
-		this.frontLeftController.selectProfileSlot(Constants.kSlotIdx, Constants.kPIDLoopIdx);
-    this.frontLeftController.config_kF(Constants.kSlotIdx, Constants.kF, Constants.kTimeoutMs);
-		this.frontLeftController.config_kP(Constants.kSlotIdx, Constants.kP, Constants.kTimeoutMs);
-		this.frontLeftController.config_kI(Constants.kSlotIdx, Constants.kI, Constants.kTimeoutMs);
-		this.frontLeftController.config_kD(Constants.kSlotIdx, Constants.kD, Constants.kTimeoutMs);
+		this.frontLeftController.selectProfileSlot(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kPIDLoopIdx);
+    this.frontLeftController.config_kF(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kF, Constants.AutoConstants.kTimeoutMs);
+		this.frontLeftController.config_kP(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kP, Constants.AutoConstants.kTimeoutMs);
+		this.frontLeftController.config_kI(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kI, Constants.AutoConstants.kTimeoutMs);
+		this.frontLeftController.config_kD(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kD, Constants.AutoConstants.kTimeoutMs);
     // this.backLeftController.follow(this.frontLeftController);
-    this.backLeftController.selectProfileSlot(Constants.kSlotIdx, Constants.kPIDLoopIdx);
-    this.backLeftController.config_kF(Constants.kSlotIdx, Constants.kF, Constants.kTimeoutMs);
-		this.backLeftController.config_kP(Constants.kSlotIdx, Constants.kP, Constants.kTimeoutMs);
-		this.backLeftController.config_kI(Constants.kSlotIdx, Constants.kI, Constants.kTimeoutMs);
-		this.backLeftController.config_kD(Constants.kSlotIdx, Constants.kD, Constants.kTimeoutMs);
+    this.backLeftController.selectProfileSlot(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kPIDLoopIdx);
+    this.backLeftController.config_kF(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kF, Constants.AutoConstants.kTimeoutMs);
+		this.backLeftController.config_kP(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kP, Constants.AutoConstants.kTimeoutMs);
+		this.backLeftController.config_kI(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kI, Constants.AutoConstants.kTimeoutMs);
+		this.backLeftController.config_kD(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kD, Constants.AutoConstants.kTimeoutMs);
 
-    this.frontRightController.selectProfileSlot(Constants.kSlotIdx, Constants.kPIDLoopIdx);
-    this.frontRightController.config_kF(Constants.kSlotIdx, Constants.kF, Constants.kTimeoutMs);
-		this.frontRightController.config_kP(Constants.kSlotIdx, Constants.kP, Constants.kTimeoutMs);
-		this.frontRightController.config_kI(Constants.kSlotIdx, Constants.kI, Constants.kTimeoutMs);
-		this.frontRightController.config_kD(Constants.kSlotIdx, Constants.kD, Constants.kTimeoutMs);
+    this.frontRightController.selectProfileSlot(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kPIDLoopIdx);
+    this.frontRightController.config_kF(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kF, Constants.AutoConstants.kTimeoutMs);
+		this.frontRightController.config_kP(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kP, Constants.AutoConstants.kTimeoutMs);
+		this.frontRightController.config_kI(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kI, Constants.AutoConstants.kTimeoutMs);
+		this.frontRightController.config_kD(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kD, Constants.AutoConstants.kTimeoutMs);
     // this.backRightController.follow(this.frontRightController);
-    this.backRightController.selectProfileSlot(Constants.kSlotIdx, Constants.kPIDLoopIdx);
-    this.backRightController.config_kF(Constants.kSlotIdx, Constants.kF, Constants.kTimeoutMs);
-		this.backRightController.config_kP(Constants.kSlotIdx, Constants.kP, Constants.kTimeoutMs);
-		this.backRightController.config_kI(Constants.kSlotIdx, Constants.kI, Constants.kTimeoutMs);
-		this.backRightController.config_kD(Constants.kSlotIdx, Constants.kD, Constants.kTimeoutMs);
+    this.backRightController.selectProfileSlot(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kPIDLoopIdx);
+    this.backRightController.config_kF(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kF, Constants.AutoConstants.kTimeoutMs);
+		this.backRightController.config_kP(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kP, Constants.AutoConstants.kTimeoutMs);
+		this.backRightController.config_kI(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kI, Constants.AutoConstants.kTimeoutMs);
+		this.backRightController.config_kD(Constants.AutoConstants.kSlotIdx, Constants.AutoConstants.kD, Constants.AutoConstants.kTimeoutMs);
 
     this.frontLeftController.setNeutralMode(NeutralMode.Brake);
     // this.backLeftController.follow(this.frontLeftController);
@@ -97,23 +97,23 @@ public class DriveSubsystem extends SubsystemBase {
     this.backRightController.setNeutralMode(NeutralMode.Brake);
 
     /* Set acceleration and vcruise velocity - see documentation */
-		this.frontLeftController.configMotionCruiseVelocity(11000, Constants.kTimeoutMs);
-		this.frontLeftController.configMotionAcceleration(11000, Constants.kTimeoutMs);
+		this.frontLeftController.configMotionCruiseVelocity(11000, Constants.AutoConstants.kTimeoutMs);
+		this.frontLeftController.configMotionAcceleration(11000, Constants.AutoConstants.kTimeoutMs);
     // this.backLeftController.follow(this.frontLeftController);
-    this.backLeftController.configMotionCruiseVelocity(11000, Constants.kTimeoutMs);
-		this.backLeftController.configMotionAcceleration(11000, Constants.kTimeoutMs);
+    this.backLeftController.configMotionCruiseVelocity(11000, Constants.AutoConstants.kTimeoutMs);
+		this.backLeftController.configMotionAcceleration(11000, Constants.AutoConstants.kTimeoutMs);
 
-    this.frontRightController.configMotionCruiseVelocity(-11000, Constants.kTimeoutMs);
-		this.frontRightController.configMotionAcceleration(-11000, Constants.kTimeoutMs);
+    this.frontRightController.configMotionCruiseVelocity(-11000, Constants.AutoConstants.kTimeoutMs);
+		this.frontRightController.configMotionAcceleration(-11000, Constants.AutoConstants.kTimeoutMs);
     // this.backRightController.follow(this.frontRightController);
-    this.backRightController.configMotionCruiseVelocity(-11000, Constants.kTimeoutMs);
-		this.backRightController.configMotionAcceleration(-11000, Constants.kTimeoutMs);
+    this.backRightController.configMotionCruiseVelocity(-11000, Constants.AutoConstants.kTimeoutMs);
+		this.backRightController.configMotionAcceleration(-11000, Constants.AutoConstants.kTimeoutMs);
 
     /* Zero the sensor once on robot boot up */
-		this.frontRightController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-    this.backRightController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-    this.frontLeftController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-    this.backLeftController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+		this.frontRightController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
+    this.backRightController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
+    this.frontLeftController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
+    this.backLeftController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
 
     // this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY,
        // Constants.DriveConstants.GEAR_SHIFT_RETRACT);
@@ -145,13 +145,13 @@ public class DriveSubsystem extends SubsystemBase {
     this.frontRightController.setNeutralMode(NeutralMode.Coast);
     // this.backRightController.follow(this.frontRightController);
     this.backRightController.setNeutralMode(NeutralMode.Coast);
-    this.frontRightController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-    this.backRightController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-    this.frontLeftController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-    this.backLeftController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+    this.frontRightController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
+    this.backRightController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
+    this.frontLeftController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
+    this.backLeftController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
   // if (true || joystick) {
     // double targetPosition = (22788.5556*speed*distance); // 48 3/8 inches desired
-    double targetPosition = (Constants.autoDrive*speed*distance);
+    double targetPosition = (Constants.AutoConstants.autoDrive*speed*distance);
     /* 2000 RPM in either direction */
     this.frontLeftController.set(ControlMode.MotionMagic, targetPosition);
     // this.backLeftController.set(ControlMode.MotionMagic, targetPosition);
@@ -161,10 +161,10 @@ public class DriveSubsystem extends SubsystemBase {
     // this.backRightController.follow(this.frontRightController);//}
     // this.backRightController.set(ControlMode.MotionMagic, -targetPosition);
 
-    this.frontRightController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-    this.backRightController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-    this.frontLeftController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-    this.backLeftController.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+    this.frontRightController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
+    this.backRightController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
+    this.frontLeftController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
+    this.backLeftController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
 
     this.frontLeftController.setNeutralMode(NeutralMode.Brake);
     // this.backLeftController.follow(this.frontLeftController);
