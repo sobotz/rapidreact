@@ -65,8 +65,8 @@ public class IntakeSubsystem extends SubsystemBase {
     lastintakeSensor = sensors.getIntakeVal();
     lastserializerSensor = sensors.getSerializerVal();
     lastlauncherSensor = sensors.getLauncherVal();
-    SmartDashboard.putBoolean("HasDeployed", this.hasDeployed);
-    SmartDashboard.putBoolean("NotAccepting", this.notAccepting);
+    //SmartDashboard.putBoolean("HasDeployed", this.hasDeployed);
+    //SmartDashboard.putBoolean("NotAccepting", this.notAccepting);
   }
   public void deployIntake() {
     runIntake(0.0);
