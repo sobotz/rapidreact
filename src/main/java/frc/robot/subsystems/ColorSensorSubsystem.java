@@ -9,8 +9,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ColorSensorConstants;
 import frc.robot.Constants.SensorsConstants;
 import edu.wpi.first.wpilibj.AnalogInput;
-/*import frc.robot.Constants.SerializerConstants;
-import edu.wpi.first.wpilibj.AnalogInput;*/
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.I2C;
@@ -19,15 +17,7 @@ import edu.wpi.first.wpilibj.util.Color;
 
 //Color sensor imports
 import com.revrobotics.ColorSensorV3;
-//import com.revrobotics.ColorMatchResult;
-
 import java.util.ArrayList;
-
-//import javax.swing.text.StyleContext.SmallAttributeSet;
-
-//import com.revrobotics.ColorMatch;
-//import com.revrobotics.ColorSensorV3.RawColor;
-
 
 public class ColorSensorSubsystem extends SubsystemBase{
   //port
@@ -60,12 +50,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
   //@Override
   public void periodic() {
     Color detectedColor = colorSensor.getColor();
-    
-    //Testing
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
-    //
-    
+
     if(detectedColor.red > ColorSensorConstants.COLOR_THRESHOLD && lastRed < ColorSensorConstants.COLOR_THRESHOLD){
       ballColors.add(Alliance.Red);
     }
@@ -76,22 +61,16 @@ public class ColorSensorSubsystem extends SubsystemBase{
     lastRed = detectedColor.red;
     lastBlue = detectedColor.blue;
 
-    
-
-    
-
     if(!sensors.getLauncherVal() && lastLSVal && ballColors.size() != 0){
          removeFirstBall();
     }
     
     lastLSVal = sensors.getLauncherVal();
 
-
-    SmartDashboard.putBoolean("Ball detected", ballDetected());
     //Testing
-    if(ballColors.size() != 0){
+    /*if(ballColors.size() != 0){
       SmartDashboard.putBoolean("Would shoot correctly", shootCorrectly());
-    }
+    }*/
     //
   }
 
@@ -132,9 +111,8 @@ public class ColorSensorSubsystem extends SubsystemBase{
     if(ballColors.get(1) != null){
       return true;
     }
-    else{
-      return false;
-    }
+    return false;
+    
   }
 
   public int amountOfBalls(){

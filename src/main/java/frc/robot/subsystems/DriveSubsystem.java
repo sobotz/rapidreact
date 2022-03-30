@@ -154,12 +154,12 @@ public class DriveSubsystem extends SubsystemBase {
     double targetPosition = (Constants.AutoConstants.autoDrive*speed*distance);
     /* 2000 RPM in either direction */
     this.frontLeftController.set(ControlMode.MotionMagic, targetPosition);
-    // this.backLeftController.set(ControlMode.MotionMagic, targetPosition);
+    this.backLeftController.set(ControlMode.MotionMagic, targetPosition);
     // this.backLeftController.follow(this.frontLeftController);
 
     this.frontRightController.set(ControlMode.MotionMagic, -targetPosition);
     // this.backRightController.follow(this.frontRightController);//}
-    // this.backRightController.set(ControlMode.MotionMagic, -targetPosition);
+    this.backRightController.set(ControlMode.MotionMagic, -targetPosition);
 
     this.frontRightController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
     this.backRightController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);

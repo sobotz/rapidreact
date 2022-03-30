@@ -38,7 +38,7 @@ public class LauncherSubsystem extends SubsystemBase {
     //launcherMotor.setInverted(true);
   }
 
-  public void slowLauncher(double velocity) {
+  public void slowLauncher() {
     //launcherMotor.set(ControlMode.Velocity, velocity);
     launcherMotor.set(ControlMode.PercentOutput, .6);
     launcherMotor2.follow(launcherMotor);

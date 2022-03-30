@@ -25,7 +25,6 @@ public class PathBR01 extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // encoder.setDistancePerPulse(1. / 315.924339); // feet per PPR
     timer.start();
     m_drive.setLowGear();
     m_drive.drive(0.5,0);
