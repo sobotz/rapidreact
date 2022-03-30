@@ -79,6 +79,7 @@ public final class Constants {
     }
 
     // Configuration Constants
+    public static final class AutoConstants{
         /**
          * Which PID slot to pull gains from. Starting 2018, you can choose from
          * 0,1,2 or 3. Only the first two (0,1) are visible in web-based
@@ -104,18 +105,17 @@ public final class Constants {
         public static final double kF = 0.034875;
 
         public static final double autoDrive = 8050;
-
+    }
 
     public static final class VisionConstants{
         public static final int ACTUATION_MOTOR = 7;
         public static final int MAX_ROTATION_VALUE = 150000;// at 90 degrees, unit is 150,000; at 
-        public static final double MAX_SPEED = .25;
+        public static final double MAX_SPEED = .4;
         public static final double LOGISTIC_GROWTH_RATE = .45;
         public static final double MIN_ADJUST_SPEED = .2;
         public static final double DEADBAND_RANGE = 0.05;
-        //CHANGE SEAN HELP
-        public static final double LIMLIGHT_TO_HUB_HEIGHT = 77;
-        public static final double LIMELIGHT_ANGLE = 26;
+        public static final double LIMLIGHT_TO_HUB_HEIGHT = 65.5; //inches
+        public static final double LIMELIGHT_ANGLE = 39;
     }
     public static final class ClimbConstants
     {

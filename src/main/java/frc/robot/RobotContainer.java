@@ -49,6 +49,7 @@ import frc.robot.commands.AquireTargetCommand;
 
 import frc.robot.commands.LiftCommand;
 import frc.robot.commands.LiftRetractCommand;
+import frc.robot.commands.LowLaunchCommand;
 import frc.robot.commands.ArmReleaseCommand;
 
 //
@@ -103,6 +104,7 @@ public class RobotContainer {
   private final LaunchSerializerCommand m_launchSerializer;
   private final ReverseSerializerCommand reverseSerializerCommand;
   private final ActivateLauncherCommand launchCommand;
+  private final LowLaunchCommand lowLaunchCommand;
 
   public final LiftCommand m_liftCommand;
   public final ArmReleaseCommand m_armReleaseCommand;
@@ -178,6 +180,7 @@ public class RobotContainer {
     m_launchSerializer = new LaunchSerializerCommand(this.m_serializer, m_sensor);
     reverseSerializerCommand = new ReverseSerializerCommand(m_intake,m_serializer,m_sensor);
     launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher, this.m_vision);
+    lowLaunchCommand = new LowLaunchCommand(this.m_serializer, this.m_launcher, this.m_vision);
     runAllCommand = new RunAllCommand(m_colorSensor,m_launcher,m_serializer);
 
     this.m_climbSubsystem = new ClimbSubsystem();
@@ -227,6 +230,7 @@ public class RobotContainer {
     JoystickButton serializerButton = new JoystickButton(this.m_operatorJoystick, 3);
     JoystickButton reverseSerializerButton = new JoystickButton(this.m_operatorJoystick,2);
     JoystickButton launchButton = new JoystickButton(m_operatorJoystick,6);
+    JoystickButton lowLaunchButton = new JoystickButton(m_operatorJoystick, 5);
     JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 6);
     // JoystickButton switchTeamColor = new JoystickButton(m_operatorJoystick, 1);
     JoystickButton runAllCommandButton = new JoystickButton(this.m_operatorJoystick, 5);
@@ -243,6 +247,7 @@ public class RobotContainer {
     serializerButton.whenHeld(this.m_launchSerializer);
     reverseSerializerButton.whenHeld(reverseSerializerCommand);
     launchButton.whenHeld(launchCommand);
+    lowLaunchButton.whenHeld(lowLaunchCommand);
     runAllCommandButton.whenHeld(runAllCommand);
 
     JoystickButton liftRetractMotorButton = new JoystickButton(this.m_operatorJoystick, 7);
