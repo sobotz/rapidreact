@@ -9,17 +9,24 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ColorSensorConstants;
 import frc.robot.Constants.SensorsConstants;
 import edu.wpi.first.wpilibj.AnalogInput;
+/*import frc.robot.Constants.SerializerConstants;
+import edu.wpi.first.wpilibj.AnalogInput;*/
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
+//Color sensor imports
 import com.revrobotics.ColorSensorV3;
+//import com.revrobotics.ColorMatchResult;
+
 import java.util.ArrayList;
 
-import javax.swing.text.StyleContext.SmallAttributeSet;
+//import javax.swing.text.StyleContext.SmallAttributeSet;
 
+//import com.revrobotics.ColorMatch;
+//import com.revrobotics.ColorSensorV3.RawColor;
 
 
 public class ColorSensorSubsystem extends SubsystemBase{
@@ -39,7 +46,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
   private boolean lastLSVal;
 
-  private boolean colorMatch;
+ // private boolean colorMatch;
   
   //SensorSubsystem sensorSubsystem = new SensorSubsystem();
   private SensorSubsystem sensors;
@@ -48,7 +55,6 @@ public class ColorSensorSubsystem extends SubsystemBase{
     this.teamColor = DriverStation.getAlliance();
     lastLSVal = false;
     this.sensors = sensors;
-    colorMatch = false;
   }
 
   //@Override
@@ -74,11 +80,11 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
     
 
-    /*if(!sensors.getLauncherVal() && lastLSVal && ballColors.size() != 0){
+    if(!sensors.getLauncherVal() && lastLSVal && ballColors.size() != 0){
          removeFirstBall();
-    }*/
+    }
     
-    //lastLSVal = sensors.getLauncherVal();
+    lastLSVal = sensors.getLauncherVal();
 
 
     SmartDashboard.putBoolean("Ball detected", ballDetected());
@@ -101,7 +107,7 @@ public class ColorSensorSubsystem extends SubsystemBase{
 
   public boolean shootCorrectly(){
     if(ballDetected()){
-      if(ballColors.get(0).equals(teamColor)){
+      if(ballColors.get(0).equals(teamColor) && ballColors.get(1).equals(teamColor)){
         return true;
       }
     }
