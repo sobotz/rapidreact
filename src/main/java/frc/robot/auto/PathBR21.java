@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 
-public class PathBR61 extends CommandBase {
+public class PathBR21 extends CommandBase {
   private final DriveSubsystem m_drive;
   private final IntakeSubsystem m_intake;
   private final LauncherSubsystem m_launcher;
@@ -25,7 +25,7 @@ public class PathBR61 extends CommandBase {
 
   private boolean isFinished = false;
 
-  public PathBR61(DriveSubsystem drive, IntakeSubsystem intake, LauncherSubsystem launcher,SerializerSubsystem serializer) {
+  public PathBR21(DriveSubsystem drive, IntakeSubsystem intake, LauncherSubsystem launcher,SerializerSubsystem serializer) {
     this.m_drive = drive;
     this.m_intake = intake;
     this.m_launcher = launcher;
@@ -38,26 +38,23 @@ public class PathBR61 extends CommandBase {
   @Override
   public void initialize() {
     timer.start();
-    m_drive.testDrive(-1.0, 3.25); // move 4 ft ~ takes approximately 2 seconds
-    timer.delay(2);
-    m_intake.toggleIntake(); // retracts intake
-    
-    timer.delay(1.5);
-    m_drive.testDrive(-1.0, 1.0);
+    m_drive.setLowGear();
 
-    timer.delay(1.5);
-
-    this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
+    this.m_launcher.slowLauncher();
     timer.delay(1);
     this.m_serializer.runBelt();
  
-    timer.delay(0.25);
+    timer.delay(0.4);
     this.m_serializer.stopBelt();
-    timer.delay(0.5);
+    timer.delay(1);
     this.m_serializer.runBelt();
     timer.delay(0.5);
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
+    timer.delay(1);
+    m_drive.drive(0.5,0);
+    timer.delay(0.9);
+    m_drive.drive(0,0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -1,24 +1,20 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-// https://github.com/thordogzaan/Frc-2021-Falcon-500-Code/blob/main/Robot.java 
-// Motion Magic: https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html 
 
 package frc.robot.auto;
 
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 
-public class PathBR41 extends CommandBase {
+public class PathBR12 extends CommandBase {
   private final DriveSubsystem m_drive;
 
-  private boolean isFinished = false;
-  
   private Timer timer;
 
   private final IntakeSubsystem m_intake;
@@ -27,10 +23,11 @@ public class PathBR41 extends CommandBase {
 
   private final SerializerSubsystem m_serializer;
 
+  private boolean isFinished = false;
 
-  public PathBR41(DriveSubsystem drive, IntakeSubsystem intake, LauncherSubsystem launcher,SerializerSubsystem serializer) {
+  public PathBR12(DriveSubsystem drive, IntakeSubsystem intake, LauncherSubsystem launcher,SerializerSubsystem serializer ) {
     this.m_drive = drive;
-    // initialize launcher, serializer + intake variables when import
+
     this.timer = new Timer();
     // initialize launcher, serializer + intake variables when import
     this.m_intake = intake;
@@ -42,29 +39,37 @@ public class PathBR41 extends CommandBase {
   @Override
   public void initialize() {
     timer.start();
-    m_drive.testDrive(-1.0, 4.0); // move 4 ft ~ takes approximately 2 seconds
-    timer.delay(2);
+    m_drive.setLowGear();
+    // m_drive.testDrive(-1.0, 4.0); // move 4 ft ~ takes approximately 2 seconds
+    m_intake.toggleIntake();
+
+    timer.delay(0.5); // drive off of tarmac
+    m_drive.drive(-0.5,0);
+    timer.delay(1);
+    m_drive.drive(0,0);
+
+    timer.delay(0.5);
     m_intake.toggleIntake(); // retracts intake
     
-    timer.delay(1.5);
-    m_drive.testDrive(-1.0, 2.0);
+    timer.delay(0.5);
+    m_drive.drive(0.5,0);
+    timer.delay(1);
+    m_drive.drive(0,0);
 
-    timer.delay(1.5);
+    timer.delay(0.5);
 
     this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
     timer.delay(1);
     this.m_serializer.runBelt();
  
-    timer.delay(0.25);
+    timer.delay(0.4);
     this.m_serializer.stopBelt();
-    timer.delay(0.5);
+    timer.delay(1);
     this.m_serializer.runBelt();
     timer.delay(0.5);
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
     this.isFinished = true;
-
-    timer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -75,6 +80,7 @@ public class PathBR41 extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    
   }
 
   // Returns true when the command should end.

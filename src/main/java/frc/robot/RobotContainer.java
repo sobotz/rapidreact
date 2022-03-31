@@ -120,8 +120,9 @@ public class RobotContainer {
   private final PathBR02 m_pathbr02;
   private final PathBR03 m_pathbr03;
   private final PathBR11 m_pathbr11;
-  private final PathBR41 m_pathbr41;
-  private final PathBR61 m_pathbr61; 
+  private final PathBR12 m_pathbr12;
+  private final PathBR21 m_pathbr21;
+  private final PathBR22 m_pathbr22; 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
   
 
@@ -200,15 +201,17 @@ public class RobotContainer {
     this.m_pathbr02 = new PathBR02(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
     this.m_pathbr03 = new PathBR03(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
     this.m_pathbr11 = new PathBR11(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
-    this.m_pathbr41 = new PathBR41(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
-    this.m_pathbr61 = new PathBR61(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
+    this.m_pathbr12 = new PathBR12(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
+    this.m_pathbr21 = new PathBR21(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
+    this.m_pathbr22 = new PathBR22(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
 
    m_chooser.setDefaultOption("Path BR01", m_pathbr01); // https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
     m_chooser.addOption("Path BR02", m_pathbr02);
     m_chooser.addOption("Path BR03", m_pathbr03);
     m_chooser.addOption("Path BR11", m_pathbr11);
-    m_chooser.addOption("Path BR41", m_pathbr41);
-    m_chooser.addOption("Path BR61", m_pathbr61); 
+    m_chooser.addOption("Path BR12", m_pathbr12);
+    m_chooser.addOption("Path BR21", m_pathbr21);
+    m_chooser.addOption("Path BR22", m_pathbr22); 
 
     SmartDashboard.putData("Auto Mode:" , m_chooser);
     //
