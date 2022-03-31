@@ -48,12 +48,12 @@ public class PathBR12 extends CommandBase {
     timer.delay(1);
     m_drive.drive(0,0);
 
-    timer.delay(0.5);
+    timer.delay(1.3);
     m_intake.toggleIntake(); // retracts intake
     
     timer.delay(0.5);
     m_drive.drive(0.5,0);
-    timer.delay(1);
+    timer.delay(0.8);
     m_drive.drive(0,0);
 
     timer.delay(0.5);
@@ -66,7 +66,7 @@ public class PathBR12 extends CommandBase {
     this.m_serializer.stopBelt();
     timer.delay(1);
     this.m_serializer.runBelt();
-    timer.delay(0.5);
+    timer.delay(0.8);
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
     this.isFinished = true;
