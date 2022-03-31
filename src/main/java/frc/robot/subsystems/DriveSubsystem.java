@@ -139,12 +139,12 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void testDrive(double speed, double distance){
-    this.frontLeftController.setNeutralMode(NeutralMode.Coast);
+    /*this.frontLeftController.setNeutralMode(NeutralMode.Coast);
     // this.backLeftController.follow(this.frontLeftController);
     this.backLeftController.setNeutralMode(NeutralMode.Coast);
     this.frontRightController.setNeutralMode(NeutralMode.Coast);
     // this.backRightController.follow(this.frontRightController);
-    this.backRightController.setNeutralMode(NeutralMode.Coast);
+    this.backRightController.setNeutralMode(NeutralMode.Coast);*/
     this.frontRightController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
     this.backRightController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);
     this.frontLeftController.setSelectedSensorPosition(0, Constants.AutoConstants.kPIDLoopIdx, Constants.AutoConstants.kTimeoutMs);

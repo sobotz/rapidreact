@@ -80,7 +80,7 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public double targetDistance () {
-    return (this.hasTarget) ? VisionConstants.LIMLIGHT_TO_HUB_HEIGHT / Math.tan(Math.toRadians(VisionConstants.LIMELIGHT_ANGLE + this.yOffset)) / 12 : -1;
+    return (this.hasTarget) ? VisionConstants.LIMLIGHT_TO_HUB_HEIGHT / Math.tan(Math.toRadians(VisionConstants.LIMELIGHT_ANGLE + this.yOffset)): -1;
   }
 
   public boolean inRange() {
