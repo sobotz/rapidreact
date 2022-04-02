@@ -121,6 +121,7 @@ public class RobotContainer {
   private final PathBR03 m_pathbr03;
   private final PathBR11 m_pathbr11;
   private final PathBR12 m_pathbr12;
+  private final PathBR13 m_pathbr13;
   private final PathBR21 m_pathbr21;
   private final PathBR22 m_pathbr22; 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -202,14 +203,17 @@ public class RobotContainer {
     this.m_pathbr03 = new PathBR03(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
     this.m_pathbr11 = new PathBR11(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
     this.m_pathbr12 = new PathBR12(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
+    this.m_pathbr13 = new PathBR13(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
     this.m_pathbr21 = new PathBR21(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
     this.m_pathbr22 = new PathBR22(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
 
-   m_chooser.setDefaultOption("Path BR01", m_pathbr01); // https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
+   //m_chooser.setDefaultOption("Path BR01", m_pathbr01); // https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
+    m_chooser.setDefaultOption("Path BR03", m_pathbr03);
     m_chooser.addOption("Path BR02", m_pathbr02);
     m_chooser.addOption("Path BR03", m_pathbr03);
     m_chooser.addOption("Path BR11", m_pathbr11);
     m_chooser.addOption("Path BR12", m_pathbr12);
+    m_chooser.addOption("Path BR13", m_pathbr13);
     m_chooser.addOption("Path BR21", m_pathbr21);
     m_chooser.addOption("Path BR22", m_pathbr22); 
 
@@ -236,7 +240,7 @@ public class RobotContainer {
     JoystickButton lowLaunchButton = new JoystickButton(m_operatorJoystick, 5);
     JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 6);
     // JoystickButton switchTeamColor = new JoystickButton(m_operatorJoystick, 1);
-    JoystickButton runAllCommandButton = new JoystickButton(this.m_operatorJoystick, 5);
+    // JoystickButton runAllCommandButton = new JoystickButton(this.m_operatorJoystick, 5);
 
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
 
@@ -251,7 +255,7 @@ public class RobotContainer {
     reverseSerializerButton.whenHeld(reverseSerializerCommand);
     launchButton.whenHeld(launchCommand);
     lowLaunchButton.whenHeld(lowLaunchCommand);
-    runAllCommandButton.whenHeld(runAllCommand);
+    // runAllCommandButton.whenHeld(runAllCommand);
 
     JoystickButton liftRetractMotorButton = new JoystickButton(this.m_operatorJoystick, 7);
     liftRetractMotorButton.whileHeld(this.m_liftRetractCommand);

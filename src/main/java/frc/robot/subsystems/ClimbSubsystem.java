@@ -83,7 +83,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Low Lock:", this.lowLock);
+    //SmartDashboard.putBoolean("Low Lock:", this.lowLock);
     // This method will be called once per scheduler run
   }
 

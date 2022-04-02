@@ -12,6 +12,8 @@ import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.*;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -32,6 +34,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   boolean finishDrive;
 
+  PIDController pid;
+
   public DriveSubsystem() {
     this.frontLeftController = new WPI_TalonFX(Constants.DriveConstants.LEFT_FRONT_TALON);
     this.frontRightController = new WPI_TalonFX(Constants.DriveConstants.RIGHT_FRONT_TALON);
@@ -44,18 +48,20 @@ public class DriveSubsystem extends SubsystemBase {
     this.frontRightController.setInverted(TalonFXInvertType.Clockwise);
     this.backRightController.setInverted(TalonFXInvertType.Clockwise);
 
+    pid = new PIDController(0.2, 0, 0);
+    pid.setTolerance(800, 1600);
+    pid.calculate(this.frontLeftController.getSelectedSensorPosition(), Constants.AutoConstants.autoDrive*4);
+
     // Reset the configuration of each of the talons
     this.frontLeftController.configFactoryDefault();
     this.frontRightController.configFactoryDefault();
     this.backLeftController.configFactoryDefault();
     this.backRightController.configFactoryDefault();
 
-
-
-    this.frontLeftController.configOpenloopRamp(0.5);
-    this.backLeftController.configOpenloopRamp(0.5);
-    this.frontRightController.configOpenloopRamp(0.5);
-    this.backRightController.configOpenloopRamp(0.5);
+    this.frontLeftController.configOpenloopRamp(0.1);
+    this.backLeftController.configOpenloopRamp(0.1);
+    this.frontRightController.configOpenloopRamp(0.1);
+    this.backRightController.configOpenloopRamp(0.1);
 
     this.frontLeftController.configClosedloopRamp(0);
     this.backLeftController.configClosedloopRamp(0);
@@ -204,6 +210,25 @@ public class DriveSubsystem extends SubsystemBase {
       this.backRightController.follow(this.frontRightController);
 		}*/
     
+  }
+
+
+  public boolean pidLoop(int feet){
+    double driveOutput = 0;
+    double error = frontLeftController.getSelectedSensorPosition() - (feet*Constants.AutoConstants.autoDrive); // negative for intake going off tarmac;
+    double absoluteError = Math.abs(error);
+    boolean atSetPoint = false;
+
+    if(absoluteError > 800){
+      driveOutput = error * 0.025;
+      driveOutput = MathUtil.clamp(driveOutput, -0.3, 0.3); //initially -0.5 & 0.5
+    }
+    else{
+      atSetPoint = true;
+    }
+    drive(-driveOutput,0);
+
+    return atSetPoint;
   }
 
   public void setLowGear () {

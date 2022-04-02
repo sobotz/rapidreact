@@ -50,7 +50,7 @@ public class VisionSubsystem extends SubsystemBase {
     this.actuationMotor.configForwardSoftLimitThreshold(VisionConstants.MAX_ROTATION_VALUE, 0);
     this.actuationMotor.configReverseSoftLimitThreshold(-VisionConstants.MAX_ROTATION_VALUE, 0);
     this.actuationMotor.configForwardSoftLimitEnable(true, 0);
-    this.actuationMotor.configReverseSoftLimitEnable(true,0);
+    this.actuationMotor.configReverseSoftLimitEnable(true, 0);
 
     defaultSpeed = -1;
   }

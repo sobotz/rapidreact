@@ -24,6 +24,10 @@ public class PathBR03 extends CommandBase {
 
   private Timer timer;
 
+  private boolean driveState = false;
+
+  private boolean atPosition = false;
+
   public PathBR03(DriveSubsystem drive, IntakeSubsystem intake, LauncherSubsystem launcher,SerializerSubsystem serializer) {
     this.m_drive = drive;
     this.m_intake = intake;
@@ -53,9 +57,15 @@ public class PathBR03 extends CommandBase {
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
     timer.delay(1);
-    m_drive.drive(0.5,0);
-    timer.delay(1);
-    m_drive.drive(0,0);
+
+    // m_drive.drive(0.5,0);
+
+    while(!m_drive.pidLoop(-1)){
+      timer.delay(.05);
+    }
+
+    /*timer.delay(1);
+    m_drive.drive(0,0);*/
   }
 
   // Called every time the scheduler runs while the command is scheduled.

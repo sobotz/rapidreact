@@ -101,12 +101,12 @@ public final class Constants {
          */
         public static final int kTimeoutMs = 30;
 
-        public static final double kP = 0.3;
+        public static final double kP = 0.005; //0.01
         public static final double kI = 0;
-        public static final double kD = 100;
-        public static final double kF = 0.034875;
+        public static final double kD = 0; //100
+        public static final double kF = 0.034875/10;
 
-        public static final double autoDrive = 8050;
+        public static final double autoDrive = 20771.75; // 8050;
     }
 
     public static final class VisionConstants{

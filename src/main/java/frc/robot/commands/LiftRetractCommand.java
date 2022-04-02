@@ -50,11 +50,11 @@ public class LiftRetractCommand extends CommandBase {
   @Override
   public void execute() {
     double current = m_climbSubsystem.getCurrent();
-    SmartDashboard.putString("Lift current:", String.valueOf(current));
+    //SmartDashboard.putString("Lift current:", String.valueOf(current));
     if(m_climbSubsystem.RetractState != RetractStateEnum.ATLIMIT){
       m_climbSubsystem.liftRetract();
       current = m_climbSubsystem.getCurrent();
-      SmartDashboard.putString("Lift current:", String.valueOf(current));
+      //SmartDashboard.putString("Lift current:", String.valueOf(current));
 
       // automatically stop at max height
       pos = m_climbSubsystem.getPosition();
