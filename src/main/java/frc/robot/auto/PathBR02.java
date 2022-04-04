@@ -56,9 +56,12 @@ public class PathBR02 extends CommandBase {
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
     timer.delay(1);
-    m_drive.drive(0.5,0);
+    while(!m_drive.pidLoop(-4)){
+      timer.delay(.05);
+    }
+    /*m_drive.drive(0.5,0);
     timer.delay(1);
-    m_drive.drive(0,0);
+    m_drive.drive(0,0);*/
   }
   @Override
   public void execute() {}

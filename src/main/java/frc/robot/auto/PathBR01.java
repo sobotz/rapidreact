@@ -25,12 +25,16 @@ public class PathBR01 extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
     timer.start();
     m_drive.setLowGear();
-    m_drive.drive(0.5,0);
+    
+    while(!m_drive.pidLoop(-1)){ // intake facing away from hub
+      timer.delay(.05);
+    }
+    /*m_drive.drive(0.5,0);
     timer.delay(1);
-    m_drive.drive(0,0);
-    // m_drive.testDrive(-1.0, 4.0);
+    m_drive.drive(0,0);*/
   }
 
   // Called every time the scheduler runs while the command is scheduled.
