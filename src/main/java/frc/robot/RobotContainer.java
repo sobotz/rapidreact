@@ -208,7 +208,7 @@ public class RobotContainer {
     this.m_pathbr22 = new PathBR22(this.m_drivetrain,this.m_intake, this.m_launcher, this.m_serializer);
 
    //m_chooser.setDefaultOption("Path BR01", m_pathbr01); // https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
-    m_chooser.setDefaultOption("Path BR03", m_pathbr03);
+    m_chooser.setDefaultOption("Path BR01", m_pathbr01);
     m_chooser.addOption("Path BR02", m_pathbr02);
     m_chooser.addOption("Path BR03", m_pathbr03);
     m_chooser.addOption("Path BR11", m_pathbr11);

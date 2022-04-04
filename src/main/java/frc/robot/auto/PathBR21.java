@@ -52,9 +52,13 @@ public class PathBR21 extends CommandBase {
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
     timer.delay(1);
-    m_drive.drive(0.5,0);
+    
+    while(!m_drive.pidLoop(-3.5)){
+      timer.delay(.05);
+    }
+    /*m_drive.drive(0.5,0);
     timer.delay(0.9);
-    m_drive.drive(0,0);
+    m_drive.drive(0,0);*/
   }
 
   // Called every time the scheduler runs while the command is scheduled.
