@@ -40,12 +40,42 @@ public class PathBR12 extends CommandBase {
   public void initialize() {
     timer.start();
     m_drive.setLowGear();
+
+    m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
+    timer.delay(1);
+    m_launcher.stopLauncher();
+
+    m_intake.toggleIntake();
+    m_drive.drive(0,0);
+    while(!m_drive.pidLoop(-4)){
+      timer.delay(0.05);
+    }
+    timer.delay(1.4);
+    m_intake.toggleIntake();
+
+    while(!m_drive.pidLoop(-1)){
+      timer.delay(0.05);
+    }
+    
+    m_serializer.runBelt();
+    timer.delay(0.7);
+
+    m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
+    timer.delay(1);
+    m_launcher.stopLauncher();
+    m_serializer.stopBelt();
+    this.isFinished = true;
+
+
+    /*
+    timer.start();
+    m_drive.setLowGear();
     m_intake.toggleIntake();
 
     timer.delay(0.5); // drive off of tarmac
-    /*m_drive.drive(-0.5,0);
+    /m_drive.drive(-0.5,0);
     timer.delay(1);
-    m_drive.drive(0,0);*/
+    m_drive.drive(0,0);/
     while(!m_drive.pidLoop(-1)){
       timer.delay(.05);
     }
@@ -56,7 +86,7 @@ public class PathBR12 extends CommandBase {
     timer.delay(0.5);
     /*m_drive.drive(0.5,0);
     timer.delay(0.8);
-    m_drive.drive(0,0);*/
+    m_drive.drive(0,0);/
     while(!m_drive.pidLoop(1)){
       timer.delay(.05);
     }
@@ -75,6 +105,7 @@ public class PathBR12 extends CommandBase {
     this.m_launcher.stopLauncher();
     this.m_serializer.stopBelt();
     this.isFinished = true;
+    */
   }
 
   // Called every time the scheduler runs while the command is scheduled.
