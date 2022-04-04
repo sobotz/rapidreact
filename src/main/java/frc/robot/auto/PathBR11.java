@@ -42,21 +42,40 @@ public class PathBR11 extends CommandBase {
   public void initialize() {
     timer.start();
     m_drive.setLowGear();
-    // m_drive.testDrive(-1.0, 4.0); // move 4 ft ~ takes approximately 2 seconds
-    m_intake.toggleIntake();
 
+    this.m_launcher.slowLauncher();
+    timer.delay(1);
+    this.m_serializer.runBelt();
+ 
+    timer.delay(0.4);
+    this.m_serializer.stopBelt();
+    timer.delay(1);
+    this.m_serializer.runBelt();
+    timer.delay(0.5);
+    this.m_launcher.stopLauncher();
+    this.m_serializer.stopBelt();
     timer.delay(0.5); // drive off of tarmac
+
+    m_intake.toggleIntake();
+    while(!m_drive.pidLoop(-4)){
+      timer.delay(.05);
+    }
+    /*
     m_drive.drive(-0.5,0);
     timer.delay(1);
-    m_drive.drive(0,0);
-
-    timer.delay(0.5);
+    m_drive.drive(0,0);*/
+    timer.delay(1);
     m_intake.toggleIntake(); // retracts intake
     
     timer.delay(0.5);
+
+    while(!m_drive.pidLoop(-1)){
+      timer.delay(.05);
+    }
+    /*
     m_drive.drive(0.5,0);
     timer.delay(1);
-    m_drive.drive(0,0);
+    m_drive.drive(0,0);*/
 
     timer.delay(0.5);
 

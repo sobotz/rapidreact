@@ -58,12 +58,11 @@ public class PathBR03 extends CommandBase {
     this.m_serializer.stopBelt();
     timer.delay(1);
 
-    // m_drive.drive(0.5,0);
-
-    while(!m_drive.pidLoop(-1)){
+    while(!m_drive.pidLoop(-4)){
       timer.delay(.05);
     }
 
+    // m_drive.drive(0.5,0);
     /*timer.delay(1);
     m_drive.drive(0,0);*/
   }

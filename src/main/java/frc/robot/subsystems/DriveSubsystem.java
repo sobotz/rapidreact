@@ -215,7 +215,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
 
-  public boolean pidLoop(int feet){
+  public boolean pidLoop(double feet){
     double driveOutput = 0;
     double error = frontLeftController.getSelectedSensorPosition() - (feet*Constants.AutoConstants.autoDrive); // negative for intake going off tarmac;
     double absoluteError = Math.abs(error);
