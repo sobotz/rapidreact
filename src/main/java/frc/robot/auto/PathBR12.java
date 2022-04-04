@@ -4,6 +4,7 @@
 
 package frc.robot.auto;
 
+import frc.robot.Constants;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -40,11 +41,12 @@ public class PathBR12 extends CommandBase {
   public void initialize() {
     timer.start();
     m_drive.setLowGear();
-
+    
     m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
     timer.delay(1);
     m_launcher.stopLauncher();
 
+    timer.delay(0.5);
     m_intake.toggleIntake();
     m_drive.drive(0,0);
     while(!m_drive.pidLoop(-4)){
@@ -52,16 +54,18 @@ public class PathBR12 extends CommandBase {
     }
     timer.delay(1.4);
     m_intake.toggleIntake();
-
+    
+    timer.delay(1);
     while(!m_drive.pidLoop(-1)){
       timer.delay(0.05);
     }
     
+    timer.delay(1);
     m_serializer.runBelt();
     timer.delay(0.7);
 
     m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
-    timer.delay(1);
+    timer.delay(0.5);
     m_launcher.stopLauncher();
     m_serializer.stopBelt();
     this.isFinished = true;
@@ -99,7 +103,7 @@ public class PathBR12 extends CommandBase {
  
     timer.delay(0.4);
     this.m_serializer.stopBelt();
-    timer.delay(1);
+    timer.delay(1); 
     this.m_serializer.runBelt();
     timer.delay(0.8);
     this.m_launcher.stopLauncher();
