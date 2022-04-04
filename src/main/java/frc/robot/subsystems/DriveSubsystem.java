@@ -15,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.*;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,13 +27,13 @@ public class DriveSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   WPI_TalonFX frontLeftController, frontRightController, backLeftController, backRightController;
 
+  PneumaticHub hub;
+
   DoubleSolenoid gearShifter;
 
-  double totalSensorPosition;
+  double totalSensorPosition, pressure;
 
-  boolean lowGear;
-
-  boolean finishDrive;
+  boolean lowGear, finishDrive;
 
   PIDController pid;
 
@@ -124,6 +125,7 @@ public class DriveSubsystem extends SubsystemBase {
     // this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY,
        // Constants.DriveConstants.GEAR_SHIFT_RETRACT);
     
+    this.hub = new PneumaticHub(12);
     this.gearShifter = new DoubleSolenoid(12, PneumaticsModuleType.REVPH, Constants.DriveConstants.GEAR_SHIFT_DEPLOY, Constants.DriveConstants.GEAR_SHIFT_RETRACT);
 
     this.lowGear = true;
@@ -248,7 +250,9 @@ public class DriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    this.pressure = this.hub.getPressure(0);
     SmartDashboard.putBoolean("Low Gear:", this.lowGear);
+    SmartDashboard.putNumber("Pressure", this.pressure);
     // This method will be called once per scheduler run
   }
 
