@@ -19,9 +19,9 @@ public class ClimbSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   WPI_TalonFX rotateMotor, liftMotor;
 
-  DoubleSolenoid armLock, armRelease;
+  DoubleSolenoid armToggle;
 
-  boolean lowLock, lowRelease;
+  boolean armIn, lowRelease;
   
   Timer timer;
 
@@ -39,14 +39,14 @@ public class ClimbSubsystem extends SubsystemBase {
     // Reset the configuration of each of the talons
     this.liftMotor.configFactoryDefault();
 
-    this.armLock = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.ClimbConstants.ARM_LOCK_DEPLOY,
-    Constants.ClimbConstants.ARM_LOCK_RETRACT);
-
-    this.armRelease = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.ClimbConstants.ARM_RELEASE_DEPLOY, 7);
-
-    this.lowLock = true;
+    this.armToggle = new DoubleSolenoid(12, PneumaticsModuleType.REVPH, ClimbConstants.ARM_IN,
+    ClimbConstants.ARM_OUT);
+    armToggle.set(DoubleSolenoid.Value.kForward);
+    
+    this.armIn = true;
     this.lowRelease = true;
   }
+
   public double getPosition(){
     return liftMotor.getSelectedSensorPosition();
   }
@@ -70,15 +70,13 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public boolean armLock() {
-    armLock.set((this.lowLock) ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
-    this.lowLock = !this.lowLock;
-    return lowLock;
+    return true;
   }
 
   public boolean armRelease(){
-    armRelease.set((this.lowRelease) ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
-    this.lowRelease = !this.lowRelease;
-    return lowRelease;
+    armToggle.set((this.armIn) ? DoubleSolenoid.Value.kReverse : DoubleSolenoid.Value.kForward);
+    this.armIn = !this.armIn;
+    return armIn;
   }
 
   @Override

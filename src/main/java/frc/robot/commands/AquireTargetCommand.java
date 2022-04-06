@@ -27,6 +27,7 @@ public class AquireTargetCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_vision.toggleLight();
     m_vision.correctX();
   }
 
@@ -39,6 +40,7 @@ public class AquireTargetCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_vision.toggleLight();
     m_vision.stopMotor();
   }
 

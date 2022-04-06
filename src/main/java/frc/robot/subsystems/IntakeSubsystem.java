@@ -45,7 +45,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     hasDeployed = false;
     notAccepting = false;
-
+    intakeDeploy.set(DoubleSolenoid.Value.kForward);
   }
   @Override
   public void periodic() {

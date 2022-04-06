@@ -58,7 +58,7 @@ public class LiftRetractCommand extends CommandBase {
 
       // automatically stop at max height
       pos = m_climbSubsystem.getPosition();
-      if(pos > 180000){
+      if(pos > 186000){
         m_climbSubsystem.RetractState = RetractStateEnum.ATLIMIT;
         m_climbSubsystem.liftStop();
       }

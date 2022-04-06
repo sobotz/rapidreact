@@ -26,7 +26,7 @@ public class VisionSubsystem extends SubsystemBase {
   NetworkTableEntry tArea;
   NetworkTableEntry tv;
 
-  boolean hasTarget;
+  boolean hasTarget, lightOn;
 
   double xOffset;
   double yOffset;
@@ -45,7 +45,10 @@ public class VisionSubsystem extends SubsystemBase {
     this.ty = table.getEntry("ty");
     this.tArea = table.getEntry("ta");
 
-    // this.actuationMotor = new TalonSRX(VisionConstants.ACTUATION_MOTOR);
+    table.getEntry("ledMode").setNumber(1);
+
+    this.lightOn = false;
+
     this.actuationMotor = new TalonFX(VisionConstants.ACTUATION_MOTOR);
     this.actuationMotor.configForwardSoftLimitThreshold(VisionConstants.MAX_ROTATION_VALUE, 0);
     this.actuationMotor.configReverseSoftLimitThreshold(-VisionConstants.MAX_ROTATION_VALUE, 0);
@@ -56,6 +59,7 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public void correctX () {
+
     double speedPercent = 0;
     if (this.hasTarget) {
       speedPercent = 2.0/(1.0 + Math.pow(Math.E, VisionConstants.LOGISTIC_GROWTH_RATE * this.xOffset)) - 1.0;
@@ -77,6 +81,10 @@ public class VisionSubsystem extends SubsystemBase {
 
   public void stopMotor () {
     this.actuationMotor.set(ControlMode.PercentOutput, 0.0);
+  }
+
+  public void toggleLight () {
+    this.table.getEntry("ledMode").setNumber(lightOn ? 1 : 3);
   }
 
   public double targetDistance () {
