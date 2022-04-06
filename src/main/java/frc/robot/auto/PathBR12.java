@@ -43,7 +43,7 @@ public class PathBR12 extends CommandBase {
     m_drive.setLowGear();
     
     m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
-    timer.delay(1);
+    timer.delay(2);
     m_launcher.stopLauncher();
 
     timer.delay(0.5);
@@ -65,7 +65,7 @@ public class PathBR12 extends CommandBase {
     timer.delay(0.7);
 
     m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
-    timer.delay(0.5);
+    timer.delay(2);
     m_launcher.stopLauncher();
     m_serializer.stopBelt();
     this.isFinished = true;
