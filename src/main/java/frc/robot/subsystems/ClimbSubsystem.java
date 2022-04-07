@@ -42,7 +42,7 @@ public class ClimbSubsystem extends SubsystemBase {
     this.armToggle = new DoubleSolenoid(12, PneumaticsModuleType.REVPH, ClimbConstants.ARM_IN,
     ClimbConstants.ARM_OUT);
     armToggle.set(DoubleSolenoid.Value.kForward);
-    
+
     this.armIn = true;
     this.lowRelease = true;
   }
@@ -56,12 +56,12 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public void liftExtend (){
-    this.liftMotor.set(ControlMode.PercentOutput, -ClimbConstants.LIFT_SPEED);
+    this.liftMotor.set(ControlMode.PercentOutput, ClimbConstants.LIFT_SPEED);
   }
 
 
   public void liftRetract (){
-    this.liftMotor.set(ControlMode.PercentOutput, (ClimbConstants.LIFT_SPEED));
+    this.liftMotor.set(ControlMode.PercentOutput, -(ClimbConstants.LIFT_SPEED));
   }
 
 

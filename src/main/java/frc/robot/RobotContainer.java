@@ -257,10 +257,10 @@ public class RobotContainer {
     lowLaunchButton.whenHeld(lowLaunchCommand);
     // runAllCommandButton.whenHeld(runAllCommand);
 
-    JoystickButton liftRetractMotorButton = new JoystickButton(this.m_operatorJoystick, 7);
+    JoystickButton liftRetractMotorButton = new JoystickButton(this.m_operatorJoystick, 8);
     liftRetractMotorButton.whileHeld(this.m_liftRetractCommand);
 
-    JoystickButton liftExtendMotorButton = new JoystickButton(this.m_operatorJoystick, 8);
+    JoystickButton liftExtendMotorButton = new JoystickButton(this.m_operatorJoystick, 7);
     liftExtendMotorButton.whileHeld(this.m_liftCommand);
 
     JoystickButton armReleaseButton = new JoystickButton(this.m_operatorJoystick, 9);

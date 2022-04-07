@@ -33,7 +33,6 @@ public class LiftCommand extends CommandBase {
   @Override
   public void initialize() {
     m_climbSubsystem.armLock();
-    new WaitCommand(0.2);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

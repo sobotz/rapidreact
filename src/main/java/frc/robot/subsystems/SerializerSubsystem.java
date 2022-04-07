@@ -135,6 +135,7 @@ public class SerializerSubsystem extends SubsystemBase {
   public boolean getCommandMode(){
     return launchMode = true;
   }
+  
   public boolean getSerializerMode(){
     return launchMode = false;
   }
