@@ -38,6 +38,7 @@ public class LowLaunchCommand extends CommandBase {
     this.vision = vision;
     this.targetVelocity = LauncherConstants.TEAM_VELOCITY;
     
+    this.timer = new Timer();
     addRequirements(serializer, launcher);
   }
 
@@ -46,7 +47,6 @@ public class LowLaunchCommand extends CommandBase {
   public void initialize() {
     serializer.getCommandMode();
     this.launcher.slowLauncher();
-    timer.delay(1);
  
   }
 
@@ -55,7 +55,9 @@ public class LowLaunchCommand extends CommandBase {
   public void execute() {
     System.out.println(launcher.getVelocity());
     //this.targetVelocity = (colorSensor.allyBall()) ? (LauncherConstants.TEAM_VELOCITY) : LauncherConstants.ENEMY_VELOCITY;
+    if (timer.get() > .75){
       this.serializer.runBelt();
+    }
     
     
   }
