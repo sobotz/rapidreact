@@ -21,6 +21,7 @@ public class CoastCommand extends CommandBase {
   @Override
   public void initialize() {
     drive.setCoast();
+    drive.setRamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
