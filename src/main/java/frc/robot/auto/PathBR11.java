@@ -69,7 +69,7 @@ public class PathBR11 extends CommandBase {
     
     timer.delay(0.5);
 
-    while(!m_drive.pidLoop(-1)){
+    while(!m_drive.pidLoop(0)){
       timer.delay(.05);
     }
     /*

@@ -51,6 +51,7 @@ import frc.robot.commands.LiftCommand;
 import frc.robot.commands.LiftRetractCommand;
 import frc.robot.commands.LowLaunchCommand;
 import frc.robot.commands.ArmReleaseCommand;
+import frc.robot.commands.CoastCommand;
 
 //
 
@@ -109,6 +110,8 @@ public class RobotContainer {
   public final LiftCommand m_liftCommand;
   public final ArmReleaseCommand m_armReleaseCommand;
   public final LiftRetractCommand m_liftRetractCommand;
+
+  public final CoastCommand m_coastCommand;
   
   private final RunAllCommand runAllCommand;  
   //
@@ -148,6 +151,7 @@ public class RobotContainer {
     this.m_operatorJoystick = new Joystick(1);
     
     this.m_vision = new VisionSubsystem();
+
 
     
 
@@ -189,6 +193,8 @@ public class RobotContainer {
 	  this.m_liftCommand = new LiftCommand(this.m_climbSubsystem, this.m_operatorJoystick);
     this.m_liftRetractCommand = new LiftRetractCommand(this.m_climbSubsystem, this.m_operatorJoystick);
     this.m_armReleaseCommand = new ArmReleaseCommand(this.m_climbSubsystem);
+
+    this.m_coastCommand = new CoastCommand(this.m_drivetrain);
 
     this.configureButtonBindings();
 
@@ -283,5 +289,8 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return m_chooser.getSelected();
+  }
+  public Command getAutonomousEndCommand() {
+    return this.m_coastCommand;
   }
 }

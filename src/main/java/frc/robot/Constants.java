@@ -25,7 +25,7 @@ public final class Constants {
         public static final int RIGHT_BACK_TALON = 3;
         public static final int LEFT_BACK_TALON = 1;
     
-        public static final double ACCELERATION_CONSTANT = 5;
+        public static final double ACCELERATION_CONSTANT = 1.75;
         public static final double MAX_ROTATION_SPEED = .875;
         public static final int GEAR_SHIFT_DEPLOY = 1;
 
@@ -111,7 +111,7 @@ public final class Constants {
 
     public static final class VisionConstants{
         public static final int ACTUATION_MOTOR = 7;
-        public static final int MAX_ROTATION_VALUE = 275000;// at 90 degrees, unit is 150,000; at 
+        public static final int MAX_ROTATION_VALUE = 36000;// at 90 degrees, unit is 150,000; at 
         public static final double MAX_SPEED = .6;
         public static final double LOGISTIC_GROWTH_RATE = .45;
         public static final double MIN_ADJUST_SPEED = .2;

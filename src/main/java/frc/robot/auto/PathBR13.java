@@ -45,8 +45,13 @@ public class PathBR13 extends CommandBase {
     // encoder.setDistancePerPulse(1. / 315.924339); // feet per PPR
     timer.start();
     m_drive.setLowGear();
+    while(!m_drive.pidLoop(-1)){
+      timer.delay(.05);
+    }
+    timer.delay(0.5);
 
-    this.m_launcher.slowLauncher();
+    // this.m_launcher.slowLauncher();
+    this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
     timer.delay(0.5); // 1
     this.m_serializer.runBelt();
  
@@ -59,9 +64,10 @@ public class PathBR13 extends CommandBase {
     this.m_serializer.stopBelt();
     timer.delay(0.5);
 
-    // m_drive.drive(0.5,0);
     m_intake.toggleIntake();
-    // timer.delay(0.5); 1
+    /*m_drive.drive(-0.5,0);
+    timer.delay(1); // 1
+    m_drive.drive(0,0);*/
     while(!m_drive.pidLoop(-4)){
       timer.delay(.05);
     }
@@ -74,9 +80,11 @@ public class PathBR13 extends CommandBase {
       timer.delay(.05);
     }
 
-    timer.delay(0.5);
+   /* m_drive.drive(0.5,0);
+    timer.delay(1); // 1
+    m_drive.drive(0,0);
+    timer.delay(0.5);*/
 
-    // this.m_launcher.slowLauncher();
     this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
     timer.delay(0.5);
     this.m_serializer.runBelt();

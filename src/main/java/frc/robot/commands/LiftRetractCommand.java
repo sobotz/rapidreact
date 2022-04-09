@@ -50,7 +50,7 @@ public class LiftRetractCommand extends CommandBase {
   public void execute() {
     double current = m_climbSubsystem.getCurrent();
     SmartDashboard.putNumber("Lift Current", current);
-    if (current > 100.0) {
+    if (current > 110.0) {
       end(true);
     }
     /* //SmartDashboard.putString("Lift current:", String.valueOf(current));

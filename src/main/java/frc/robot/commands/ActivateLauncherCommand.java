@@ -39,6 +39,8 @@ public class ActivateLauncherCommand extends CommandBase {
     this.launcher = launcher1;
     this.vision = vision;
     this.targetVelocity = LauncherConstants.TEAM_VELOCITY;
+
+    this.timer = new Timer();
     
     addRequirements(serializer, launcher);
   }
@@ -53,17 +55,17 @@ public class ActivateLauncherCommand extends CommandBase {
     //else{
       //this.launcher.startLauncher(1);
     //}
-    timer.delay(1);
- 
+    timer.start();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     //System.out.println(launcher.getVelocity());
-    this.serializer.runBelt();
-    
-    
+    if (timer.get() > .75){
+      this.serializer.runBelt();
+    }
   }
   
   

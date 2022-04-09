@@ -225,6 +225,7 @@ public class DriveSubsystem extends SubsystemBase {
     if(absoluteError > 800){
       driveOutput = error * 0.025;
       driveOutput = MathUtil.clamp(driveOutput, -0.3, 0.3); //initially -0.5 & 0.5
+      System.out.println("error: " + error + "current position " + frontLeftController.getSelectedSensorPosition());
     }
     else{
       atSetPoint = true;
@@ -260,5 +261,14 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+  }
+
+  public void setCoast() {
+    this.frontLeftController.setNeutralMode(NeutralMode.Coast);
+    // this.backLeftController.follow(this.frontLeftController);
+    this.backLeftController.setNeutralMode(NeutralMode.Coast);
+    this.frontRightController.setNeutralMode(NeutralMode.Coast);
+    // this.backRightController.follow(this.frontRightController);
+    this.backRightController.setNeutralMode(NeutralMode.Coast);
   }
 }

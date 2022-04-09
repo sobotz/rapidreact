@@ -29,7 +29,7 @@ public class PathBR01 extends CommandBase {
     timer.start();
     m_drive.setLowGear();
     
-    while(!m_drive.pidLoop(-1)){ // intake facing away from hub
+    while(!m_drive.pidLoop(-4)){ // intake facing away from hub
       timer.delay(.05);
     }
     /*m_drive.drive(0.5,0);

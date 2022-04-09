@@ -75,6 +75,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     this.m_teleopCommand = m_robotContainer.getTeleopCommand();
+    m_robotContainer.getAutonomousEndCommand().schedule();
 
     // Register the teleop command
     m_teleopCommand.schedule();

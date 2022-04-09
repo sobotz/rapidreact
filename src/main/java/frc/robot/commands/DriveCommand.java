@@ -54,6 +54,9 @@ public class DriveCommand extends CommandBase {
     double rotation = this.joystick.getRawAxis(4);
     double normalizedSpeed = Math.signum(speed) * Math.pow(Math.abs(speed), this.acceleration_constant);
     double normalizedRotation = Math.signum(rotation) * Math.pow(Math.abs(rotation) * DriveConstants.MAX_ROTATION_SPEED, this.acceleration_constant);
+    System.out.println("Speed: " + normalizedSpeed);
+    System.out.println("Rotation: " + normalizedRotation);
+
     this.m_drivetrain.drive(normalizedSpeed, -normalizedRotation);
     // System.out.println("Button1 : " + joystick.getRawButton(1) + " Button2 : " + joystick.getRawButton(2)+ " Button3 : " + joystick.getRawButton(3)+ " Button4 : " + joystick.getRawButton(4));
     // this.m_drivetrain.testDrive(speed, rotation, joystick.getRawButton(1));
