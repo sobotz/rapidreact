@@ -45,7 +45,10 @@ public class PathBR13 extends CommandBase {
     // encoder.setDistancePerPulse(1. / 315.924339); // feet per PPR
     timer.start();
     m_drive.setLowGear();
-
+    while(!m_drive.pidLoop(-1)){
+      timer.delay(.05);
+    }
+    timer.delay(0.5);
     this.m_launcher.slowLauncher();
     timer.delay(0.5); // 1
     this.m_serializer.runBelt();
