@@ -47,6 +47,7 @@ public class LowLaunchCommand extends CommandBase {
   public void initialize() {
     serializer.getCommandMode();
     this.launcher.slowLauncher();
+    timer.start();
  
   }
 
