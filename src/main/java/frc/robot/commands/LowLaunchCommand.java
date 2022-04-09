@@ -47,7 +47,7 @@ public class LowLaunchCommand extends CommandBase {
   public void initialize() {
     serializer.getCommandMode();
     this.launcher.slowLauncher();
- 
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -55,7 +55,7 @@ public class LowLaunchCommand extends CommandBase {
   public void execute() {
     System.out.println(launcher.getVelocity());
     //this.targetVelocity = (colorSensor.allyBall()) ? (LauncherConstants.TEAM_VELOCITY) : LauncherConstants.ENEMY_VELOCITY;
-    if (timer.get() > .75){
+    if (timer.get() > .5){
       this.serializer.runBelt();
     }
     
