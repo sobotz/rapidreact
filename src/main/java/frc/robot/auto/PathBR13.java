@@ -54,7 +54,7 @@ public class PathBR13 extends CommandBase {
     this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
     timer.delay(0.5); // 1
     this.m_serializer.runBelt();
- 
+
     timer.delay(0.4);
     this.m_serializer.stopBelt();
     timer.delay(1);
@@ -73,7 +73,7 @@ public class PathBR13 extends CommandBase {
     }
     timer.delay(1);
     m_intake.toggleIntake();
-    
+
     timer.delay(0.5);
 
     while(!m_drive.pidLoop(-1)){
@@ -88,7 +88,7 @@ public class PathBR13 extends CommandBase {
     this.m_launcher.startLauncher(LauncherConstants.TEAM_VELOCITY);
     timer.delay(0.5);
     this.m_serializer.runBelt();
- 
+
     timer.delay(0.4);
     this.m_serializer.stopBelt();
     timer.delay(1);
