@@ -49,7 +49,7 @@ public class DriveCommand extends CommandBase {
     this.speed =
             IStream.create(() -> driver.getRightTrigger() - driver.getLeftTrigger())
                     .filtered(
-                            x -> SLMath.deadband(x, Settings.Drivetrain.SPEED_DEADBAND.get()),
+                            x -> SLMath.deadband(x, 0),
                             x -> SLMath.spow(x, Settings.Drivetrain.SPEED_POWER.get()),
                             new LowPassFilter(Settings.Drivetrain.SPEED_FILTER));
 
