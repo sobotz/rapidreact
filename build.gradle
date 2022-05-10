@@ -3,6 +3,12 @@ plugins {
     id "edu.wpi.first.GradleRIO" version "2022.4.1"
 }
 
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
@@ -66,8 +72,9 @@ dependencies {
     simulationRelease wpi.sim.enableRelease()
 
     testImplementation 'junit:junit:4.12'
-}
 
+    implementation 'com.github.StuyPulse:StuyLib:v2022.5.0'
+}
 // Simulation configuration (e.g. environment variables).
 wpi.sim.addGui().defaultEnabled = true
 wpi.sim.addDriverstation()

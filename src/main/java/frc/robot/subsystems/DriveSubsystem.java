@@ -47,9 +47,8 @@ public class DriveSubsystem extends SubsystemBase {
 
     this.navX = new AHRS();
     
-    this.gearShifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.GEAR_SHIFT_DEPLOY, Constants.DriveConstants.GEAR_SHIFT_RETRACT);
+    this.gearShifter = new DoubleSolenoid(12, PneumaticsModuleType.REVPH, Constants.DriveConstants.GEAR_SHIFT_DEPLOY, Constants.DriveConstants.GEAR_SHIFT_RETRACT);
     this.lowGear = true;
-
   }
 
   public void drive (double speed, double rotation){
@@ -66,6 +65,14 @@ public class DriveSubsystem extends SubsystemBase {
     gearShifter.set((this.lowGear) ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
     this.lowGear = !this.lowGear;
     return lowGear;
+  }
+
+  public float clamp(float val, float min, float max) {
+    return Math.max(min, Math.min(max, val));
+  }
+
+  public double lerp(double start, double end, float t) {
+      return start + (end - start) * clamp(t, 0.0f, 1.0f);
   }
 
   @Override
