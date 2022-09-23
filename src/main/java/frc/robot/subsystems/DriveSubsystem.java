@@ -60,10 +60,10 @@ public class DriveSubsystem extends SubsystemBase {
     this.backLeftController.configFactoryDefault();
     this.backRightController.configFactoryDefault();
 
-    this.frontLeftController.configOpenloopRamp(.1);
-    this.backLeftController.configOpenloopRamp(.1);
-    this.frontRightController.configOpenloopRamp(.1);
-    this.backRightController.configOpenloopRamp(.1);
+    this.frontLeftController.configOpenloopRamp(0.1);
+    this.backLeftController.configOpenloopRamp(0.1);
+    this.frontRightController.configOpenloopRamp(0.1);
+    this.backRightController.configOpenloopRamp(0.1);
 
     this.frontLeftController.configClosedloopRamp(0);
     this.backLeftController.configClosedloopRamp(0);
@@ -270,11 +270,5 @@ public class DriveSubsystem extends SubsystemBase {
     this.frontRightController.setNeutralMode(NeutralMode.Coast);
     // this.backRightController.follow(this.frontRightController);
     this.backRightController.setNeutralMode(NeutralMode.Coast);
-  }
-  public void setRamp() {
-    this.frontLeftController.configOpenloopRamp(.8);
-    this.backLeftController.configOpenloopRamp(.8);
-    this.frontRightController.configOpenloopRamp(.8);
-    this.backRightController.configOpenloopRamp(.8);
   }
 }

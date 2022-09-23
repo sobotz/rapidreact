@@ -42,10 +42,6 @@ public class PathBR11 extends CommandBase {
   public void initialize() {
     timer.start();
     m_drive.setLowGear();
-    while(!m_drive.pidLoop(1)){
-      timer.delay(.05);
-    }
-    timer.delay(0.5);
 
     this.m_launcher.slowLauncher();
     timer.delay(1);
@@ -73,7 +69,7 @@ public class PathBR11 extends CommandBase {
     
     timer.delay(0.5);
 
-    while(!m_drive.pidLoop(1)){
+    while(!m_drive.pidLoop(0)){
       timer.delay(.05);
     }
     /*

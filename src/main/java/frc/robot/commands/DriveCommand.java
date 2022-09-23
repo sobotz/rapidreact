@@ -29,6 +29,7 @@ public class DriveCommand extends CommandBase {
     m_drivetrain = drivetrain;
     this.joystick = joystick;
     this.acceleration_constant = DriveConstants.ACCELERATION_CONSTANT;
+    // If acceleration constant is less then 2 robot starts to act weird
     SmartDashboard.putNumber("Acceleration Constant: ", this.acceleration_constant);
 
     // Use addRequirements() here to declare subsystem dependencies.
@@ -47,26 +48,18 @@ public class DriveCommand extends CommandBase {
     this.acceleration_constant = SmartDashboard.getNumber("Acceleration Constant: ",
         DriveConstants.ACCELERATION_CONSTANT);
 
+    this.acceleration_constant = SmartDashboard.getNumber("Acceleration Constant: ", DriveConstants.ACCELERATION_CONSTANT);
+
     double speed = this.joystick.getRawAxis(5);
     double rotation = this.joystick.getRawAxis(4);
-
     double normalizedSpeed = Math.signum(speed) * Math.pow(Math.abs(speed), this.acceleration_constant);
-    double normalizedRotation = -1 * Math.signum(rotation) * Math.pow(Math.abs(rotation) * DriveConstants.MAX_ROTATION_SPEED, this.acceleration_constant);
+    double normalizedRotation = Math.signum(rotation) * Math.pow(Math.abs(rotation) * DriveConstants.MAX_ROTATION_SPEED, this.acceleration_constant);
+    System.out.println("Speed: " + normalizedSpeed);
+    System.out.println("Rotation: " + normalizedRotation);
 
-    if(Math.abs(normalizedSpeed) < DriveConstants.MIN_SPEED) {
-      normalizedSpeed= Math.signum(normalizedSpeed) * DriveConstants.MIN_SPEED;
-    }
-    if(Math.abs(normalizedRotation) < DriveConstants.MIN_SPEED) {
-      normalizedRotation = Math.signum(normalizedRotation) * DriveConstants.MIN_SPEED;
-    }
-    if(Math.abs(speed) < DriveConstants.JOY_DEADBAND) {
-      normalizedSpeed = 0;
-    }
-    if(Math.abs(rotation) < DriveConstants.JOY_DEADBAND) {
-      normalizedRotation = 0;
-    }
-
-    this.m_drivetrain.drive(normalizedSpeed, normalizedRotation);
+    this.m_drivetrain.drive(normalizedSpeed, -normalizedRotation);
+    // System.out.println("Button1 : " + joystick.getRawButton(1) + " Button2 : " + joystick.getRawButton(2)+ " Button3 : " + joystick.getRawButton(3)+ " Button4 : " + joystick.getRawButton(4));
+    // this.m_drivetrain.testDrive(speed, rotation, joystick.getRawButton(1));
   }
 
   // Called once the command ends or is interrupted.
