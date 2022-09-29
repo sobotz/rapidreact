@@ -123,6 +123,8 @@ public final class Constants {
         public static final double MIN_DISTANCE = 43; //inches
         public static final double MAX_DISTANCE = 79; //inches
         public static final double ALIGNMENT_RANGE = 3;
+        public static final double kP = .001;
+
     }
     public static final class ClimbConstants
     {
