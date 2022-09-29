@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.VisionConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -77,6 +78,14 @@ public class VisionSubsystem extends SubsystemBase {
     }
     SmartDashboard.putNumber("SpeedPercent: ",speedPercent);
     this.actuationMotor.set(ControlMode.PercentOutput, VisionConstants.MAX_SPEED * - speedPercent);
+  }
+
+  public void correctXPid () {
+    double turrSpeed = 0;
+    double turrOutput = 0;
+    if(this.hasTarget){
+      turrOutput = VisionConstants.kP * xOffset;
+    }
   }
 
   public void stopMotor () {
