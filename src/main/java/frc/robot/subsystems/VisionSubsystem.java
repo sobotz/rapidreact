@@ -84,7 +84,7 @@ public class VisionSubsystem extends SubsystemBase {
     double turrSpeed = 0;
     double turrOutput = 0;
     if(this.hasTarget){
-      turrOutput = VisionConstants.kP * xOffset;
+      //turrOutput = VisionConstants.kP * xOffset;
     }
   }
 
@@ -97,7 +97,7 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public double targetDistance () {
-    return (this.hasTarget) ? VisionConstants.LIMLIGHT_TO_HUB_HEIGHT / Math.tan(Math.toRadians(VisionConstants.LIMELIGHT_ANGLE + this.yOffset)): -1;
+    return (this.hasTarget) ? VisionConstants.LIMELIGHT_TO_HUB_HEIGHT / Math.tan(Math.toRadians(VisionConstants.LIMELIGHT_ANGLE + this.yOffset)): -1;
   }
 
   public boolean inRange() {

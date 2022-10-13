@@ -25,8 +25,8 @@ public final class Constants {
         public static final int RIGHT_BACK_TALON = 3;
         public static final int LEFT_BACK_TALON = 1;
     
-        public static final double ACCELERATION_CONSTANT = 1.75;
-        public static final double MAX_ROTATION_SPEED = .875;
+        public static final double ACCELERATION_CONSTANT = 1.25;    //1.75
+        public static final double MAX_ROTATION_SPEED = .3;       //.875
         public static final int GEAR_SHIFT_DEPLOY = 1;
 
         public static final int GEAR_SHIFT_RETRACT = 0;
@@ -116,7 +116,7 @@ public final class Constants {
         public static final double LOGISTIC_GROWTH_RATE = .45;
         public static final double MIN_ADJUST_SPEED = .2;
         public static final double DEADBAND_RANGE = 0.05;
-        public static final double LIMLIGHT_TO_HUB_HEIGHT = 65.5; //inches
+        public static final double LIMELIGHT_TO_HUB_HEIGHT = 65.5; //inches
         public static final double LIMELIGHT_ANGLE = 36;
         public static final double MIN_DISTANCE = 43; //inches
         public static final double MAX_DISTANCE = 79; //inches
