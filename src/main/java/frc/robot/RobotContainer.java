@@ -8,10 +8,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.auto.*;
+import frc.robot.commands.AllignTurret;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.ShiftGearCommand;
 import frc.robot.subsystems.DriveSubsystem;
-
+import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -29,6 +30,10 @@ public class RobotContainer {
   private final DriveSubsystem m_drivetrain;
 
   private final DriveCommand m_driveCommand;
+
+  private final VisionSubsystem m_vision;
+
+  private final AllignTurret m_turretCommand;
 
   private final ShiftGearCommand m_shiftGearCommand;
 
@@ -48,12 +53,17 @@ public class RobotContainer {
 
     this.m_driverJoystick = new Joystick(0);
     this.m_drivetrain = new DriveSubsystem();
+
+    this.m_vision = new VisionSubsystem();
+
     
     //this.m_autocommand = new AutoCommand(this.m_drivetrain);
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
 
     this.m_shiftGearCommand = new ShiftGearCommand(this.m_drivetrain);
    
+    this.m_turretCommand = new AllignTurret(this.m_vision);
+
     this.m_pathb00 = new PathB00(this.m_drivetrain);
     // this.m_pathb11 = new PathB11(this.m_drivetrain);
 
@@ -75,7 +85,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     JoystickButton gearShiftButton = new JoystickButton(this.m_driverJoystick, 1);
+    JoystickButton visionButton = new JoystickButton(this.m_driverJoystick, 3);
     gearShiftButton.whenPressed(this.m_shiftGearCommand);
+    visionButton.whileHeld(this.m_turretCommand);
   }
 
   /**
