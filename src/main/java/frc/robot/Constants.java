@@ -26,7 +26,24 @@ public final class Constants {
         // TO REVERT TO LINEAR ACCELERATION SET TO 1
         public static final double ACCELERATION_CONSTANT = 2;
     }
-    
+    public static final class VisionConstants{
+        public static final int ACTUATION_MOTOR = 7;
+        public static final int MAX_ROTATION_VALUE = 36000;// at 90 degrees, unit is 150,000; at 
+        public static final double MAX_SPEED = .6;
+        public static final double LOGISTIC_GROWTH_RATE = .45;
+        public static final double MIN_ADJUST_SPEED = .2;
+        public static final double DEADBAND_RANGE = 0.05;
+        public static final double LIMELIGHT_TO_HUB_HEIGHT = 65.5; //inches
+        public static final double LIMELIGHT_ANGLE = 36;
+        public static final double LIMELIGHT_HALF_X_FOV = 29.8;        
+        public static final double MIN_DISTANCE = 43; //inches
+        public static final double MAX_DISTANCE = 79; //inches
+        public static final double ALIGNMENT_RANGE = 3;
+        public static final double kP = .1;
+        public static final double kI = 0;
+        public static final double kD = 0;
+
+    }
 
     
 }

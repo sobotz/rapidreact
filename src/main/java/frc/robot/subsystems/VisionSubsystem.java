@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.VisionConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -28,6 +27,8 @@ public class VisionSubsystem extends SubsystemBase {
   double yOffset;
   double area;
   double defaultSpeed;
+  double sumOffest;
+  double lastOffset;
 
   // TalonSRX actuationMotor;
   TalonFX actuationMotor;
@@ -56,7 +57,18 @@ public class VisionSubsystem extends SubsystemBase {
   public void correctX () {
 
     double speedPercent = 0;
+
+    double proportionalOffset = this.xOffset * VisionConstants.LIMELIGHT_HALF_X_FOV;
+
+    this.sumOffest += this.xOffset;
+
+    double slope = this.xOffset - this.lastOffset;
+
+    speedPercent = proportionalOffset * VisionConstants.kP + this.sumOffest * VisionConstants.kI + slope * VisionConstants.kD;
+
     this.actuationMotor.set(ControlMode.PercentOutput, VisionConstants.MAX_SPEED * - speedPercent);
+
+    this.lastOffset = this.xOffset;
   }
 
   public void stopMotor () {
