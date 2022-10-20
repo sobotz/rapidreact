@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.VisionConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -29,6 +30,8 @@ public class VisionSubsystem extends SubsystemBase {
   double defaultSpeed;
   double sumOffest;
   double lastOffset;
+  double kP;
+  double kI;
 
   // TalonSRX actuationMotor;
   TalonFX actuationMotor;
@@ -36,15 +39,15 @@ public class VisionSubsystem extends SubsystemBase {
   public VisionSubsystem() {
 
     this.table = NetworkTableInstance.getDefault().getTable("limelight");
-
+    this.kP = VisionConstants.kP;
+    this.kI = VisionConstants.kI;
     this.tv = table.getEntry("tv");
     this.tx = table.getEntry("tx");
     this.tArea = table.getEntry("ta");
 
-    table.getEntry("ledMode").setNumber(1);
-
-    this.lightOn = false;
-
+    SmartDashboard.putNumber("kI", this.kI);
+    SmartDashboard.putNumber("kP", this.kP);
+    
     this.actuationMotor = new TalonFX(VisionConstants.ACTUATION_MOTOR);
     this.actuationMotor.configForwardSoftLimitThreshold(VisionConstants.MAX_ROTATION_VALUE, 0);
     this.actuationMotor.configReverseSoftLimitThreshold(-VisionConstants.MAX_ROTATION_VALUE, 0);
@@ -64,9 +67,9 @@ public class VisionSubsystem extends SubsystemBase {
 
     double slope = this.xOffset - this.lastOffset;
 
-    speedPercent = proportionalOffset * VisionConstants.kP + this.sumOffest * VisionConstants.kI + slope * VisionConstants.kD;
+    speedPercent = proportionalOffset * this.kP + this.sumOffest * this.kI - slope * VisionConstants.kD;
 
-    this.actuationMotor.set(ControlMode.PercentOutput, VisionConstants.MAX_SPEED * - speedPercent);
+    this.actuationMotor.set(ControlMode.PercentOutput, speedPercent);
 
     this.lastOffset = this.xOffset;
   }
@@ -75,10 +78,10 @@ public class VisionSubsystem extends SubsystemBase {
     this.actuationMotor.set(ControlMode.PercentOutput, 0.0);
   }
 
-  public void toggleLight () {
+  /*public void toggleLight () {
     this.table.getEntry("ledMode").setNumber(lightOn ? 1 : 3);
     
-  }
+  }*/
 
   public double targetDistance () {
     return (this.hasTarget) ? VisionConstants.LIMELIGHT_TO_HUB_HEIGHT / Math.tan(Math.toRadians(VisionConstants.LIMELIGHT_ANGLE + this.yOffset)): -1;
@@ -103,6 +106,8 @@ public class VisionSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("In Range", this.inRange());
     SmartDashboard.putBoolean("Turret Aligned", this.isAligned());
     SmartDashboard.putNumber("LimelightX", this.xOffset);
+    this.kI = SmartDashboard.getNumber("kI", VisionConstants.kI);
+    this.kP = SmartDashboard.getNumber("kP", VisionConstants.kP);
 
     SmartDashboard.putNumber("TargetDistance", this.targetDistance());
     // This method will be called once per scheduler run
