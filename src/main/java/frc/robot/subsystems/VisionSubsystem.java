@@ -58,7 +58,7 @@ public class VisionSubsystem extends SubsystemBase {
 
     double speedPercent = 0;
 
-    double proportionalOffset = this.xOffset * VisionConstants.LIMELIGHT_HALF_X_FOV;
+    double proportionalOffset = this.xOffset / VisionConstants.LIMELIGHT_HALF_X_FOV;
 
     this.sumOffest += this.xOffset;
 
