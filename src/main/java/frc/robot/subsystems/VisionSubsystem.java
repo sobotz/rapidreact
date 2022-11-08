@@ -8,7 +8,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 // import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-import org.opencv.core.Mat;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -68,7 +67,7 @@ public class VisionSubsystem extends SubsystemBase {
 
     speedPercent = proportionalOffset * VisionConstants.kP + this.sumOffest * VisionConstants.kI + slope * VisionConstants.kD;
 
-    this.actuationMotor.set(ControlMode.PercentOutput, VisionConstants.MAX_SPEED * - speedPercent);
+    this.actuationMotor.set(ControlMode.PercentOutput, VisionConstants.MAX_SPEED * speedPercent);
 
     this.lastOffset = this.xOffset;
   }

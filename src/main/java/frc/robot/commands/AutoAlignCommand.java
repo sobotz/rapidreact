@@ -19,15 +19,16 @@ public class AutoAlignCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_vision.correctX();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!m_vision.isAligned())
-      m_vision.correctX();
-    else
+    if (m_vision.isAligned()){
       end(true);
+    }
   }
 
   // Called once the command ends or is interrupted.
