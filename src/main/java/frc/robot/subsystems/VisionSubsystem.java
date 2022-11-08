@@ -1,11 +1,6 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.VisionConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -23,7 +18,6 @@ public class VisionSubsystem extends SubsystemBase {
   NetworkTable table;
 
   NetworkTableEntry tx;
-  NetworkTableEntry ty;
   NetworkTableEntry tArea;
   NetworkTableEntry tv;
 
@@ -33,6 +27,8 @@ public class VisionSubsystem extends SubsystemBase {
   double yOffset;
   double area;
   double defaultSpeed;
+  double sumOffest;
+  double lastOffset;
 
   // TalonSRX actuationMotor;
   TalonFX actuationMotor;
@@ -43,7 +39,6 @@ public class VisionSubsystem extends SubsystemBase {
 
     this.tv = table.getEntry("tv");
     this.tx = table.getEntry("tx");
-    this.ty = table.getEntry("ty");
     this.tArea = table.getEntry("ta");
 
     table.getEntry("ledMode").setNumber(1);
@@ -62,30 +57,18 @@ public class VisionSubsystem extends SubsystemBase {
   public void correctX () {
 
     double speedPercent = 0;
-    if (this.hasTarget) {
-      speedPercent = 2.0/(1.0 + Math.pow(Math.E, VisionConstants.LOGISTIC_GROWTH_RATE * this.xOffset)) - 1.0;
-      if (Math.abs(speedPercent) < VisionConstants.MIN_ADJUST_SPEED){
-        speedPercent = VisionConstants.MIN_ADJUST_SPEED;
-      }
-      if (Math.abs(this.actuationMotor.getSelectedSensorPosition()) > VisionConstants.MAX_ROTATION_VALUE) {
-        speedPercent = VisionConstants.MIN_ADJUST_SPEED * ((Math.signum(this.actuationMotor.getSelectedSensorPosition()) == -1) ? 1 : -1);
-      }
-    } else {
-      if (Math.abs(this.actuationMotor.getSelectedSensorPosition()) > VisionConstants.MAX_ROTATION_VALUE) {
-        defaultSpeed *= -1;
-      }
-      speedPercent = defaultSpeed;
-    }
-    SmartDashboard.putNumber("SpeedPercent: ",speedPercent);
-    this.actuationMotor.set(ControlMode.PercentOutput, VisionConstants.MAX_SPEED * - speedPercent);
-  }
 
-  public void correctXPid () {
-    double turrSpeed = 0;
-    double turrOutput = 0;
-    if(this.hasTarget){
-      turrOutput = VisionConstants.kP * xOffset;
-    }
+    double proportionalOffset = this.xOffset / VisionConstants.LIMELIGHT_HALF_X_FOV;
+
+    this.sumOffest += this.xOffset;
+
+    double slope = this.xOffset - this.lastOffset;
+
+    speedPercent = proportionalOffset * VisionConstants.kP + this.sumOffest * VisionConstants.kI + slope * VisionConstants.kD;
+
+    this.actuationMotor.set(ControlMode.PercentOutput, VisionConstants.MAX_SPEED * - speedPercent);
+
+    this.lastOffset = this.xOffset;
   }
 
   public void stopMotor () {
@@ -94,10 +77,11 @@ public class VisionSubsystem extends SubsystemBase {
 
   public void toggleLight () {
     this.table.getEntry("ledMode").setNumber(lightOn ? 1 : 3);
+    
   }
 
   public double targetDistance () {
-    return (this.hasTarget) ? VisionConstants.LIMLIGHT_TO_HUB_HEIGHT / Math.tan(Math.toRadians(VisionConstants.LIMELIGHT_ANGLE + this.yOffset)): -1;
+    return (this.hasTarget) ? VisionConstants.LIMELIGHT_TO_HUB_HEIGHT / Math.tan(Math.toRadians(VisionConstants.LIMELIGHT_ANGLE + this.yOffset)): -1;
   }
 
   public boolean inRange() {
@@ -113,14 +97,12 @@ public class VisionSubsystem extends SubsystemBase {
     this.hasTarget = tv.getDouble(0.0) == 1.0;
 
     this.xOffset = tx.getDouble(0.0);
-    this.yOffset = ty.getDouble(0.0);
     this.area = tArea.getDouble(0.0);
 
     SmartDashboard.putBoolean("LimelightTarget", this.hasTarget);
     SmartDashboard.putBoolean("In Range", this.inRange());
     SmartDashboard.putBoolean("Turret Aligned", this.isAligned());
     SmartDashboard.putNumber("LimelightX", this.xOffset);
-    SmartDashboard.putNumber("LimelightY", this.yOffset);
 
     SmartDashboard.putNumber("TargetDistance", this.targetDistance());
     // This method will be called once per scheduler run
