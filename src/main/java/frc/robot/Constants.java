@@ -114,12 +114,16 @@ public final class Constants {
         public static final double LOGISTIC_GROWTH_RATE = .45;
         public static final double MIN_ADJUST_SPEED = .2;
         public static final double DEADBAND_RANGE = 0.05;
-        public static final double LIMLIGHT_TO_HUB_HEIGHT = 65.5; //inches
-        public static final double LIMELIGHT_ANGLE = 36;
+        public static final double LIMELIGHT_TO_HUB_HEIGHT = 65.5; //inches
+        public static final double LIMEELIGHT_ANGLE = 36;
         public static final double MIN_DISTANCE = 43; //inches
         public static final double MAX_DISTANCE = 79; //inches
         public static final double ALIGNMENT_RANGE = 3;
-        public static final double kP = .001;
+        public static final double kP = 4;
+        public static final double LIMELIGHT_HALF_X_FOV = 29.8;
+        public static final double kD = 0;
+        public static final double kI = 0;
+        public static final double LIMELIGHT_ANGLE = 36;
 
     }
     public static final class ClimbConstants
