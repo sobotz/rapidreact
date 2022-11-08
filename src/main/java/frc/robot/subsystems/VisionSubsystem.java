@@ -8,6 +8,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 // import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import org.opencv.core.Mat;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -113,7 +115,7 @@ public class VisionSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 
-  public double getXOffset(){
-    return xOffset;
+  public double getXOffset() {
+    return this.xOffset;
   }
 }
