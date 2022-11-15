@@ -7,18 +7,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.LauncherConstants;
-import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 
 public class RunAllCommand extends CommandBase {
-  private ColorSensorSubsystem colorsensor;
   private LauncherSubsystem launcher;
   private SerializerSubsystem serializer;
   private Timer timer;
   /** Creates a new RunAll. */
-  public RunAllCommand(ColorSensorSubsystem colors, LauncherSubsystem launcher, SerializerSubsystem serializer) {
-    this.colorsensor = colors;
+  public RunAllCommand(LauncherSubsystem launcher, SerializerSubsystem serializer) {
     this.launcher = launcher;
     this.serializer = serializer;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -51,7 +48,6 @@ public class RunAllCommand extends CommandBase {
     this.launcher.stopLauncher();*/
 
     serializer.interrupted = false;
-    colorsensor.clearBallValues();
 
   }
 

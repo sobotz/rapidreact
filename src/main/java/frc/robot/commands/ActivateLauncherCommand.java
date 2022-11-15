@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.LauncherConstants;
-import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SensorSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
@@ -18,7 +17,6 @@ import frc.robot.subsystems.VisionSubsystem;
 public class ActivateLauncherCommand extends CommandBase {
   private SerializerSubsystem serializer;
   private LauncherSubsystem launcher;
-  private ColorSensorSubsystem colorSensor;
   private boolean shootInTarget;
   private Timer timer;
   private SensorSubsystem sensors;

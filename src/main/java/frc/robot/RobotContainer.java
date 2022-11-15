@@ -24,7 +24,6 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SensorSubsystem;
-import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 //
 
@@ -89,7 +88,6 @@ public class RobotContainer {
   private SerializerSubsystem m_serializer;
   private LauncherSubsystem m_launcher;
 
-  private ColorSensorSubsystem m_colorSensor;
   private SensorSubsystem m_sensor;
 
 
@@ -176,8 +174,6 @@ public class RobotContainer {
 
     
     this.m_launcher = new LauncherSubsystem();
-
-    this.m_colorSensor = new ColorSensorSubsystem(m_sensor);
     //
 
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
@@ -189,7 +185,7 @@ public class RobotContainer {
     reverseSerializerCommand = new ReverseSerializerCommand(m_intake,m_serializer,m_sensor);
     launchCommand = new ActivateLauncherCommand(this.m_serializer, this.m_launcher, this.m_vision);
     lowLaunchCommand = new LowLaunchCommand(this.m_serializer, this.m_launcher, this.m_vision);
-    runAllCommand = new RunAllCommand(m_colorSensor,m_launcher,m_serializer);
+    runAllCommand = new RunAllCommand(m_launcher,m_serializer);
     alignTurretCommand = new AllignTurret(m_vision);
 
     this.m_climbSubsystem = new ClimbSubsystem();
