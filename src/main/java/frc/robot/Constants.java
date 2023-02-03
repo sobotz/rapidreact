@@ -22,7 +22,7 @@ public final class Constants {
         public static final int LEFT_BACK_TALON = 1;
     
         public static final double ACCELERATION_CONSTANT = 3;
-        public static final double MAX_ROTATION_SPEED = .875;
+        public static final double MAX_ROTATION_SPEED = .7;
         public static final double MIN_SPEED = .02;
         public static final double JOY_DEADBAND = .04;
         public static final int GEAR_SHIFT_DEPLOY = 1;

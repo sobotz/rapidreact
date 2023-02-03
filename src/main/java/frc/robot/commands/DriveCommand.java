@@ -51,7 +51,7 @@ public class DriveCommand extends CommandBase {
     double speed = this.joystick.getRawAxis(5);
     double rotation = this.joystick.getRawAxis(4);
 
-    double normalizedSpeed = Math.signum(speed) * Math.pow(Math.abs(speed), this.acceleration_constant);
+    double normalizedSpeed = Math.signum(speed) * Math.pow(Math.abs(speed)*DriveConstants.MAX_ROTATION_SPEED, this.acceleration_constant);
     double normalizedRotation = -1 * Math.signum(rotation) * Math.pow(Math.abs(rotation) * DriveConstants.MAX_ROTATION_SPEED, this.acceleration_constant);
 
     if(Math.abs(normalizedSpeed) < DriveConstants.MIN_SPEED) {

@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -38,7 +39,12 @@ public class LiftCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      m_climbSubsystem.liftExtend();
+    m_climbSubsystem.liftExtend();
+    double current = m_climbSubsystem.getCurrent();
+    SmartDashboard.putNumber("Lift Current", current);
+    if (current > 110.0) {
+      end(true);
+    }
   }
 
   // Called once the command ends or is interrupted.
