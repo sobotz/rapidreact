@@ -24,7 +24,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SerializerSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.SensorSubsystem;
-// import frc.robot.subsystems.ColorSensorSubsystem;
+import frc.robot.subsystems.ColorSensorSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 //
 
@@ -175,7 +175,7 @@ public class RobotContainer {
     
     this.m_launcher = new LauncherSubsystem();
 
-    this.m_colorSensor = new ColorSensorSubsystem(m_sensor);
+    //this.m_colorSensor = new ColorSensorSubsystem(m_sensor);
     //
 
     this.m_driveCommand = new DriveCommand(this.m_drivetrain, this.m_driverJoystick);
